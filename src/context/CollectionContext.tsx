@@ -10,6 +10,7 @@ interface CollectionContextValue {
   updateProfileName: ReturnType<typeof useCollection>['updateProfileName'];
   updateProfileAvatar: ReturnType<typeof useCollection>['updateProfileAvatar'];
   resetAll: ReturnType<typeof useCollection>['resetAll'];
+  unlockAll: ReturnType<typeof useCollection>['unlockAll'];
   totalUnique: number;
   totalCount: number;
 }

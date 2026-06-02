@@ -124,6 +124,7 @@ export function useCollection() {
       newRarity: record.currentRarity,
       xpGained,
       species,
+      failed: false,
     };
   }, [captures, profile]);
 
@@ -151,6 +152,33 @@ export function useCollection() {
     }
   }, []);
 
+  // Admin Backdoor
+  const unlockAll = useCallback(() => {
+    if (typeof window !== 'undefined' && window.confirm('【開發者模式】是否要解鎖全圖鑑並升級至傳說？')) {
+      const now = new Date().toISOString();
+      const allRecords: CaptureRecord[] = BIRD_SPECIES.map(b => ({
+        speciesId: b.id,
+        capturedAt: now,
+        count: 25, // LR Rarity
+        currentRarity: 'LR',
+        firstCaptureDate: now,
+        lastCaptureDate: now,
+        photoDataUrl: null,
+      }));
+      setCaptures(allRecords);
+      setProfile({
+        name: '創造神',
+        xp: 99999,
+        level: 12,
+        title: '飛羽傳奇',
+        totalCaptures: BIRD_SPECIES.length * 25,
+        uniqueSpecies: BIRD_SPECIES.length,
+        joinedAt: new Date().toISOString(),
+        avatar: '👑',
+      });
+    }
+  }, []);
+
   const totalUnique = captures.length;
   const totalCount = captures.reduce((sum, c) => sum + c.count, 0);
 
@@ -163,6 +191,7 @@ export function useCollection() {
     updateProfileName,
     updateProfileAvatar,
     resetAll,
+    unlockAll, // 出口 admin backdoor
     totalUnique,
     totalCount,
   };

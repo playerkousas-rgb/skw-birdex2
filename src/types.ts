@@ -19,7 +19,7 @@ export interface BirdSpecies {
   scientificName: string;
   family: string;
   familyEn?: string;
-  order: string;
+  order?: string;
 
   size: string;
   habitat: string[];
@@ -48,8 +48,8 @@ export interface BirdSpecies {
   illustrationUrl?: string | null;
   audioUrl?: string | null;
 
-  notionId: string;
-  lastUpdated: number;
+  notionId?: string;
+  lastUpdated?: number;
   pack: number;
 }
 

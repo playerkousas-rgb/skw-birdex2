@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useCollectionContext } from '../context/CollectionContext';
 import { BIRD_SPECIES } from '../data/birdData';
 import { getLevelFromXp, RARITY_ORDER, RARITY_META } from '../lib/theme';
@@ -15,11 +15,29 @@ const AVATARS = [
 ];
 
 export function ProfileScreen() {
-  const { profile, captures, totalCount, resetAll, updateProfileName, updateProfileAvatar } = useCollectionContext();
+  const { profile, captures, totalCount, resetAll, unlockAll, updateProfileName, updateProfileAvatar } = useCollectionContext();
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(profile.name);
   const [showAvatarSelect, setShowAvatarSelect] = useState(false);
   const levelInfo = getLevelFromXp(profile.xp);
+
+  // Admin backdoor counter
+  const tapCount = useRef(0);
+  const lastTap = useRef(0);
+
+  const handleAvatarTap = () => {
+    const now = Date.now();
+    if (now - lastTap.current > 1000) tapCount.current = 0;
+    lastTap.current = now;
+    tapCount.current += 1;
+
+    if (tapCount.current === 7) {
+      unlockAll();
+      tapCount.current = 0;
+    } else {
+      setShowAvatarSelect(true);
+    }
+  };
 
   const saveName = () => {
     if (nameDraft.trim()) updateProfileName(nameDraft.trim());
@@ -38,7 +56,7 @@ export function ProfileScreen() {
 
         <div className="relative flex items-center gap-4">
           <button 
-            onClick={() => setShowAvatarSelect(true)}
+            onClick={handleAvatarTap}
             className="w-20 h-20 rounded-2xl bg-dex-border border-2 border-dex-neon/30 flex items-center justify-center text-4xl shadow-lg shadow-dex-neon/10 hover:border-dex-neon transition-colors"
           >
             {profile.avatar || (profile.level >= 10 ? '👑' : profile.level >= 7 ? '🦅' : profile.level >= 4 ? '🔭' : '🥾')}
@@ -151,6 +169,10 @@ export function ProfileScreen() {
         >
           <Trash2 size={14} /> 重置所有捕捉記錄（謹慎操作）
         </button>
+      </div>
+
+      <div className="text-center text-[10px] text-white/30 font-mono pb-8">
+        © 2026 SKWSCOUT
       </div>
 
       {/* Avatar Selection Modal */}
