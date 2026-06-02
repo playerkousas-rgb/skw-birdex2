@@ -64,11 +64,9 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
         </div>
         <div className="absolute bottom-0 left-0 right-0 p-2.5">
           <div className="text-xs font-bold text-white truncate leading-tight">
-            {isUncaptured ? '未發現' : bird.name}
+            {isUncaptured ? bird.name : bird.name}
           </div>
-          {!isUncaptured && (
-            <div className="text-[10px] text-dex-muted truncate">{bird.nameEn}</div>
-          )}
+          <div className="text-[10px] text-dex-muted truncate">{bird.nameEn}</div>
         </div>
         {['SSR','UR','LR'].includes(rarity) && !isUncaptured && (
           <div className="absolute inset-0 foil-shimmer rounded-xl" />
@@ -114,7 +112,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
         <div className="flex-1 min-w-0">
           <div className="text-xs text-dex-muted font-mono tracking-wider">{bird.scientificName}</div>
           <div className={`text-lg font-black leading-tight truncate ${isUncaptured ? 'text-dex-muted' : 'text-white'}`}>
-            {isUncaptured ? '？？？' : bird.name}
+            {bird.name}
           </div>
           <div className="text-[10px] text-dex-muted truncate">{isUncaptured ? '???' : bird.nameEn}</div>
         </div>
