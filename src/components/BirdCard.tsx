@@ -174,14 +174,17 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
         <div className="absolute inset-0 foil-shimmer pointer-events-none" />
       )}
 
-        {/* Uncaptured overlay */}
-        {isUncaptured && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-[2px]">
-            <div className="text-3xl mb-1 opacity-50">{bird.emoji}</div>
-            <div className="text-xs font-bold text-white/80">{bird.name}</div>
-            <div className="text-[9px] text-white/50">{bird.nameEn}</div>
+      {/* Uncaptured overlay */}
+      {isUncaptured && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-[2px]">
+          <div className="text-6xl mb-2 opacity-40">{bird.emoji}</div>
+          <div className="text-lg font-black text-white/90">{bird.name}</div>
+          <div className="text-xs text-white/60 mb-3">{bird.nameEn}</div>
+          <div className="px-3 py-1 rounded bg-white/10 text-[10px] text-white/70 font-black tracking-widest border border-white/20">
+            尚未捕捉
           </div>
-        )}
+        </div>
+      )}
     </div>
   );
 }
