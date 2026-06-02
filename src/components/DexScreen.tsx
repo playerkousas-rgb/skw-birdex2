@@ -72,7 +72,7 @@ export function DexScreen({ onSelectSpecies }: DexScreenProps) {
       </div>
 
       {/* Grid */}
-      <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+      <div className="p-4 grid grid-cols-3 sm:grid-cols-4 gap-3">
         {filtered.map(bird => {
           const capture = captures.find(c => c.speciesId === bird.id);
           return (

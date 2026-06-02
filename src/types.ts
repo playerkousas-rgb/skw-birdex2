@@ -72,6 +72,7 @@ export interface TrainerProfile {
   totalCaptures: number;
   uniqueSpecies: number;
   joinedAt: string;
+  avatar?: string;
 }
 
 export interface RecognizeResult {

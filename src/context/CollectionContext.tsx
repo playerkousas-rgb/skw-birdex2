@@ -8,6 +8,7 @@ interface CollectionContextValue {
   hasCaptured: ReturnType<typeof useCollection>['hasCaptured'];
   captureBird: ReturnType<typeof useCollection>['captureBird'];
   updateProfileName: ReturnType<typeof useCollection>['updateProfileName'];
+  updateProfileAvatar: ReturnType<typeof useCollection>['updateProfileAvatar'];
   resetAll: ReturnType<typeof useCollection>['resetAll'];
   totalUnique: number;
   totalCount: number;

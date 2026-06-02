@@ -36,6 +36,7 @@ function loadProfile(): TrainerProfile {
     totalCaptures: 0,
     uniqueSpecies: 0,
     joinedAt: new Date().toISOString(),
+    avatar: '🥾',
   };
 }
 
@@ -130,6 +131,10 @@ export function useCollection() {
     setProfile(prev => ({ ...prev, name }));
   }, []);
 
+  const updateProfileAvatar = useCallback((avatar: string) => {
+    setProfile(prev => ({ ...prev, avatar }));
+  }, []);
+
   const resetAll = useCallback(() => {
     if (typeof window !== 'undefined' && window.confirm('確定要重置所有捕捉記錄與等級？此動作無法復原！')) {
       setCaptures([]);
@@ -141,6 +146,7 @@ export function useCollection() {
         totalCaptures: 0,
         uniqueSpecies: 0,
         joinedAt: new Date().toISOString(),
+        avatar: '🥾',
       });
     }
   }, []);
@@ -155,6 +161,7 @@ export function useCollection() {
     hasCaptured,
     captureBird,
     updateProfileName,
+    updateProfileAvatar,
     resetAll,
     totalUnique,
     totalCount,

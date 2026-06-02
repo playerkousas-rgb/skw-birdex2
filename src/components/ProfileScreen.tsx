@@ -2,12 +2,23 @@ import { useState } from 'react';
 import { useCollectionContext } from '../context/CollectionContext';
 import { BIRD_SPECIES } from '../data/birdData';
 import { getLevelFromXp, RARITY_ORDER, RARITY_META } from '../lib/theme';
-import { User, Edit3, Award, Feather, Target, Trash2, Check } from 'lucide-react';
+import { User, Edit3, Award, Feather, Target, Trash2, Check, X } from 'lucide-react';
+
+const AVATARS = [
+  { emoji: '🥾', unlockLevel: 1, desc: '見習裝備' },
+  { emoji: '🎒', unlockLevel: 2, desc: '旅行背包' },
+  { emoji: '🔭', unlockLevel: 4, desc: '望遠鏡' },
+  { emoji: '📷', unlockLevel: 5, desc: '專業相機' },
+  { emoji: '🏕️', unlockLevel: 6, desc: '野外帳篷' },
+  { emoji: '🦅', unlockLevel: 7, desc: '神鷹之力' },
+  { emoji: '👑', unlockLevel: 10, desc: '傳說王冠' },
+];
 
 export function ProfileScreen() {
-  const { profile, captures, totalCount, resetAll, updateProfileName } = useCollectionContext();
+  const { profile, captures, totalCount, resetAll, updateProfileName, updateProfileAvatar } = useCollectionContext();
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(profile.name);
+  const [showAvatarSelect, setShowAvatarSelect] = useState(false);
   const levelInfo = getLevelFromXp(profile.xp);
 
   const saveName = () => {
@@ -18,7 +29,7 @@ export function ProfileScreen() {
   const completion = Math.round((captures.length / BIRD_SPECIES.length) * 100);
 
   return (
-    <div className="min-h-full bg-dex-bg pb-24">
+    <div className="min-h-full bg-dex-bg pb-24 relative">
       {/* Header banner */}
       <div className="relative bg-gradient-to-b from-dex-surface to-dex-bg border-b border-dex-border px-4 pt-6 pb-8">
         <div className="absolute top-0 right-0 p-3 opacity-10">
@@ -26,9 +37,12 @@ export function ProfileScreen() {
         </div>
 
         <div className="relative flex items-center gap-4">
-          <div className="w-20 h-20 rounded-2xl bg-dex-border border-2 border-dex-neon/30 flex items-center justify-center text-3xl shadow-lg shadow-dex-neon/10">
-            {profile.level >= 10 ? '👑' : profile.level >= 7 ? '🦅' : profile.level >= 4 ? '🔭' : '🥾'}
-          </div>
+          <button 
+            onClick={() => setShowAvatarSelect(true)}
+            className="w-20 h-20 rounded-2xl bg-dex-border border-2 border-dex-neon/30 flex items-center justify-center text-4xl shadow-lg shadow-dex-neon/10 hover:border-dex-neon transition-colors"
+          >
+            {profile.avatar || (profile.level >= 10 ? '👑' : profile.level >= 7 ? '🦅' : profile.level >= 4 ? '🔭' : '🥾')}
+          </button>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
               {editing ? (
@@ -53,8 +67,9 @@ export function ProfileScreen() {
                 </div>
               )}
             </div>
-            <div className="text-xs text-dex-neon font-bold tracking-wider mt-0.5">
-              Lv.{profile.level} · {profile.title}
+            <div className="text-xs text-dex-neon font-bold tracking-wider mt-0.5 flex items-center gap-2">
+              <span>Lv.{profile.level}</span>
+              <span className="px-1.5 py-0.5 rounded bg-dex-neon/10 border border-dex-neon/30">{profile.title}</span>
             </div>
             <div className="text-[10px] text-dex-muted mt-1">
               加入於 {new Date(profile.joinedAt).toLocaleDateString('zh-HK')}
@@ -64,13 +79,13 @@ export function ProfileScreen() {
 
         {/* XP bar */}
         <div className="mt-5">
-          <div className="flex items-center justify-between text-[10px] text-dex-muted mb-1">
+          <div className="flex items-center justify-between text-[10px] text-dex-muted mb-1 font-mono">
             <span>XP {profile.xp}</span>
-            <span>{levelInfo.nextXp ? `下一級 ${levelInfo.nextXp} XP` : '已達最高等級'}</span>
+            <span>{levelInfo.nextXp ? `下一級 ${levelInfo.nextXp} XP` : '已達最高等級 MAX'}</span>
           </div>
-          <div className="h-2.5 rounded-full bg-dex-border overflow-hidden">
+          <div className="h-2.5 rounded-full bg-dex-border overflow-hidden relative">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-dex-neon to-dex-accent transition-all duration-700"
+              className="absolute left-0 top-0 bottom-0 rounded-full bg-gradient-to-r from-dex-neon to-dex-accent transition-all duration-700"
               style={{
                 width: levelInfo.nextXp
                   ? `${Math.min(100, ((profile.xp - (getLevelFromXp(profile.xp - 1)?.nextXp || 0)) / ((levelInfo.nextXp || profile.xp) - (getLevelFromXp(profile.xp - 1)?.nextXp || 0))) * 100)}%`
@@ -137,6 +152,55 @@ export function ProfileScreen() {
           <Trash2 size={14} /> 重置所有捕捉記錄（謹慎操作）
         </button>
       </div>
+
+      {/* Avatar Selection Modal */}
+      {showAvatarSelect && (
+        <div className="absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex flex-col justify-end">
+          <div className="bg-dex-bg border-t border-dex-border rounded-t-3xl p-6 pb-24">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-bold text-white">更換角色形象</h3>
+              <button onClick={() => setShowAvatarSelect(false)} className="text-dex-muted hover:text-white">
+                <X size={20} />
+              </button>
+            </div>
+            
+            <div className="grid grid-cols-3 gap-4">
+              {AVATARS.map((av) => {
+                const isUnlocked = profile.level >= av.unlockLevel;
+                const isSelected = profile.avatar === av.emoji || (!profile.avatar && av.emoji === '🥾');
+                return (
+                  <button
+                    key={av.emoji}
+                    onClick={() => {
+                      if (isUnlocked) {
+                        updateProfileAvatar(av.emoji);
+                        setShowAvatarSelect(false);
+                      }
+                    }}
+                    disabled={!isUnlocked}
+                    className={`relative aspect-square rounded-2xl flex flex-col items-center justify-center gap-2 transition-all ${
+                      isSelected 
+                        ? 'bg-dex-neon/20 border-2 border-dex-neon' 
+                        : isUnlocked 
+                          ? 'bg-dex-surface border-2 border-dex-border hover:border-dex-muted' 
+                          : 'bg-dex-surface/50 border-2 border-dex-border/50 opacity-50'
+                    }`}
+                  >
+                    <span className="text-4xl">{av.emoji}</span>
+                    <span className="text-[10px] font-bold text-dex-muted">{av.desc}</span>
+                    
+                    {!isUnlocked && (
+                      <div className="absolute inset-0 bg-black/60 rounded-xl flex items-center justify-center">
+                        <span className="text-[10px] font-bold text-white bg-black/80 px-2 py-1 rounded">Lv.{av.unlockLevel} 解鎖</span>
+                      </div>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
