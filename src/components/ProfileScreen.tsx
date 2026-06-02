@@ -27,16 +27,17 @@ export function ProfileScreen() {
 
   const handleAvatarTap = () => {
     const now = Date.now();
-    if (now - lastTap.current > 1000) tapCount.current = 0;
+    // 把連點間隔放寬到 2 秒，比較容易點出來
+    if (now - lastTap.current > 2000) tapCount.current = 0;
     lastTap.current = now;
     tapCount.current += 1;
 
     if (tapCount.current === 7) {
       unlockAll();
       tapCount.current = 0;
-    } else {
-      setShowAvatarSelect(true);
-    }
+    } 
+    // 不管點幾下，如果是第 1 下，且沒有觸發外掛時，讓它繼續可以換頭像
+    // 但為了解決「點一下就跳出視窗擋住」的問題，我們把換頭像功能移到編輯名稱旁邊
   };
 
   const saveName = () => {
@@ -81,6 +82,10 @@ export function ProfileScreen() {
                   <h2 className="text-lg font-black text-white truncate">{profile.name}</h2>
                   <button onClick={() => { setNameDraft(profile.name); setEditing(true); }} className="text-dex-muted hover:text-white transition">
                     <Edit3 size={14} />
+                  </button>
+                  {/* 新增換頭像按鈕 */}
+                  <button onClick={() => setShowAvatarSelect(true)} className="text-dex-muted hover:text-white transition ml-2 bg-white/10 px-2 py-0.5 rounded text-[10px] font-bold">
+                    換頭像
                   </button>
                 </div>
               )}
