@@ -16,6 +16,23 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
   const meta = RARITY_META[rarity];
   const isUncaptured = !capture;
 
+  // 動態讀取圖片邏輯：支援 UR / LR 異圖卡
+  // 嘗試優先讀取 `{id}_UR.jpg`，如果載入失敗(imgError)，就退回使用普通的 `{id}.jpg`
+  const isHighRarity = rarity === 'UR' || rarity === 'LR';
+  const altArtUrl = bird.photoUrl ? bird.photoUrl.replace('.jpg', '_UR.jpg') : null;
+  const currentImageUrl = (isHighRarity && altArtUrl && !imgError) ? altArtUrl : bird.photoUrl;
+
+  // 處理普通的錯誤重試 (例如連預設的 .jpg 也沒有)
+  const handleImgError = () => {
+    if (isHighRarity && !imgError) {
+      // 如果 UR 異圖卡載入失敗，我們標記失敗，這樣 React 重新渲染時就會退回普通圖片
+      setImgError(true);
+    } else {
+      // 如果普通圖片也失敗，就顯示 Emoji
+      setImgError(true);
+    }
+  };
+
   if (compact) {
     return (
       <button
@@ -27,12 +44,12 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
         }}
       >
         <div className="absolute inset-0 bird-art-bg" style={{ backgroundColor: isUncaptured ? '#111827' : bird.baseColor + '22' }} />
-        {(!imgError && bird.photoUrl && !isUncaptured) ? (
+        {currentImageUrl && !isUncaptured ? (
           <img
-            src={bird.photoUrl}
+            src={currentImageUrl}
             alt={bird.name}
             className="absolute inset-0 w-full h-full object-cover opacity-70"
-            onError={() => setImgError(true)}
+            onError={handleImgError}
             loading="lazy"
           />
         ) : (
@@ -41,7 +58,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-        <div className="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-black tracking-wider"
+        <div className="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-black tracking-wider shadow-md"
           style={{ background: meta.gradient, color: meta.textColor }}>
           {isUncaptured ? '???' : meta.label}
         </div>
@@ -76,12 +93,12 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
       }} />
 
       {/* Photo */}
-      {(!imgError && bird.photoUrl && !isUncaptured) ? (
+      {currentImageUrl && !isUncaptured ? (
         <img
-          src={bird.photoUrl}
+          src={currentImageUrl}
           alt={bird.name}
           className="absolute inset-0 w-full h-full object-cover opacity-60"
-          onError={() => setImgError(true)}
+          onError={handleImgError}
         />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center">
@@ -109,7 +126,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
 
       {/* Center Info (when captured) */}
       {!isUncaptured && (
-        <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 px-4">
+        <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 px-4 pointer-events-none">
           <div className="bg-black/50 backdrop-blur-sm rounded-xl p-3 border border-white/10">
             <div className="flex items-center gap-2 text-[11px] text-dex-muted mb-1">
               <Eye size={12} />
@@ -121,7 +138,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
       )}
 
       {/* Bottom stats */}
-      <div className="absolute bottom-0 left-0 right-0 p-3">
+      <div className="absolute bottom-0 left-0 right-0 p-3 pointer-events-none">
         <div className="flex items-center gap-2 mb-2">
           {bird.habitat.slice(0, 2).map(h => (
             <span key={h} className="px-1.5 py-0.5 rounded text-[10px] font-bold bg-white/10 text-white/80 border border-white/10">

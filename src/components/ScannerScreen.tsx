@@ -81,8 +81,9 @@ export function ScannerScreen({ onCapture }: ScannerScreenProps) {
       const results = await analyzeImage(blob);
       clearInterval(tInt);
 
-      if (!results.length || results[0].score < 0.4) {
-        setPhase('missed');
+      if (!results.length || results[0].score < 0.4 || results[0].label === 'Unknown Object') {
+        // 觸發捕捉失敗的精靈球動畫
+        onCapture({ record: null, isNew: false, oldRarity: 'UC', newRarity: 'UC', xpGained: 0, species: null, failed: true });
         return;
       }
 
@@ -90,21 +91,17 @@ export function ScannerScreen({ onCapture }: ScannerScreenProps) {
       const speciesId = resolveBirdId(top.label) ?? (top.scientific ? resolveBirdId(top.scientific) : undefined);
 
       if (!speciesId) {
-        setPhase('missed');
+        onCapture({ record: null, isNew: false, oldRarity: 'UC', newRarity: 'UC', xpGained: 0, species: null, failed: true });
         return;
       }
 
       const bird = getBirdById(speciesId);
       if (!bird) {
-        setPhase('missed');
+        onCapture({ record: null, isNew: false, oldRarity: 'UC', newRarity: 'UC', xpGained: 0, species: null, failed: true });
         return;
       }
 
-      // Success preview before capture animation
-      setPhase('found');
-      await new Promise(r => setTimeout(r, 400));
-
-      // Actually capture
+      // 觸發捕捉成功的精靈球動畫
       const captureResult = captureBird(speciesId, { photoDataUrl: canvas.toDataURL('image/jpeg', 0.5) });
       onCapture(captureResult);
     } catch (err: any) {

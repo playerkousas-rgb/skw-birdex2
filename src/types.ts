@@ -82,12 +82,13 @@ export interface RecognizeResult {
 }
 
 export interface CaptureResult {
-  record: CaptureRecord;
+  record: CaptureRecord | null; // 如果是 null 代表捕捉失敗
   isNew: boolean;
   oldRarity: Rarity;
   newRarity: Rarity;
   xpGained: number;
-  species: BirdSpecies;
+  species: BirdSpecies | null;
+  failed?: boolean; // 新增失敗標記
 }
 
 export type View = 'scanner' | 'dex' | 'album' | 'profile' | 'detail' | 'capture-result' | 'audio';
