@@ -81,7 +81,7 @@ export function ScannerScreen({ onCapture }: ScannerScreenProps) {
       const results = await analyzeImage(blob);
       clearInterval(tInt);
 
-      if (!results.length || results[0].score < 0.4 || results[0].label === 'Unknown Object') {
+      if (!results.length || results[0].score < 0.7 || results[0].label === 'Unknown Object') {
         // 觸發捕捉失敗的精靈球動畫
         onCapture({ record: null, isNew: false, oldRarity: 'UC', newRarity: 'UC', xpGained: 0, species: null, failed: true });
         return;
