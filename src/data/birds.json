@@ -115,7 +115,7 @@
     "id": 5,
     "name": "噪鵑",
     "nameEn": "Asian Koel",
-    "scientificName": "Eudynamys Scolopacea",
+    "scientificName": "Eudynamys scolopaceus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -226,8 +226,8 @@
   {
     "id": 9,
     "name": "黑臉噪眉",
-    "nameEn": "Unknown Species",
-    "scientificName": "Scientific Name",
+    "nameEn": "Masked Laughingthrush",
+    "scientificName": "Pterorhinus perspicillatus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -254,7 +254,7 @@
   {
     "id": 10,
     "name": "白腰文鳥",
-    "nameEn": "Slaty-Breasted Rail",
+    "nameEn": "White-rumped Munia",
     "scientificName": "Lewinia Striata",
     "family": "鳥綱",
     "size": "??? cm",
@@ -310,8 +310,8 @@
   {
     "id": 12,
     "name": "黑領椋鳥",
-    "nameEn": "Unknown Species",
-    "scientificName": "Scientific Name",
+    "nameEn": "Black-collared Starling",
+    "scientificName": "Gracupica nigricollis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -395,7 +395,7 @@
     "id": 15,
     "name": "紅嘴藍鵲",
     "nameEn": "Red-Billed Blue Magpie",
-    "scientificName": "Urocissa Erythrorhyncha",
+    "scientificName": "Urocissa erythroryncha",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -422,8 +422,8 @@
   {
     "id": 16,
     "name": "大山雀",
-    "nameEn": "Unknown Species",
-    "scientificName": "Scientific Name",
+    "nameEn": "Great Tit",
+    "scientificName": "Parus major",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -450,7 +450,7 @@
   {
     "id": 17,
     "name": "暗綠繡眼鳥",
-    "nameEn": "Eastern Buzzard",
+    "nameEn": "Warbling White-eye",
     "scientificName": "Buteo Japonicus",
     "family": "鳥綱",
     "size": "??? cm",
@@ -562,8 +562,8 @@
   {
     "id": 21,
     "name": "亞歷山大鸚鵡",
-    "nameEn": "Unknown Species",
-    "scientificName": "Scientific Name",
+    "nameEn": "Alexandrine Parakeet",
+    "scientificName": "Psittacula eupatria",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -1346,8 +1346,8 @@
   {
     "id": 49,
     "name": "青頭潛鴨",
-    "nameEn": "Aythya Baeri",
-    "scientificName": "Scientific Name",
+    "nameEn": "Baer's Pochard",
+    "scientificName": "Aythya baeri",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -1457,7 +1457,7 @@
   },
   {
     "id": 53,
-    "name": "White-winged scoter",
+    "name": "白翅海番鴨",
     "nameEn": "White-Winged Scoter",
     "scientificName": "Melanitta Deglandi",
     "family": "鳥綱",
@@ -1486,8 +1486,8 @@
   {
     "id": 54,
     "name": "斑臉海番鴨",
-    "nameEn": "Melanitta Stejnegeri",
-    "scientificName": "Amur Stonechat",
+    "nameEn": "Stejneger's Scoter",
+    "scientificName": "Melanitta stejnegeri",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -1597,7 +1597,7 @@
   },
   {
     "id": 58,
-    "name": "Scaly-sided merganser",
+    "name": "中華秋沙鴨",
     "nameEn": "Scaly-Sided Merganser",
     "scientificName": "Mergus Squamatus",
     "family": "鳥綱",
@@ -1625,7 +1625,7 @@
   },
   {
     "id": 59,
-    "name": "Chinese bamboo-partridge",
+    "name": "灰胸竹雞",
     "nameEn": "Chinese Bamboo-Partridge",
     "scientificName": "Bambusicola Thoracicus",
     "family": "鳥綱",
@@ -2017,7 +2017,7 @@
   },
   {
     "id": 73,
-    "name": "Wedge-tailed green-pigeon",
+    "name": "楔尾綠鳩",
     "nameEn": "Wedge-Tailed Green-Pigeon",
     "scientificName": "Treron Sphenurus",
     "family": "鳥綱",
@@ -2298,8 +2298,8 @@
   {
     "id": 83,
     "name": "棕腹杜鵑",
-    "nameEn": "Hierococcyx Nisicolor",
-    "scientificName": "Scientific Name",
+    "nameEn": "Hodgson's Hawk-Cuckoo",
+    "scientificName": "Hierococcyx nisicolor",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -2746,7 +2746,7 @@
   {
     "id": 99,
     "name": "灰面鷲",
-    "nameEn": "Brown-Cheeked Rail",
+    "nameEn": "Brown-cheeked Rail",
     "scientificName": "Rallus Indicus",
     "family": "鳥綱",
     "size": "??? cm",
@@ -2830,7 +2830,7 @@
   {
     "id": 102,
     "name": "灰頭麥雞",
-    "nameEn": "White-Browed Crake",
+    "nameEn": "White-browed Crake",
     "scientificName": "Poliolimnas Cinereus",
     "family": "鳥綱",
     "size": "??? cm",
@@ -2998,8 +2998,8 @@
   {
     "id": 108,
     "name": "小田雞",
-    "nameEn": "Zapornia Pusilla",
-    "scientificName": "Scientific Name",
+    "nameEn": "Baillon's Crake",
+    "scientificName": "Zapornia pusilla",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3221,7 +3221,7 @@
   },
   {
     "id": 116,
-    "name": "European golden-plover",
+    "name": "歐金鴴",
     "nameEn": "European Golden-Plover",
     "scientificName": "Pluvialis Apricaria",
     "family": "鳥綱",
@@ -3249,7 +3249,7 @@
   },
   {
     "id": 117,
-    "name": "American golden-plover",
+    "name": "美洲金鴴",
     "nameEn": "American Golden-Plover",
     "scientificName": "Pluvialis Dominica",
     "family": "鳥綱",
@@ -3334,8 +3334,8 @@
   {
     "id": 120,
     "name": "蒙古沙鴴",
-    "nameEn": "Lesser Sand-Plover",
-    "scientificName": "Charadrius Mongolus",
+    "nameEn": "Siberian Sand-Plover",
+    "scientificName": "Anarhynchus mongolus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3363,7 +3363,7 @@
     "id": 121,
     "name": "鐵嘴沙鴴",
     "nameEn": "Greater Sand-Plover",
-    "scientificName": "Charadrius Leschenaultii",
+    "scientificName": "Anarhynchus leschenaultii",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3391,7 +3391,7 @@
     "id": 122,
     "name": "環頸鴴",
     "nameEn": "Kentish Plover",
-    "scientificName": "Charadrius Alexandrinus",
+    "scientificName": "Anarhynchus alexandrinus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3417,9 +3417,9 @@
   },
   {
     "id": 123,
-    "name": "White-faced plover",
+    "name": "白臉鴴",
     "nameEn": "White-Faced Plover",
-    "scientificName": "Charadrius Dealbatus",
+    "scientificName": "Anarhynchus dealbatus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3445,9 +3445,9 @@
   },
   {
     "id": 124,
-    "name": "Snowy plover",
+    "name": "雪鴴",
     "nameEn": "Snowy Plover",
-    "scientificName": "Charadrius Nivosus",
+    "scientificName": "Anarhynchus nivosus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3503,7 +3503,7 @@
     "id": 126,
     "name": "長嘴鴴",
     "nameEn": "Long-Billed Plover",
-    "scientificName": "Charadrius Placidus",
+    "scientificName": "Thinornis placidus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3531,7 +3531,7 @@
     "id": 127,
     "name": "金眶鴴",
     "nameEn": "Little Ringed Plover",
-    "scientificName": "Charadrius Dubius",
+    "scientificName": "Thinornis dubius",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3559,7 +3559,7 @@
     "id": 128,
     "name": "東方鴴",
     "nameEn": "Oriental Plover",
-    "scientificName": "Charadrius Veredus",
+    "scientificName": "Anarhynchus veredus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -3642,7 +3642,7 @@
   {
     "id": 131,
     "name": "中杓鷸",
-    "nameEn": "Whimbrel",
+    "nameEn": "Eurasian Whimbrel",
     "scientificName": "Numenius Phaeopus",
     "family": "鳥綱",
     "size": "??? cm",
@@ -4006,8 +4006,8 @@
   {
     "id": 144,
     "name": "青腳濱鷸",
-    "nameEn": "Calidris Temminckii",
-    "scientificName": "Scientific Name",
+    "nameEn": "Temminck's Stint",
+    "scientificName": "Calidris temminckii",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -4063,7 +4063,7 @@
     "id": 146,
     "name": "勺嘴鷸",
     "nameEn": "Spoon-Billed Sandpiper",
-    "scientificName": "Calidris Pygmeus",
+    "scientificName": "Calidris pygmaea",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -4201,7 +4201,7 @@
   },
   {
     "id": 151,
-    "name": "Buff-breasted sandpiper",
+    "name": "黃胸濱鷸",
     "nameEn": "Buff-Breasted Sandpiper",
     "scientificName": "Calidris Subruficollis",
     "family": "鳥綱",
@@ -4342,7 +4342,7 @@
   {
     "id": 156,
     "name": "橙腹葉鵯",
-    "nameEn": "Gallinago Hardwickii",
+    "nameEn": "Orange-bellied Leafbird",
     "scientificName": "Chloropsis Hardwickii",
     "family": "鳥綱",
     "size": "??? cm",
@@ -4426,8 +4426,8 @@
   {
     "id": 159,
     "name": "大沙錐",
-    "nameEn": "Gallinago Megala",
-    "scientificName": "Scientific Name",
+    "nameEn": "Swinhoe's Snipe",
+    "scientificName": "Gallinago megala",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -4509,7 +4509,7 @@
   },
   {
     "id": 162,
-    "name": "Red phalarope",
+    "name": "灰瓣蹼鷸",
     "nameEn": "Red Phalarope",
     "scientificName": "Phalaropus Fulicarius",
     "family": "鳥綱",
@@ -4678,8 +4678,8 @@
   {
     "id": 168,
     "name": "小青腳鷸",
-    "nameEn": "Tringa Guttifer",
-    "scientificName": "Scientific Name",
+    "nameEn": "Nordmann's Greenshank",
+    "scientificName": "Tringa guttifer",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -4817,7 +4817,7 @@
   },
   {
     "id": 173,
-    "name": "Small buttonquail",
+    "name": "林三趾鶉",
     "nameEn": "Small Buttonquail",
     "scientificName": "Turnix Sylvaticus",
     "family": "鳥綱",
@@ -4929,7 +4929,7 @@
   },
   {
     "id": 177,
-    "name": "Small pratincole",
+    "name": "灰燕鴴",
     "nameEn": "Small Pratincole",
     "scientificName": "Glareola Lactea",
     "family": "鳥綱",
@@ -5126,8 +5126,8 @@
   {
     "id": 184,
     "name": "黑嘴鷗",
-    "nameEn": "Saundersilarus Saundersi",
-    "scientificName": "Scientific Name",
+    "nameEn": "Saunders's Gull",
+    "scientificName": "Saundersilarus saundersi",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -5265,9 +5265,9 @@
   },
   {
     "id": 189,
-    "name": "Franklin's gull",
-    "nameEn": "Leucophaeus Pipixcan",
-    "scientificName": "Scientific Name",
+    "name": "弗氏鷗",
+    "nameEn": "Franklin's Gull",
+    "scientificName": "Leucophaeus pipixcan",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -5322,8 +5322,8 @@
   {
     "id": 191,
     "name": "漁鷗",
-    "nameEn": "Ichthyaetus Ichthyaetus",
-    "scientificName": "Scientific Name",
+    "nameEn": "Pallas's Gull",
+    "scientificName": "Ichthyaetus ichthyaetus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -5405,7 +5405,7 @@
   },
   {
     "id": 194,
-    "name": "Short-billed gull",
+    "name": "美洲海鷗",
     "nameEn": "Short-Billed Gull",
     "scientificName": "Larus Brachyrhynchus",
     "family": "鳥綱",
@@ -5433,7 +5433,7 @@
   },
   {
     "id": 195,
-    "name": "Ring-billed gull",
+    "name": "環嘴鷗",
     "nameEn": "Ring-Billed Gull",
     "scientificName": "Larus Delawarensis",
     "family": "鳥綱",
@@ -5461,8 +5461,8 @@
   },
   {
     "id": 196,
-    "name": "Herring gull",
-    "nameEn": "Herring Gull",
+    "name": "銀鷗",
+    "nameEn": "European Herring Gull",
     "scientificName": "Larus Argentatus",
     "family": "鳥綱",
     "size": "??? cm",
@@ -5517,7 +5517,7 @@
   },
   {
     "id": 198,
-    "name": "Iceland gull",
+    "name": "冰島鷗",
     "nameEn": "Iceland Gull",
     "scientificName": "Larus Glaucoides",
     "family": "鳥綱",
@@ -5546,7 +5546,7 @@
   {
     "id": 199,
     "name": "灰燕鵙",
-    "nameEn": "Lesser Black-Backed Gull",
+    "nameEn": "Lesser Black-backed Gull",
     "scientificName": "Larus Fuscus",
     "family": "鳥綱",
     "size": "??? cm",
@@ -5657,7 +5657,7 @@
   },
   {
     "id": 203,
-    "name": "Brown noddy",
+    "name": "白頂玄燕鷗",
     "nameEn": "Brown Noddy",
     "scientificName": "Anous Stolidus",
     "family": "鳥綱",
@@ -5741,7 +5741,7 @@
   },
   {
     "id": 206,
-    "name": "Aleutian tern",
+    "name": "白腰燕鷗",
     "nameEn": "Aleutian Tern",
     "scientificName": "Onychoprion Aleuticus",
     "family": "鳥綱",
@@ -5853,7 +5853,7 @@
   },
   {
     "id": 210,
-    "name": "Whiskered tern",
+    "name": "須浮鷗",
     "nameEn": "Whiskered Tern",
     "scientificName": "Chlidonias Hybrida",
     "family": "鳥綱",
@@ -6106,8 +6106,8 @@
   {
     "id": 219,
     "name": "褐燕鸌",
-    "nameEn": "Bulweria Bulwerii",
-    "scientificName": "Scientific Name",
+    "nameEn": "Bulwer's Petrel",
+    "scientificName": "Bulweria bulwerii",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -6161,7 +6161,7 @@
   },
   {
     "id": 221,
-    "name": "Flesh-footed shearwater",
+    "name": "淡足鸌",
     "nameEn": "Flesh-Footed Shearwater",
     "scientificName": "Ardenna Carneipes",
     "family": "鳥綱",
@@ -6191,7 +6191,7 @@
     "id": 222,
     "name": "楔尾鸌",
     "nameEn": "Wedge-Tailed Shearwater",
-    "scientificName": "Ardenna Pacificus",
+    "scientificName": "Ardenna pacifica",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -6554,7 +6554,7 @@
   {
     "id": 235,
     "name": "大麻鳽",
-    "nameEn": "Great Bittern",
+    "nameEn": "Eurasian Bittern",
     "scientificName": "Botaurus Stellaris",
     "family": "鳥綱",
     "size": "??? cm",
@@ -6583,7 +6583,7 @@
     "id": 236,
     "name": "黃斑葦鳽",
     "nameEn": "Yellow Bittern",
-    "scientificName": "Ixobrychus Sinensis",
+    "scientificName": "Botaurus sinensis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -6610,8 +6610,8 @@
   {
     "id": 237,
     "name": "紫背葦鳽",
-    "nameEn": "Ixobrychus Eurhythmus",
-    "scientificName": "Scientific Name",
+    "nameEn": "Schrenck's Bittern",
+    "scientificName": "Botaurus eurhythmus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -6639,7 +6639,7 @@
     "id": 238,
     "name": "栗葦鳽",
     "nameEn": "Cinnamon Bittern",
-    "scientificName": "Ixobrychus Cinnamomeus",
+    "scientificName": "Botaurus cinnamomeus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -6667,7 +6667,7 @@
     "id": 239,
     "name": "黑鳽",
     "nameEn": "Black Bittern",
-    "scientificName": "Ixobrychus Flavicollis",
+    "scientificName": "Botaurus flavicollis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -6778,7 +6778,7 @@
   {
     "id": 243,
     "name": "中白鷺",
-    "nameEn": "Intermediate Egret",
+    "nameEn": "Medium Egret",
     "scientificName": "Ardea Intermedia",
     "family": "鳥綱",
     "size": "??? cm",
@@ -6890,8 +6890,8 @@
   {
     "id": 247,
     "name": "牛背鷺",
-    "nameEn": "Cattle Egret",
-    "scientificName": "Bubulcus Ibis",
+    "nameEn": "Eastern Cattle-Egret",
+    "scientificName": "Ardea coromanda",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -7029,7 +7029,7 @@
   },
   {
     "id": 252,
-    "name": "Black-headed ibis",
+    "name": "黑頭白䴉",
     "nameEn": "Black-Headed Ibis",
     "scientificName": "Threskiornis Melanocephalus",
     "family": "鳥綱",
@@ -7169,7 +7169,7 @@
   },
   {
     "id": 257,
-    "name": "Oriental honey-buzzard",
+    "name": "鳳頭蜂鷹",
     "nameEn": "Oriental Honey-Buzzard",
     "scientificName": "Pernis Ptilorhynchus",
     "family": "鳥綱",
@@ -7337,9 +7337,9 @@
   },
   {
     "id": 263,
-    "name": "Bonelli's eagle",
-    "nameEn": "Aquila Fasciata",
-    "scientificName": "Scientific Name",
+    "name": "白腹隼雕",
+    "nameEn": "Bonelli's Eagle",
+    "scientificName": "Aquila fasciata",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -7393,7 +7393,7 @@
   },
   {
     "id": 265,
-    "name": "Hen harrier",
+    "name": "白尾鷂",
     "nameEn": "Hen Harrier",
     "scientificName": "Circus Cyaneus",
     "family": "鳥綱",
@@ -7451,7 +7451,7 @@
     "id": 267,
     "name": "鳳頭鷹",
     "nameEn": "Crested Goshawk",
-    "scientificName": "Accipiter Trivirgatus",
+    "scientificName": "Lophospiza trivirgata",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -7479,7 +7479,7 @@
     "id": 268,
     "name": "赤腹鷹",
     "nameEn": "Chinese Sparrowhawk",
-    "scientificName": "Accipiter Soloensis",
+    "scientificName": "Tachyspiza soloensis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -7507,7 +7507,7 @@
     "id": 269,
     "name": "日本松雀鷹",
     "nameEn": "Japanese Sparrowhawk",
-    "scientificName": "Accipiter Gularis",
+    "scientificName": "Tachyspiza gularis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -7535,7 +7535,7 @@
     "id": 270,
     "name": "松雀鷹",
     "nameEn": "Besra",
-    "scientificName": "Accipiter Virgatus",
+    "scientificName": "Tachyspiza virgata",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -7590,8 +7590,8 @@
   {
     "id": 272,
     "name": "蒼鷹",
-    "nameEn": "Northern Goshawk",
-    "scientificName": "Accipiter Gentilis",
+    "nameEn": "Eurasian Goshawk",
+    "scientificName": "Astur gentilis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -7647,7 +7647,7 @@
     "id": 274,
     "name": "白腹海鵰",
     "nameEn": "White-Bellied Sea-Eagle",
-    "scientificName": "Haliaeetus Leucogaster",
+    "scientificName": "Icthyophaga leucogaster",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -7701,7 +7701,7 @@
   },
   {
     "id": 276,
-    "name": "Australasian grass-owl",
+    "name": "草鴞",
     "nameEn": "Australasian Grass-Owl",
     "scientificName": "Tyto Longimembris",
     "family": "鳥綱",
@@ -7729,7 +7729,7 @@
   },
   {
     "id": 277,
-    "name": "Collared scops-owl",
+    "name": "領角鴞",
     "nameEn": "Collared Scops-Owl",
     "scientificName": "Otus Lettia",
     "family": "鳥綱",
@@ -7813,7 +7813,7 @@
   },
   {
     "id": 280,
-    "name": "Mountain scops owl",
+    "name": "黃嘴角鴞",
     "nameEn": "Mountain Scops Owl",
     "scientificName": "Otus Spilocephalus",
     "family": "鳥綱",
@@ -7925,7 +7925,7 @@
   },
   {
     "id": 284,
-    "name": "Collared owlet",
+    "name": "領鵂鶹",
     "nameEn": "Collared Owlet",
     "scientificName": "Taenioptynx Brodiei",
     "family": "鳥綱",
@@ -8038,7 +8038,7 @@
   {
     "id": 288,
     "name": "戴勝",
-    "nameEn": "Eurasian Hoopoe",
+    "nameEn": "Common Hoopoe",
     "scientificName": "Upupa Epops",
     "family": "鳥綱",
     "size": "??? cm",
@@ -8093,7 +8093,7 @@
   },
   {
     "id": 290,
-    "name": "Black-backed dwarf-kingfisher",
+    "name": "三趾翠鳥",
     "nameEn": "Black-Backed Dwarf-Kingfisher",
     "scientificName": "Ceyx Erithaca",
     "family": "鳥綱",
@@ -8207,7 +8207,7 @@
     "id": 294,
     "name": "白領翡翠",
     "nameEn": "Collared Kingfisher",
-    "scientificName": "Todirhamphus Chloris",
+    "scientificName": "Todiramphus chloris",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -8401,7 +8401,7 @@
   },
   {
     "id": 301,
-    "name": "Chinese barbet",
+    "name": "黑眉擬啄木鳥",
     "nameEn": "Chinese Barbet",
     "scientificName": "Psilopogon Faber",
     "family": "鳥綱",
@@ -8625,7 +8625,7 @@
   },
   {
     "id": 309,
-    "name": "Amur falcon",
+    "name": "紅腳隼",
     "nameEn": "Amur Falcon",
     "scientificName": "Falco Amurensis",
     "family": "鳥綱",
@@ -8709,7 +8709,7 @@
   },
   {
     "id": 312,
-    "name": "Alexandrine parakeet",
+    "name": "亞歷山大鸚鵡",
     "nameEn": "Alexandrine Parakeet",
     "scientificName": "Psittacula Eupatria",
     "family": "鳥綱",
@@ -8849,7 +8849,7 @@
   },
   {
     "id": 317,
-    "name": "Scarlet minivet",
+    "name": "赤紅山椒鳥",
     "nameEn": "Scarlet Minivet",
     "scientificName": "Pericrocotus Speciosus",
     "family": "鳥綱",
@@ -8877,7 +8877,7 @@
   },
   {
     "id": 318,
-    "name": "Ryukyu minivet",
+    "name": "琉球山椒鳥",
     "nameEn": "Ryukyu Minivet",
     "scientificName": "Pericrocotus Tegimae",
     "family": "鳥綱",
@@ -9073,7 +9073,7 @@
   },
   {
     "id": 325,
-    "name": "Maroon oriole",
+    "name": "朱鸝",
     "nameEn": "Maroon Oriole",
     "scientificName": "Oriolus Traillii",
     "family": "鳥綱",
@@ -9101,7 +9101,7 @@
   },
   {
     "id": 326,
-    "name": "Silver oriole",
+    "name": "鵲色鸝",
     "nameEn": "Silver Oriole",
     "scientificName": "Oriolus Mellianus",
     "family": "鳥綱",
@@ -9185,7 +9185,7 @@
   },
   {
     "id": 329,
-    "name": "Crow-billed drongo",
+    "name": "鴉嘴卷尾",
     "nameEn": "Crow-Billed Drongo",
     "scientificName": "Dicrurus Annectens",
     "family": "鳥綱",
@@ -9270,7 +9270,7 @@
   {
     "id": 332,
     "name": "紫壽帶",
-    "nameEn": "Japanese Paradise-Flycatcher",
+    "nameEn": "Black Paradise-Flycatcher",
     "scientificName": "Terpsiphone Atrocaudata",
     "family": "鳥綱",
     "size": "??? cm",
@@ -9297,7 +9297,7 @@
   },
   {
     "id": 333,
-    "name": "Amur paradise-flycatcher",
+    "name": "壽帶",
     "nameEn": "Amur Paradise-Flycatcher",
     "scientificName": "Terpsiphone Incei",
     "family": "鳥綱",
@@ -9465,7 +9465,7 @@
   },
   {
     "id": 339,
-    "name": "Gray-backed shrike",
+    "name": "灰背伯勞",
     "nameEn": "Gray-Backed Shrike",
     "scientificName": "Lanius Tephronotus",
     "family": "鳥綱",
@@ -9493,7 +9493,7 @@
   },
   {
     "id": 340,
-    "name": "Chinese gray shrike",
+    "name": "楔尾伯勞",
     "nameEn": "Chinese Gray Shrike",
     "scientificName": "Lanius Sphenocercus",
     "family": "鳥綱",
@@ -9549,7 +9549,7 @@
   },
   {
     "id": 342,
-    "name": "Azure-winged magpie",
+    "name": "灰喜鵲",
     "nameEn": "Azure-Winged Magpie",
     "scientificName": "Cyanopica Cyanus",
     "family": "鳥綱",
@@ -9577,7 +9577,7 @@
   },
   {
     "id": 343,
-    "name": "Indochinese green-magpie",
+    "name": "印支綠鵲",
     "nameEn": "Indochinese Green-Magpie",
     "scientificName": "Cissa Hypoleuca",
     "family": "鳥綱",
@@ -9605,7 +9605,7 @@
   },
   {
     "id": 344,
-    "name": "Oriental magpie",
+    "name": "喜鵲",
     "nameEn": "Oriental Magpie",
     "scientificName": "Pica Serica",
     "family": "鳥綱",
@@ -9635,7 +9635,7 @@
     "id": 345,
     "name": "達烏里寒鴉",
     "nameEn": "Daurian Jackdaw",
-    "scientificName": "Corvus Dauuricus",
+    "scientificName": "Coloeus dauuricus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -9661,7 +9661,7 @@
   },
   {
     "id": 346,
-    "name": "House crow",
+    "name": "家鴉",
     "nameEn": "House Crow",
     "scientificName": "Corvus Splendens",
     "family": "鳥綱",
@@ -9689,7 +9689,7 @@
   },
   {
     "id": 347,
-    "name": "Rook",
+    "name": "禿鼻烏鴉",
     "nameEn": "Rook",
     "scientificName": "Corvus Frugilegus",
     "family": "鳥綱",
@@ -9829,7 +9829,7 @@
   },
   {
     "id": 352,
-    "name": "Fire-capped tit",
+    "name": "火冠雀",
     "nameEn": "Fire-Capped Tit",
     "scientificName": "Cephalopyrus Flammiceps",
     "family": "鳥綱",
@@ -9941,7 +9941,7 @@
   },
   {
     "id": 356,
-    "name": "Mongolian short-toed lark",
+    "name": "蒙古短趾百靈",
     "nameEn": "Mongolian Short-Toed Lark",
     "scientificName": "Calandrella Dukhunensis",
     "family": "鳥綱",
@@ -10165,7 +10165,7 @@
   },
   {
     "id": 364,
-    "name": "Booted warbler",
+    "name": "靴籬鶯",
     "nameEn": "Booted Warbler",
     "scientificName": "Iduna Caligata",
     "family": "鳥綱",
@@ -10194,8 +10194,8 @@
   {
     "id": 365,
     "name": "賽氏篱鶯",
-    "nameEn": "Iduna Rama",
-    "scientificName": "Scientific Name",
+    "nameEn": "Sykes's Warbler",
+    "scientificName": "Iduna rama",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -10334,8 +10334,8 @@
   {
     "id": 370,
     "name": "布氏葦鶯",
-    "nameEn": "Acrocephalus Dumetorum",
-    "scientificName": "Scientific Name",
+    "nameEn": "Blyth's Reed Warbler",
+    "scientificName": "Acrocephalus dumetorum",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -10389,9 +10389,9 @@
   },
   {
     "id": 372,
-    "name": "Gray's grasshopper warbler",
-    "nameEn": "Helopsaltes Fasciolatus",
-    "scientificName": "Scientific Name",
+    "name": "蒼眉蝗鶯",
+    "nameEn": "Gray's Grasshopper Warbler",
+    "scientificName": "Helopsaltes fasciolatus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -10446,8 +10446,8 @@
   {
     "id": 374,
     "name": "小蝗鶯",
-    "nameEn": "Helopsaltes Certhiola",
-    "scientificName": "Scientific Name",
+    "nameEn": "Pallas's Grasshopper Warbler",
+    "scientificName": "Helopsaltes certhiola",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -10474,8 +10474,8 @@
   {
     "id": 375,
     "name": "北蝗鶯",
-    "nameEn": "Helopsaltes Ochotensis",
-    "scientificName": "Scientific Name",
+    "nameEn": "Middendorff's Grasshopper Warbler",
+    "scientificName": "Helopsaltes ochotensis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -10502,8 +10502,8 @@
   {
     "id": 376,
     "name": "史氏蝗鶯",
-    "nameEn": "Helopsaltes Pleskei",
-    "scientificName": "Scientific Name",
+    "nameEn": "Pleske's Grasshopper Warbler",
+    "scientificName": "Helopsaltes pleskei",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -10585,7 +10585,7 @@
   },
   {
     "id": 379,
-    "name": "Chinese bush warbler",
+    "name": "中華短翅蝗鶯",
     "nameEn": "Chinese Bush Warbler",
     "scientificName": "Locustella Tacsanowskia",
     "family": "鳥綱",
@@ -10753,7 +10753,7 @@
   },
   {
     "id": 385,
-    "name": "Bank swallow",
+    "name": "崖沙燕",
     "nameEn": "Bank Swallow",
     "scientificName": "Riparia Riparia",
     "family": "鳥綱",
@@ -10782,7 +10782,7 @@
   {
     "id": 386,
     "name": "淡色沙燕",
-    "nameEn": "Pale Sand Martin",
+    "nameEn": "Pale Martin",
     "scientificName": "Riparia Diluta",
     "family": "鳥綱",
     "size": "??? cm",
@@ -10838,7 +10838,7 @@
   {
     "id": 388,
     "name": "金腰燕",
-    "nameEn": "Red-Rumped Swallow",
+    "nameEn": "Eastern Red-rumped Swallow",
     "scientificName": "Cecropis Daurica",
     "family": "鳥綱",
     "size": "??? cm",
@@ -10866,7 +10866,7 @@
   {
     "id": 389,
     "name": "白腹毛腳燕",
-    "nameEn": "Common House-Martin",
+    "nameEn": "Western House-Martin",
     "scientificName": "Delichon Urbicum",
     "family": "鳥綱",
     "size": "??? cm",
@@ -10977,7 +10977,7 @@
   },
   {
     "id": 393,
-    "name": "Brown-eared bulbul",
+    "name": "慄耳短腳鵯",
     "nameEn": "Brown-Eared Bulbul",
     "scientificName": "Hypsipetes Amaurotis",
     "family": "鳥綱",
@@ -11061,7 +11061,7 @@
   },
   {
     "id": 396,
-    "name": "Wood warbler",
+    "name": "林柳鶯",
     "nameEn": "Wood Warbler",
     "scientificName": "Phylloscopus Sibilatrix",
     "family": "鳥綱",
@@ -11118,8 +11118,8 @@
   {
     "id": 398,
     "name": "淡眉柳鶯",
-    "nameEn": "Phylloscopus Humei",
-    "scientificName": "Scientific Name",
+    "nameEn": "Hume's Warbler",
+    "scientificName": "Phylloscopus humei",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11174,8 +11174,8 @@
   {
     "id": 400,
     "name": "黃腰柳鶯",
-    "nameEn": "Phylloscopus Proregulus",
-    "scientificName": "Scientific Name",
+    "nameEn": "Pallas's Leaf Warbler",
+    "scientificName": "Phylloscopus proregulus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11202,8 +11202,8 @@
   {
     "id": 401,
     "name": "巨嘴柳鶯",
-    "nameEn": "Phylloscopus Schwarzi",
-    "scientificName": "Scientific Name",
+    "nameEn": "Radde's Warbler",
+    "scientificName": "Phylloscopus schwarzi",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11285,7 +11285,7 @@
   },
   {
     "id": 404,
-    "name": "Mountain chiffchaff",
+    "name": "中亞嘰喳柳鶯",
     "nameEn": "Mountain Chiffchaff",
     "scientificName": "Phylloscopus Sindianus",
     "family": "鳥綱",
@@ -11369,9 +11369,9 @@
   },
   {
     "id": 407,
-    "name": "Ijima's leaf warbler",
-    "nameEn": "Phylloscopus Ijimae",
-    "scientificName": "Scientific Name",
+    "name": "飯島柳鶯",
+    "nameEn": "Ijima's Leaf Warbler",
+    "scientificName": "Phylloscopus ijimae",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11426,8 +11426,8 @@
   {
     "id": 409,
     "name": "比氏鶲鶯",
-    "nameEn": "Phylloscopus Valentini",
-    "scientificName": "Scientific Name",
+    "nameEn": "Bianchi's Warbler",
+    "scientificName": "Phylloscopus valentini",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11453,9 +11453,9 @@
   },
   {
     "id": 410,
-    "name": "Martens's warbler",
-    "nameEn": "Phylloscopus Omeiensis",
-    "scientificName": "Scientific Name",
+    "name": "峨眉鶲鶯",
+    "nameEn": "Martens's Warbler",
+    "scientificName": "Phylloscopus omeiensis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11482,8 +11482,8 @@
   {
     "id": 411,
     "name": "純色尾鶲鶯",
-    "nameEn": "Phylloscopus Soror",
-    "scientificName": "Scientific Name",
+    "nameEn": "Alström's Warbler",
+    "scientificName": "Phylloscopus soror",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11537,7 +11537,7 @@
   },
   {
     "id": 413,
-    "name": "Emei leaf warbler",
+    "name": "峨眉柳鶯",
     "nameEn": "Emei Leaf Warbler",
     "scientificName": "Phylloscopus Emeiensis",
     "family": "鳥綱",
@@ -11621,7 +11621,7 @@
   },
   {
     "id": 416,
-    "name": "Japanese leaf warbler",
+    "name": "日本柳鶯",
     "nameEn": "Japanese Leaf Warbler",
     "scientificName": "Phylloscopus Xanthodryas",
     "family": "鳥綱",
@@ -11733,9 +11733,9 @@
   },
   {
     "id": 420,
-    "name": "Claudia's leaf warbler",
-    "nameEn": "Phylloscopus Claudiae",
-    "scientificName": "Scientific Name",
+    "name": "冠紋柳鶯",
+    "nameEn": "Claudia's Leaf Warbler",
+    "scientificName": "Phylloscopus claudiae",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11761,9 +11761,9 @@
   },
   {
     "id": 421,
-    "name": "Hartert's leaf warbler",
-    "nameEn": "Phylloscopus Goodsoni",
-    "scientificName": "Scientific Name",
+    "name": "華南冠紋柳鶯",
+    "nameEn": "Hartert's Leaf Warbler",
+    "scientificName": "Phylloscopus goodsoni",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11789,9 +11789,9 @@
   },
   {
     "id": 422,
-    "name": "Kloss's leaf warbler",
-    "nameEn": "Phylloscopus Ogilviegranti",
-    "scientificName": "Scientific Name",
+    "name": "白斑尾柳鶯",
+    "nameEn": "Kloss's Leaf Warbler",
+    "scientificName": "Phylloscopus ogilviegranti",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11819,7 +11819,7 @@
     "id": 423,
     "name": "淡腳樹鶯",
     "nameEn": "Pale-Footed Bush Warbler",
-    "scientificName": "Urosphena Pallidipes",
+    "scientificName": "Hemitesia pallidipes",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11903,7 +11903,7 @@
     "id": 426,
     "name": "栗頭縫葉鶯",
     "nameEn": "Mountain Tailorbird",
-    "scientificName": "Phyllergates Cuculatus",
+    "scientificName": "Phyllergates cucullatus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11931,7 +11931,7 @@
     "id": 427,
     "name": "遠東樹鶯",
     "nameEn": "Manchurian Bush Warbler",
-    "scientificName": "Horornis Borealis",
+    "scientificName": "Horornis canturians",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -11985,7 +11985,7 @@
   },
   {
     "id": 429,
-    "name": "Black-throated tit",
+    "name": "紅頭長尾山雀",
     "nameEn": "Black-Throated Tit",
     "scientificName": "Aegithalos Concinnus",
     "family": "鳥綱",
@@ -12041,7 +12041,7 @@
   },
   {
     "id": 431,
-    "name": "Spot-breasted parrotbill",
+    "name": "點胸鴉雀",
     "nameEn": "Spot-Breasted Parrotbill",
     "scientificName": "Paradoxornis Guttaticollis",
     "family": "鳥綱",
@@ -12069,9 +12069,9 @@
   },
   {
     "id": 432,
-    "name": "Vinous-throated parrotbill",
+    "name": "棕頭鴉雀",
     "nameEn": "Vinous-Throated Parrotbill",
-    "scientificName": "Sinosuthora Webbiana",
+    "scientificName": "Suthora webbiana",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -12097,7 +12097,7 @@
   },
   {
     "id": 433,
-    "name": "Indochinese yuhina",
+    "name": "慄頸鳳鶥",
     "nameEn": "Indochinese Yuhina",
     "scientificName": "Staphida Torqueola",
     "family": "鳥綱",
@@ -12125,7 +12125,7 @@
   },
   {
     "id": 434,
-    "name": "Black-chinned yuhina",
+    "name": "黑額鳳鶥",
     "nameEn": "Black-Chinned Yuhina",
     "scientificName": "Yuhina Nigrimenta",
     "family": "鳥綱",
@@ -12181,9 +12181,9 @@
   },
   {
     "id": 436,
-    "name": "Swinhoe's white-eye",
-    "nameEn": "Zosterops Simplex",
-    "scientificName": "Scientific Name",
+    "name": "暗綠繡眼鳥",
+    "nameEn": "Swinhoe's White-eye",
+    "scientificName": "Zosterops simplex",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -12211,7 +12211,7 @@
     "id": 437,
     "name": "紅頭穗鶥",
     "nameEn": "Rufous-Capped Babbler",
-    "scientificName": "Stachyridopsis Ruficeps",
+    "scientificName": "Cyanoderma ruficeps",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -12294,8 +12294,8 @@
   {
     "id": 440,
     "name": "黑眉雀鶥",
-    "nameEn": "Alcippe Hueti",
-    "scientificName": "Scientific Name",
+    "nameEn": "Huet's Fulvetta",
+    "scientificName": "Alcippe hueti",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -12323,7 +12323,7 @@
     "id": 441,
     "name": "藍翅希鶥",
     "nameEn": "Blue-Winged Minla",
-    "scientificName": "Minla Cyanouroptera",
+    "scientificName": "Actinodura cyanouroptera",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -12629,7 +12629,7 @@
   },
   {
     "id": 452,
-    "name": "Chestnut-tailed starling",
+    "name": "灰頭椋鳥",
     "nameEn": "Chestnut-Tailed Starling",
     "scientificName": "Sturnia Malabarica",
     "family": "鳥綱",
@@ -12741,9 +12741,9 @@
   },
   {
     "id": 456,
-    "name": "White's thrush",
-    "nameEn": "Zoothera Aurea",
-    "scientificName": "Scientific Name",
+    "name": "虎斑地鶇",
+    "nameEn": "White's Thrush",
+    "scientificName": "Zoothera aurea",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -12855,7 +12855,7 @@
     "id": 460,
     "name": "寶興歌鶇",
     "nameEn": "Chinese Thrush",
-    "scientificName": "Otocichla Mupinensis",
+    "scientificName": "Turdus mupinensis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -12909,7 +12909,7 @@
   },
   {
     "id": 462,
-    "name": "Chinese blackbird",
+    "name": "烏鶇",
     "nameEn": "Chinese Blackbird",
     "scientificName": "Turdus Mandarinus",
     "family": "鳥綱",
@@ -13077,7 +13077,7 @@
   },
   {
     "id": 468,
-    "name": "Black-throated thrush",
+    "name": "黑喉鶇",
     "nameEn": "Black-Throated Thrush",
     "scientificName": "Turdus Atrogularis",
     "family": "鳥綱",
@@ -13133,7 +13133,7 @@
   },
   {
     "id": 470,
-    "name": "Dusky thrush",
+    "name": "斑鶇",
     "nameEn": "Dusky Thrush",
     "scientificName": "Turdus Eunomus",
     "family": "鳥綱",
@@ -13162,8 +13162,8 @@
   {
     "id": 471,
     "name": "斑鶇",
-    "nameEn": "Turdus Naumanni",
-    "scientificName": "Scientific Name",
+    "nameEn": "Naumann's Thrush",
+    "scientificName": "Turdus naumanni",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -13413,7 +13413,7 @@
   },
   {
     "id": 480,
-    "name": "Hill blue flycatcher",
+    "name": "山藍仙鶲",
     "nameEn": "Hill Blue Flycatcher",
     "scientificName": "Cyornis Whitei",
     "family": "鳥綱",
@@ -13441,7 +13441,7 @@
   },
   {
     "id": 481,
-    "name": "Brown-chested jungle flycatcher",
+    "name": "白喉林鶲",
     "nameEn": "Brown-Chested Jungle Flycatcher",
     "scientificName": "Cyornis Brunneatus",
     "family": "鳥綱",
@@ -13554,8 +13554,8 @@
   {
     "id": 485,
     "name": "琉璃藍鶲",
-    "nameEn": "Cyanoptila Cumatilis",
-    "scientificName": "Scientific Name",
+    "nameEn": "Zappey's Flycatcher",
+    "scientificName": "Cyanoptila cumatilis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -13581,7 +13581,7 @@
   },
   {
     "id": 486,
-    "name": "Verditer flycatcher",
+    "name": "銅藍鶲",
     "nameEn": "Verditer Flycatcher",
     "scientificName": "Eumyias Thalassinus",
     "family": "鳥綱",
@@ -13609,7 +13609,7 @@
   },
   {
     "id": 487,
-    "name": "Lesser shortwing",
+    "name": "白喉短翅鶇",
     "nameEn": "Lesser Shortwing",
     "scientificName": "Brachypteryx Leucophris",
     "family": "鳥綱",
@@ -13777,7 +13777,7 @@
   },
   {
     "id": 493,
-    "name": "White-crowned forktail",
+    "name": "白冠燕尾",
     "nameEn": "White-Crowned Forktail",
     "scientificName": "Enicurus Leschenaulti",
     "family": "鳥綱",
@@ -13861,7 +13861,7 @@
   },
   {
     "id": 496,
-    "name": "White-tailed robin",
+    "name": "白尾藍地鴝",
     "nameEn": "White-Tailed Robin",
     "scientificName": "Myiomela Leucura",
     "family": "鳥綱",
@@ -14001,8 +14001,8 @@
   },
   {
     "id": 501,
-    "name": "Ryuku flycatcher",
-    "nameEn": "Ryuku Flycatcher",
+    "name": "琉球姬鶲",
+    "nameEn": "Ryukyu Flycatcher",
     "scientificName": "Ficedula Owstoni",
     "family": "鳥綱",
     "size": "??? cm",
@@ -14057,7 +14057,7 @@
   },
   {
     "id": 503,
-    "name": "Slaty-backed flycatcher",
+    "name": "鏽胸藍姬鶲",
     "nameEn": "Slaty-Backed Flycatcher",
     "scientificName": "Ficedula Erithacus",
     "family": "鳥綱",
@@ -14113,7 +14113,7 @@
   },
   {
     "id": 505,
-    "name": "Ultramarine flycatcher",
+    "name": "白眉藍姬鶲",
     "nameEn": "Ultramarine Flycatcher",
     "scientificName": "Ficedula Superciliaris",
     "family": "鳥綱",
@@ -14226,8 +14226,8 @@
   {
     "id": 509,
     "name": "黑喉紅尾鴝",
-    "nameEn": "Phoenicurus Hodgsoni",
-    "scientificName": "Scientific Name",
+    "nameEn": "Hodgson's Redstart",
+    "scientificName": "Phoenicurus hodgsoni",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -14393,7 +14393,7 @@
   },
   {
     "id": 515,
-    "name": "Siberian stonechat",
+    "name": "黑喉石䳭",
     "nameEn": "Siberian Stonechat",
     "scientificName": "Saxicola Maurus",
     "family": "鳥綱",
@@ -14421,7 +14421,7 @@
   },
   {
     "id": 516,
-    "name": "Gray bushchat",
+    "name": "灰林䳭",
     "nameEn": "Gray Bushchat",
     "scientificName": "Saxicola Ferreus",
     "family": "鳥綱",
@@ -14449,7 +14449,7 @@
   },
   {
     "id": 517,
-    "name": "Pied wheatear",
+    "name": "白頂䳭",
     "nameEn": "Pied Wheatear",
     "scientificName": "Oenanthe Pleschanka",
     "family": "鳥綱",
@@ -14505,7 +14505,7 @@
   },
   {
     "id": 519,
-    "name": "Plain flowerpecker",
+    "name": "純色啄花鳥",
     "nameEn": "Plain Flowerpecker",
     "scientificName": "Dicaeum Minullum",
     "family": "鳥綱",
@@ -14590,8 +14590,8 @@
   {
     "id": 522,
     "name": "藍喉太陽鳥",
-    "nameEn": "Aethopyga Gouldiae",
-    "scientificName": "Scientific Name",
+    "nameEn": "Mrs. Gould's Sunbird",
+    "scientificName": "Aethopyga gouldiae",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -14701,7 +14701,7 @@
   },
   {
     "id": 526,
-    "name": "House sparrow",
+    "name": "家麻雀",
     "nameEn": "House Sparrow",
     "scientificName": "Passer Domesticus",
     "family": "鳥綱",
@@ -14813,7 +14813,7 @@
   },
   {
     "id": 530,
-    "name": "Eastern yellow wagtail",
+    "name": "黃鶺鴒",
     "nameEn": "Eastern Yellow Wagtail",
     "scientificName": "Motacilla Tschutschensis",
     "family": "鳥綱",
@@ -14898,8 +14898,8 @@
   {
     "id": 533,
     "name": "田鷚",
-    "nameEn": "Anthus Richardi",
-    "scientificName": "Scientific Name",
+    "nameEn": "Richard's Pipit",
+    "scientificName": "Anthus richardi",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -14926,8 +14926,8 @@
   {
     "id": 534,
     "name": "布氏鷚",
-    "nameEn": "Anthus Godlewskii",
-    "scientificName": "Scientific Name",
+    "nameEn": "Blyth's Pipit",
+    "scientificName": "Anthus godlewskii",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -15009,7 +15009,7 @@
   },
   {
     "id": 537,
-    "name": "Tree pipit",
+    "name": "林鷚",
     "nameEn": "Tree Pipit",
     "scientificName": "Anthus Trivialis",
     "family": "鳥綱",
@@ -15373,7 +15373,7 @@
   },
   {
     "id": 550,
-    "name": "Lapland longspur",
+    "name": "鐵爪鵐",
     "nameEn": "Lapland Longspur",
     "scientificName": "Calcarius Lapponicus",
     "family": "鳥綱",
@@ -15513,7 +15513,7 @@
   },
   {
     "id": 555,
-    "name": "Pine bunting",
+    "name": "白頭鵐",
     "nameEn": "Pine Bunting",
     "scientificName": "Emberiza Leucocephalos",
     "family": "鳥綱",
@@ -15654,8 +15654,8 @@
   {
     "id": 560,
     "name": "葦鵐",
-    "nameEn": "Emberiza Pallasi",
-    "scientificName": "Scientific Name",
+    "nameEn": "Pallas's Bunting",
+    "scientificName": "Emberiza pallasi",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -15906,8 +15906,8 @@
   {
     "id": 569,
     "name": "白眉鵐",
-    "nameEn": "Emberiza Tristrami",
-    "scientificName": "Scientific Name",
+    "nameEn": "Tristram's Bunting",
+    "scientificName": "Emberiza tristrami",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
