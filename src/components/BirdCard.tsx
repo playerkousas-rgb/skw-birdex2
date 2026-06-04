@@ -17,9 +17,9 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
   const isUncaptured = !capture;
 
   // 動態讀取圖片邏輯：支援 UR / LR 異圖卡
-  // 嘗試優先讀取 `{id}_UR.jpg`，如果載入失敗(imgError)，就退回使用普通的 `{id}.jpg`
+  // 從 R2 讀取，例如將 0001.avif 替換成 0001_UR.avif
   const isHighRarity = rarity === 'UR' || rarity === 'LR';
-  const altArtUrl = bird.photoUrl ? bird.photoUrl.replace('.jpg', '_UR.jpg') : null;
+  const altArtUrl = bird.photoUrl ? bird.photoUrl.replace('.avif', '_UR.avif') : null;
   const currentImageUrl = (isHighRarity && altArtUrl && !imgError) ? altArtUrl : bird.photoUrl;
 
   // 處理普通的錯誤重試 (例如連預設的 .jpg 也沒有)
