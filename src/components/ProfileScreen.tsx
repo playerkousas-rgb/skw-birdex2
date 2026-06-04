@@ -32,7 +32,7 @@ export function ProfileScreen() {
     lastTap.current = now;
     tapCount.current += 1;
 
-    if (tapCount.current === 50) {
+    if (tapCount.current === 7) {
       unlockAll();
       tapCount.current = 0;
     } 

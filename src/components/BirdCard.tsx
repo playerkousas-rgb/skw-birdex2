@@ -123,7 +123,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
       </div>
 
       {/* Center Info (when captured) */}
-      {!isUncaptured && (
+      {!isUncaptured && bird.features && bird.features !== '尚未解鎖生態檔案...' && (
         <div className="absolute top-1/2 left-0 right-0 -translate-y-1/2 px-4 pointer-events-none">
           <div className="bg-black/50 backdrop-blur-sm rounded-xl p-3 border border-white/10">
             <div className="flex items-center gap-2 text-[11px] text-dex-muted mb-1">
