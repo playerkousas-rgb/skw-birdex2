@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { useCollectionContext } from '../context/CollectionContext';
-import { analyzeImage } from '../lib/aiClient';
+import { analyzeImageDetailed } from '../lib/aiClient';
 import { resolveBirdId } from '../data/nameAliases';
 import { getBirdById } from '../data/birdData';
 import { Camera, Zap, AlertTriangle } from 'lucide-react';
@@ -78,26 +78,53 @@ export function ScannerScreen({ onCapture }: ScannerScreenProps) {
     try {
       const blob = await new Promise<Blob | null>(res => canvas.toBlob(res, 'image/jpeg', 0.9));
       if (!blob) throw new Error('照片生成失敗');
-      const results = await analyzeImage(blob);
+      const data = await analyzeImageDetailed(blob);
       clearInterval(tInt);
 
+      const results = data.results || [];
+
+      const fail = (
+        reason: string,
+        kind: 'not-bird' | 'low-confidence' | 'not-in-dex' | 'escaped',
+      ) => {
+        onCapture({
+          record: null,
+          isNew: false,
+          oldRarity: 'UC',
+          newRarity: 'UC',
+          xpGained: 0,
+          species: null,
+          failed: true,
+          failReason: reason,
+          failKind: kind,
+        });
+      };
+
+      // 1) 後端 Bird Gate 判定不是鳥
+      if (data.notBird) {
+        const guess = data.topGuess ? `（看起來像「${data.topGuess}」）` : '';
+        fail(`畫面中沒有偵測到鳥類${guess}，請對準鳥類再試。`, 'not-bird');
+        return;
+      }
+
+      // 2) 沒有結果 / 信心度過低（鳥是鳥，但模糊／拍不清）
       if (!results.length || results[0].score < 0.7 || results[0].label === 'Unknown Object') {
-        // 觸發捕捉失敗的精靈球動畫
-        onCapture({ record: null, isNew: false, oldRarity: 'UC', newRarity: 'UC', xpGained: 0, species: null, failed: true });
+        fail('辨識信心度不足，請靠近一點或在光線充足處再試。', 'escaped');
         return;
       }
 
       const top = results[0];
       const speciesId = resolveBirdId(top.label) ?? (top.scientific ? resolveBirdId(top.scientific) : undefined);
 
+      // 3) 模型認得是某種鳥，但不在我們的圖鑑名單裡
       if (!speciesId) {
-        onCapture({ record: null, isNew: false, oldRarity: 'UC', newRarity: 'UC', xpGained: 0, species: null, failed: true });
+        fail(`偵測到「${top.label}」，但這隻鳥不在 BIRD-DEX 圖鑑中。`, 'not-in-dex');
         return;
       }
 
       const bird = getBirdById(speciesId);
       if (!bird) {
-        onCapture({ record: null, isNew: false, oldRarity: 'UC', newRarity: 'UC', xpGained: 0, species: null, failed: true });
+        fail('圖鑑資料異常，請重試。', 'escaped');
         return;
       }
 

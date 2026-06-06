@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CaptureResult } from '../types';
 import { BirdCard } from './BirdCard';
 import { RARITY_META } from '../lib/theme';
+import { BIRD_SPECIES } from '../data/birdData';
 import { Star, Sparkles, ChevronRight, XCircle } from 'lucide-react';
 
 interface CaptureResultScreenProps {
@@ -13,8 +14,31 @@ interface CaptureResultScreenProps {
 export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProps) {
   const [phase, setPhase] = useState<'throw' | 'wiggle' | 'caught' | 'card' | 'stats' | 'escaped'>('throw');
   
-  const { species, isNew, oldRarity, newRarity, xpGained, record, failed } = result;
+  const { species, isNew, oldRarity, newRarity, xpGained, record, failed, failReason, failKind } = result;
   const rarityMeta = RARITY_META[newRarity];
+
+  // ────────────────────────────────────────────────
+  // 動態背景圖
+  //   成功      → 該鳥的卡圖
+  //   逃走/模糊 → 隨機抽一張卡（呼應「他飛走了」）
+  //   不是鳥    → 沒有背景，保留深色（純黑底配星塵）
+  // useMemo 確保整個動畫期間背景不會閃變
+  // ────────────────────────────────────────────────
+  const backgroundUrl = useMemo<string | null>(() => {
+    if (!failed && species?.photoUrl) {
+      return species.photoUrl;
+    }
+    if (failed && failKind === 'escaped') {
+      const pool = BIRD_SPECIES.filter((b) => b.photoUrl);
+      if (pool.length === 0) return null;
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      return pick.photoUrl ?? null;
+    }
+    // not-bird / not-in-dex / 其他 → 不放鳥背景，避免誤導
+    return null;
+  }, [failed, failKind, species]);
+
+  const ambientColor = rarityMeta?.color || '#00F0FF';
 
   useEffect(() => {
     // 丟球 -> 搖晃
@@ -38,7 +62,55 @@ export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProp
   const upgraded = !isNew && oldRarity !== newRarity;
 
   return (
-    <div className="absolute inset-0 z-50 bg-dex-bg/95 backdrop-blur-md flex flex-col items-center justify-center overflow-y-auto p-4">
+    <div className="absolute inset-0 z-50 flex flex-col items-center justify-center overflow-y-auto p-4 isolate">
+      {/* ── Dynamic Background Layer ─────────────────────────── */}
+      {backgroundUrl ? (
+        <>
+          {/* 1. 鳥圖：模糊放大 + 緩慢縮放 */}
+          <motion.div
+            key={backgroundUrl}
+            initial={{ opacity: 0, scale: 1.15 }}
+            animate={{ opacity: 1, scale: 1.05 }}
+            transition={{ duration: 1.2, ease: 'easeOut' }}
+            className="absolute inset-0 -z-10 bg-cover bg-center"
+            style={{
+              backgroundImage: `url("${backgroundUrl}")`,
+              filter: failed ? 'blur(28px) brightness(0.35) saturate(0.7)' : 'blur(22px) brightness(0.55)',
+            }}
+          />
+          {/* 2. 漸層暈染（隨稀有度上色） */}
+          <div
+            className="absolute inset-0 -z-10"
+            style={{
+              background: failed
+                ? 'radial-gradient(ellipse at center, rgba(15,17,21,0.55) 0%, rgba(8,9,12,0.92) 80%)'
+                : `radial-gradient(ellipse at center, ${ambientColor}25 0%, rgba(8,9,12,0.85) 70%)`,
+            }}
+          />
+          {/* 3. 底層保險深色，確保字夠清楚 */}
+          <div className="absolute inset-0 -z-10 bg-dex-bg/55 backdrop-blur-sm" />
+        </>
+      ) : (
+        // 沒鳥背景：保留原本的深色 + 細微星塵
+        <>
+          <div className="absolute inset-0 -z-10 bg-dex-bg/95 backdrop-blur-md" />
+          <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none opacity-40">
+            {Array.from({ length: 30 }).map((_, i) => (
+              <div
+                key={i}
+                className="absolute rounded-full bg-white/40"
+                style={{
+                  width: 1 + Math.random() * 2,
+                  height: 1 + Math.random() * 2,
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                }}
+              />
+            ))}
+          </div>
+        </>
+      )}
+
       {/* Background particles for card phase */}
       {!failed && (phase === 'card' || phase === 'stats') && (
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -137,8 +209,8 @@ export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProp
         >
           <XCircle size={64} className="text-dex-muted mx-auto mb-4" />
           <h2 className="text-2xl font-black text-white mb-2">鳥兒逃走了！</h2>
-          <p className="text-sm text-dex-muted mb-8 max-w-[250px]">
-            可能是因為畫面太模糊、光線太暗，或距離太遠。再試著靠近一點拍攝吧！
+          <p className="text-sm text-dex-muted mb-8 max-w-[280px]">
+            {failReason || '可能是因為畫面太模糊、光線太暗，或距離太遠。再試著靠近一點拍攝吧！'}
           </p>
           <button
             onClick={onClose}

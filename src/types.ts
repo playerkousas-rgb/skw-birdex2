@@ -88,7 +88,9 @@ export interface CaptureResult {
   newRarity: Rarity;
   xpGained: number;
   species: BirdSpecies | null;
-  failed?: boolean; // 新增失敗標記
+  failed?: boolean; // 失敗標記
+  failReason?: string; // 失敗原因文字
+  failKind?: 'not-bird' | 'low-confidence' | 'not-in-dex' | 'escaped'; // 失敗種類，控制背景
 }
 
 export type View = 'scanner' | 'dex' | 'album' | 'profile' | 'detail' | 'capture-result' | 'audio';
