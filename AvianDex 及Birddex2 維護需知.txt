@@ -1,0 +1,54 @@
+AvianDex 
+生圖用GPT 
+1.鳥卡生成提示詞(要附上之前的卡片)
+Generate a high-quality vertical encyclopedia-style infographic for [亞歷山大鸚鵡].
+
+This should not be a normal poster or a simple illustration. It should feel like a Pokédex that combines the clarity of a field guide, the structure of an encyclopedia page, Pokédex Arrangement , Celluloid Style, and the shareability of a strong social-media explainer.
+
+The image should include:
+
+A Pokemon code: NO.0021
+A pixel art of the topic in the style of Pokémon.
+a clear and appealing main visual of the topic
+several enlarged detail callouts
+multiple rounded modular information sections
+strong title hierarchy and highlighted key labels
+concise but information-rich educational content
+visual scoring, quick takeaways, or a Top 5 module
+Adapt the content sections automatically based on the topic. Useful categories include:
+Basic Overview, Classification, Appearance, Ecological Habits, Food, Distribution Areas, Growth and Reproduction, Key Knowledge Points, Interesting Trivia or Little-Known Facts, Precautions, Observation Tips, and Ecological Value Rating Card.
+
+Visual requirements:
+The overall design should resemble a Pokédex layout. The information density should be high but not crowded, and the final image should feel publishable, collectible, and repeatable as a knowledge-card format rather than an advertisement.
+
+Do not make it look like a commercial promo poster. Emphasize knowledge organization, modular information, and a Pokédex presentation.
+
+
+Birddex2 
+生圖用 BANANA
+✅ 正向提示詞 (Prompt)
+
+Pokemon concept art by Ken Sugimori, official character illustration, [英文名], (anatomically correct realistic bird species:1.5), beautiful natural habitat background, edge-to-edge full illustration, highly detailed, vibrant colors, masterpiece, 8k, sunny day, soft natural lighting --ar 3:4
+
+❌ 反向提示詞 (Negative Prompt)
+
+card frame, card border, text, hp, numbers, letters, logos, pokemon logo, trading card UI, white border, black border, watermarks, signature, human, hands
+
+
+
+圖卡完成後用https://squoosh.app/ 專成avif 
+放上https://dash.cloudflare.com/login
+accout gmail ai@skwscout.org.hk
+
+1. 直接通過 Cloudflare Dashboard（適合手動上傳少量檔案）
+如果你只是偶爾需要上傳幾張圖片，直接從控制面板操作最方便：
+
+登入控制台：進入 Cloudflare Dashboard。
+
+進入 R2：在左側選單選擇 Storage & Databases > R2 > Overview。
+
+建立儲存桶 (Bucket)：如果還沒有，點選 Create bucket 建立一個。
+
+上傳檔案：點擊進入你剛建立的 Bucket，點選 Upload 按鈕，然後將圖片拖曳進去即可。
+
+P.S. 記得命名要係4位 (例:0001.avif)
