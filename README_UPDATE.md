@@ -1,69 +1,87 @@
-# BIRD-DEX 更新檔案
+# BIRD-DEX 異圖卡 v2.1：王者的權利 👑
+
+> ⚠️ 這個 v2.1 取代上一個 birddex_altart_update.zip 的所有檔案，
+> 直接用這個覆蓋即可，不需要先裝舊版。
+
+---
+
+## 🆕 v2.1 變更
+- **創世神後門從 7 下改為 50 下**（避免一般用戶不小心開啟）
+- 點到 25 下後 console 會印進度（給開發者看，普通用戶看不到）
+
+---
+
+## ✨ 異圖卡顯示三重檢查
+
+```
+模式允許  &&  用戶已解鎖  &&  R2 上確實存在
+   ↑              ↑                   ↑
+Profile      達 UR 才獲得         前端自動偵測
+三段切換     (王者的權利)         (首次載入 = 真實檢測)
+```
+
+### 三種解鎖路徑
+| # | 方法 | 結果 |
+|---|---|---|
+| 🥉 | **某鳥升到 UR**（捕捉 15 次） | 自動解鎖**那一張**的異圖卡 |
+| 👑 | **創世神後門**（Profile 頭像連點 **50 下**）| 一次解鎖**全部** |
+| 🔄 | 重置記錄 | 清空已解鎖（R2 偵測快取保留） |
+
+### 自動偵測 R2（不用維護名單）
+- 載入 `0021_UR.avif` 成功 → 記到 `existsOnR2`
+- 載入失敗（404）→ 記到 `missingOnR2`，**永不再請求**
+- 兩個清單存進 localStorage（key：`bd_altart_v1`）
+- 你新做卡傳到 R2 後，下次開 App 自動發現
+
+---
+
+## 🎨 UI 變化
+
+### Profile 頁
+- 標題右上角：`已解鎖 [confirmed] / 持有 [unlocked]`
+- 三段切換按鈕：關閉 / 僅 UR・LR / 全部使用異圖卡
+
+### 詳細頁卡片右上角徽章
+| 狀態 | 徽章 |
+|---|---|
+| 正在顯示異圖卡 | ✨ **ALT ART**（紫粉漸層） |
+| 已解鎖但 R2 沒檔 | `異圖卡尚未繪製` |
+| 未達 UR | `🔒 達 UR 解鎖異圖` |
+
+---
 
 ## 📦 內容（5 個檔案）
 
-把下面的檔案**直接覆蓋到 GitHub repo `skw-birdex2` 對應位置**，
-其它檔案不要動。
-
-| ZIP 內路徑 | GitHub 上對應路徑 | 改動內容 |
-|---|---|---|
-| `api/analyze.js` | `api/analyze.js` | 加入「鳥類前置閘 Bird Gate」（先用 ImageNet 通用模型判斷是不是鳥，不是就拒絕） |
-| `src/lib/aiClient.ts` | `src/lib/aiClient.ts` | 改為真正呼叫 `/api/analyze`，並輸出 `analyzeImageDetailed` |
-| `src/types.ts` | `src/types.ts` | `CaptureResult` 新增 `failReason` / `failKind` 欄位 |
-| `src/components/ScannerScreen.tsx` | `src/components/ScannerScreen.tsx` | 三種失敗情境分別帶 kind 傳給結果頁 |
-| `src/components/CaptureResultScreen.tsx` | `src/components/CaptureResultScreen.tsx` | 加上動態背景：成功用該鳥卡圖、逃走用隨機卡、不是鳥用深色星塵 |
-
----
-
-## 🌐 GitHub 網頁部署步驟
-
-1. 進入 https://github.com/playerkousas-rgb/skw-birdex2
-2. 依路徑找到上述 5 個檔案 → 點開 → 點右上角鉛筆 🖉
-3. **全選清空 → 貼上 ZIP 對應檔案內容 → Commit changes**
-4. 5 個檔案都更新完後，Vercel 會自動部署（約 1 分鐘）
-
----
-
-## 🔧 可選的 Vercel 環境變數（不設定也能用）
-
-進 Vercel → Project → Settings → Environment Variables：
-
-| 變數名 | 預設值 | 說明 |
-|---|---|---|
-| `BIRD_GATE_MIN_SCORE` | `0.30` | 鳥類分數加總門檻，調高 → 更嚴格 |
-| `MIN_SPECIES_SCORE` | `0.35` | 鳥種 Top-1 信心度門檻 |
-| `DISABLE_BIRD_GATE` | （不設定） | 設成 `1` 可暫時關閉前置閘，方便 debug |
-
-`HF_TOKEN` 已經設好就無需動。
-
----
-
-## ✅ 部署後驗證
-
-打開 `https://skw-birdex2.vercel.app/api/analyze` (GET)，
-回應應該長這樣：
-
-```json
-{
-  "ok": true,
-  "version": "v1.5.0",
-  "engines": { "huggingface": true, ... },
-  "gate": {
-    "enabled": true,
-    "minBirdScore": 0.3,
-    "minSpeciesScore": 0.35
-  }
-}
-```
-
-看到 `"version": "v1.5.0"` 和 `"gate"` 區塊 = 部署成功。
-
----
-
-## 🎯 三種情境效果
-
-| 你影什麼 | 結果 |
+| ZIP 內路徑 | GitHub 上對應路徑 |
 |---|---|
-| 真的鳥 ✅ | 成功捕捉，背景是該鳥的卡圖（模糊放大 + 稀有度顏色暈染） |
-| 模糊的鳥 💨 | 「鳥兒逃走了」，背景隨機抽一張鳥卡 |
-| 牆／桌子／貓 ❌ | 「看起來像 XX，請對準鳥類再試」，背景純深色 + 星塵 |
+| `src/hooks/useCollection.ts`              | 同 |
+| `src/context/CollectionContext.tsx`       | 同 |
+| `src/components/BirdCard.tsx`             | 同 |
+| `src/components/BirdDetailScreen.tsx`     | 同 |
+| `src/components/ProfileScreen.tsx`        | 同 |
+
+---
+
+## 🌐 GitHub 網頁部署
+
+1. 進 https://github.com/playerkousas-rgb/skw-birdex2
+2. 依路徑找到 5 個檔案 → 鉛筆 🖉 → **全選清空** → 貼上新內容 → Commit
+3. Vercel 自動部署（約 1 分鐘）
+
+---
+
+## ✅ 驗證
+1. 進 **Profile（我的）** → 應看到「已解鎖 0」
+2. 點頭像 **50 下**（要連續，每下間隔 < 2 秒） → 觸發創世神
+3. 切到「全部使用異圖卡」 → 有做好 `_UR.avif` 的鳥會顯示精靈版
+4. 沒做的鳥仍顯示普通卡 + 「異圖卡尚未繪製」徽章
+
+---
+
+## 💾 localStorage 鍵值
+```
+bd_collection_v2   ← 捕捉記錄
+bd_profile_v1      ← 訓練師資料
+bd_settings_v1     ← 異圖卡模式
+bd_altart_v1       ← 異圖卡解鎖名單 + R2 偵測快取
+```

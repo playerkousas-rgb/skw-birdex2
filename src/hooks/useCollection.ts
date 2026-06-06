@@ -5,10 +5,65 @@ import { getRarityFromCount, xpForCapture, getLevelFromXp } from '../lib/theme';
 
 const STORAGE_KEY = 'bd_collection_v2';
 const PROFILE_KEY = 'bd_profile_v1';
+const SETTINGS_KEY = 'bd_settings_v1';
+const ALTART_KEY  = 'bd_altart_v1';
 
 interface StoredData {
   captures: CaptureRecord[];
   version: number;
+}
+
+/** 異圖卡（精靈化版本）使用模式 */
+export type AltArtMode = 'off' | 'high-rarity' | 'all';
+
+export interface AppSettings {
+  altArtMode: AltArtMode;
+}
+
+/**
+ * 異圖卡狀態資料
+ *   unlocked : 用戶已「擁有」的異圖卡 id（達到 UR / 創世神解鎖）
+ *   existsOnR2 : R2 上實際存在的異圖卡 id（前端首次嘗試載入時自動偵測）
+ *   missingOnR2 : 已確認 R2 上不存在的 id（不再重複偵測）
+ */
+export interface AltArtState {
+  unlocked: number[];
+  existsOnR2: number[];
+  missingOnR2: number[];
+}
+
+const DEFAULT_SETTINGS: AppSettings = {
+  altArtMode: 'high-rarity', // 預設：只有 UR/LR 用異圖卡
+};
+
+const DEFAULT_ALTART: AltArtState = {
+  unlocked: [],
+  existsOnR2: [],
+  missingOnR2: [],
+};
+
+function loadSettings(): AppSettings {
+  try {
+    const raw = localStorage.getItem(SETTINGS_KEY);
+    if (raw) return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) };
+  } catch { /* ignore */ }
+  return DEFAULT_SETTINGS;
+}
+
+function saveSettings(s: AppSettings) {
+  localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+}
+
+function loadAltArt(): AltArtState {
+  try {
+    const raw = localStorage.getItem(ALTART_KEY);
+    if (raw) return { ...DEFAULT_ALTART, ...JSON.parse(raw) };
+  } catch { /* ignore */ }
+  return DEFAULT_ALTART;
+}
+
+function saveAltArt(s: AltArtState) {
+  localStorage.setItem(ALTART_KEY, JSON.stringify(s));
 }
 
 function loadStored(): StoredData {
@@ -47,14 +102,69 @@ function saveProfile(profile: TrainerProfile) {
 export function useCollection() {
   const [captures, setCaptures] = useState<CaptureRecord[]>(() => loadStored().captures);
   const [profile, setProfile] = useState<TrainerProfile>(() => loadProfile());
+  const [settings, setSettings] = useState<AppSettings>(() => loadSettings());
+  const [altArt, setAltArt] = useState<AltArtState>(() => loadAltArt());
 
-  useEffect(() => {
-    saveStored({ captures, version: 2 });
-  }, [captures]);
+  useEffect(() => { saveStored({ captures, version: 2 }); }, [captures]);
+  useEffect(() => { saveProfile(profile); }, [profile]);
+  useEffect(() => { saveSettings(settings); }, [settings]);
+  useEffect(() => { saveAltArt(altArt); }, [altArt]);
 
-  useEffect(() => {
-    saveProfile(profile);
-  }, [profile]);
+  const setAltArtMode = useCallback((mode: AltArtMode) => {
+    setSettings(prev => ({ ...prev, altArtMode: mode }));
+  }, []);
+
+  /** 把鳥的異圖卡標記為「已解鎖」(達 UR 自動 / 創世神後門) */
+  const unlockAltArt = useCallback((speciesId: number) => {
+    setAltArt(prev => prev.unlocked.includes(speciesId)
+      ? prev
+      : { ...prev, unlocked: [...prev.unlocked, speciesId] });
+  }, []);
+
+  /** 前端首次載入時呼叫：標記 R2 上「確實存在」此異圖卡 */
+  const markAltArtExists = useCallback((speciesId: number) => {
+    setAltArt(prev => {
+      if (prev.existsOnR2.includes(speciesId)) return prev;
+      return {
+        ...prev,
+        existsOnR2: [...prev.existsOnR2, speciesId],
+        missingOnR2: prev.missingOnR2.filter(id => id !== speciesId),
+      };
+    });
+  }, []);
+
+  /** 標記 R2 上「不存在」此異圖卡（載入 404 時呼叫，避免日後再請求） */
+  const markAltArtMissing = useCallback((speciesId: number) => {
+    setAltArt(prev => {
+      if (prev.missingOnR2.includes(speciesId)) return prev;
+      return {
+        ...prev,
+        missingOnR2: [...prev.missingOnR2, speciesId],
+        existsOnR2: prev.existsOnR2.filter(id => id !== speciesId),
+      };
+    });
+  }, []);
+
+  /**
+   * 真正能不能顯示異圖卡：
+   *   ① 模式允許 && ② 用戶已解鎖 && ③ R2 上確實存在（或還沒偵測過）
+   */
+  const canShowAltArt = useCallback((speciesId: number, rarity: Rarity): boolean => {
+    // 模式檢查
+    const isHigh = rarity === 'UR' || rarity === 'LR';
+    const allowedByMode =
+      settings.altArtMode === 'all' ||
+      (settings.altArtMode === 'high-rarity' && isHigh);
+    if (!allowedByMode) return false;
+
+    // 用戶要先「擁有」才能用
+    if (!altArt.unlocked.includes(speciesId)) return false;
+
+    // R2 上已確認不存在 → 不嘗試
+    if (altArt.missingOnR2.includes(speciesId)) return false;
+
+    return true;
+  }, [settings.altArtMode, altArt]);
 
   const getCapture = useCallback((speciesId: number): CaptureRecord | undefined => {
     return captures.find(c => c.speciesId === speciesId);
@@ -103,6 +213,13 @@ export function useCollection() {
 
     setCaptures(newCaptures);
 
+    // 達 UR 自動解鎖該鳥的異圖卡（王者權利 #1）
+    if (record.currentRarity === 'UR' || record.currentRarity === 'LR') {
+      setAltArt(prev => prev.unlocked.includes(speciesId)
+        ? prev
+        : { ...prev, unlocked: [...prev.unlocked, speciesId] });
+    }
+
     const oldRarity: Rarity = existing?.currentRarity ?? 'UC';
     const xpGained = xpForCapture(record.currentRarity);
     const newTotalXp = profile.xp + xpGained;
@@ -149,6 +266,8 @@ export function useCollection() {
         joinedAt: new Date().toISOString(),
         avatar: '🥾',
       });
+      // 重置時清空已解鎖的異圖卡，但保留 R2 偵測快取（避免重新測一輪 404）
+      setAltArt(prev => ({ ...prev, unlocked: [] }));
     }
   }, []);
 
@@ -176,6 +295,12 @@ export function useCollection() {
         joinedAt: new Date().toISOString(),
         avatar: '👑',
       });
+      // 王者權利 #2：創世神後門 → 解鎖全部異圖卡權限
+      // R2 上不存在的還是會被自動偵測機制濾掉
+      setAltArt(prev => ({
+        ...prev,
+        unlocked: BIRD_SPECIES.map(b => b.id),
+      }));
     }
   }, []);
 
@@ -185,6 +310,13 @@ export function useCollection() {
   return {
     captures,
     profile,
+    settings,
+    altArt,
+    setAltArtMode,
+    unlockAltArt,
+    markAltArtExists,
+    markAltArtMissing,
+    canShowAltArt,
     getCapture,
     hasCaptured,
     captureBird,

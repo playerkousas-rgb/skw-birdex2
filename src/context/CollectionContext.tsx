@@ -1,21 +1,9 @@
 import React, { createContext, useContext } from 'react';
 import { useCollection } from '../hooks/useCollection';
 
-interface CollectionContextValue {
-  captures: ReturnType<typeof useCollection>['captures'];
-  profile: ReturnType<typeof useCollection>['profile'];
-  getCapture: ReturnType<typeof useCollection>['getCapture'];
-  hasCaptured: ReturnType<typeof useCollection>['hasCaptured'];
-  captureBird: ReturnType<typeof useCollection>['captureBird'];
-  updateProfileName: ReturnType<typeof useCollection>['updateProfileName'];
-  updateProfileAvatar: ReturnType<typeof useCollection>['updateProfileAvatar'];
-  resetAll: ReturnType<typeof useCollection>['resetAll'];
-  unlockAll: ReturnType<typeof useCollection>['unlockAll'];
-  totalUnique: number;
-  totalCount: number;
-}
+type CollectionHook = ReturnType<typeof useCollection>;
 
-const CollectionContext = createContext<CollectionContextValue | null>(null);
+const CollectionContext = createContext<CollectionHook | null>(null);
 
 export function CollectionProvider({ children }: { children: React.ReactNode }) {
   const collection = useCollection();

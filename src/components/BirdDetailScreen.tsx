@@ -10,9 +10,20 @@ interface BirdDetailScreenProps {
 
 export function BirdDetailScreen({ speciesId, onBack }: BirdDetailScreenProps) {
   const bird = getBirdById(speciesId);
-  const { captures } = useCollectionContext();
+  const { captures, canShowAltArt, markAltArtExists, markAltArtMissing, altArt } = useCollectionContext();
   const capture = captures.find(c => c.speciesId === speciesId);
   const isCaught = !!capture;
+
+  const rarity = capture?.currentRarity ?? 'UC';
+  const wantsAltArt = bird ? canShowAltArt(bird.id, rarity) : false;
+  const heroImageUrl = bird?.photoUrl
+    ? (wantsAltArt ? bird.photoUrl.replace('.avif', '_UR.avif') : bird.photoUrl)
+    : null;
+
+  // 判斷異圖卡解鎖狀態（給 UI 提示用）
+  const altArtUnlocked = bird ? altArt.unlocked.includes(bird.id) : false;
+  const altArtExists   = bird ? altArt.existsOnR2.includes(bird.id) : false;
+  const altArtMissing  = bird ? altArt.missingOnR2.includes(bird.id) : false;
 
   if (!bird) {
     return (
@@ -53,8 +64,23 @@ export function BirdDetailScreen({ speciesId, onBack }: BirdDetailScreenProps) {
       <div className="relative aspect-[3/4] w-full max-w-md mx-auto shrink-0 mt-4 px-4">
         <div className="absolute inset-0 px-4">
           <div className="w-full h-full rounded-2xl overflow-hidden shadow-[0_0_40px_rgba(0,0,0,0.5)] border-4 border-gray-800 bg-gray-900 relative">
-            {bird.photoUrl && isCaught ? (
-              <img src={bird.photoUrl} alt={bird.name} className="w-full h-full object-cover" />
+            {heroImageUrl && isCaught ? (
+              <img
+                src={heroImageUrl}
+                alt={bird.name}
+                className="w-full h-full object-cover"
+                onLoad={() => {
+                  if (wantsAltArt) markAltArtExists(bird.id);
+                }}
+                onError={(e) => {
+                  // 異圖卡載入失敗 → 記錄到 missing 並退回普通圖
+                  const img = e.currentTarget;
+                  if (wantsAltArt) markAltArtMissing(bird.id);
+                  if (bird.photoUrl && img.src !== bird.photoUrl) {
+                    img.src = bird.photoUrl;
+                  }
+                }}
+              />
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center bg-gray-900 relative">
                 <div className="absolute inset-0 opacity-10" style={{ background: `linear-gradient(180deg, ${bird.baseColor} 0%, transparent 100%)` }} />
@@ -62,7 +88,26 @@ export function BirdDetailScreen({ speciesId, onBack }: BirdDetailScreenProps) {
                 <span className="text-gray-600 font-black tracking-widest">NO DATA</span>
               </div>
             )}
-            
+
+            {/* 異圖卡狀態徽章（右上角） */}
+            {isCaught && (
+              <div className="absolute top-3 right-3 z-10">
+                {wantsAltArt && !altArtMissing ? (
+                  <div className="px-2 py-1 rounded-md bg-gradient-to-r from-fuchsia-500 to-purple-600 text-white text-[10px] font-black tracking-wider shadow-lg flex items-center gap-1 border border-white/30">
+                    ✨ ALT ART
+                  </div>
+                ) : altArtUnlocked && altArtMissing ? (
+                  <div className="px-2 py-1 rounded-md bg-black/60 backdrop-blur text-white/70 text-[10px] font-bold tracking-wider border border-white/10">
+                    異圖卡尚未繪製
+                  </div>
+                ) : altArtUnlocked && !altArtExists ? null : !altArtUnlocked && isCaught && rarity !== 'UR' && rarity !== 'LR' ? (
+                  <div className="px-2 py-1 rounded-md bg-black/60 backdrop-blur text-white/60 text-[10px] font-bold tracking-wider border border-white/10 flex items-center gap-1">
+                    🔒 達 UR 解鎖異圖
+                  </div>
+                ) : null}
+              </div>
+            )}
+
             {/* 卡牌下方的黑框資訊區 */}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent pt-12 pb-4 px-4">
               <div className="flex items-end justify-between gap-3">

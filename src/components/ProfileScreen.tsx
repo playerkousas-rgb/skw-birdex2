@@ -2,7 +2,8 @@ import { useState, useRef } from 'react';
 import { useCollectionContext } from '../context/CollectionContext';
 import { BIRD_SPECIES } from '../data/birdData';
 import { getLevelFromXp, RARITY_ORDER, RARITY_META } from '../lib/theme';
-import { User, Edit3, Award, Feather, Target, Trash2, Check, X } from 'lucide-react';
+import { User, Edit3, Award, Feather, Target, Trash2, Check, X, Sparkles, ImageOff, Wand2 } from 'lucide-react';
+import type { AltArtMode } from '../hooks/useCollection';
 
 const AVATARS = [
   { emoji: '🥾', unlockLevel: 1, desc: '見習裝備' },
@@ -15,15 +16,23 @@ const AVATARS = [
 ];
 
 export function ProfileScreen() {
-  const { profile, captures, totalCount, resetAll, unlockAll, updateProfileName, updateProfileAvatar } = useCollectionContext();
+  const { profile, captures, totalCount, resetAll, unlockAll, updateProfileName, updateProfileAvatar, settings, setAltArtMode, altArt } = useCollectionContext();
+
+  // 異圖卡統計
+  const altUnlockedCount = altArt.unlocked.length;
+  const altConfirmedCount = altArt.unlocked.filter(id =>
+    altArt.existsOnR2.includes(id) && !altArt.missingOnR2.includes(id)
+  ).length;
   const [editing, setEditing] = useState(false);
   const [nameDraft, setNameDraft] = useState(profile.name);
   const [showAvatarSelect, setShowAvatarSelect] = useState(false);
   const levelInfo = getLevelFromXp(profile.xp);
 
   // Admin backdoor counter
+  // 50 連點才觸發創世神模式，避免誤觸
   const tapCount = useRef(0);
   const lastTap = useRef(0);
+  const ADMIN_TAP_THRESHOLD = 50;
 
   const handleAvatarTap = () => {
     const now = Date.now();
@@ -32,12 +41,15 @@ export function ProfileScreen() {
     lastTap.current = now;
     tapCount.current += 1;
 
-    if (tapCount.current === 50) {
+    // 提示：進度到一半 (25) 才開始輕微提示，避免「我不小心點 5 下就被提示」
+    if (tapCount.current >= 25 && tapCount.current < ADMIN_TAP_THRESHOLD) {
+      console.log(`[admin] ${tapCount.current} / ${ADMIN_TAP_THRESHOLD}`);
+    }
+
+    if (tapCount.current === ADMIN_TAP_THRESHOLD) {
       unlockAll();
       tapCount.current = 0;
-    } 
-    // 不管點幾下，如果是第 1 下，且沒有觸發外掛時，讓它繼續可以換頭像
-    // 但為了解決「點一下就跳出視窗擋住」的問題，我們把換頭像功能移到編輯名稱旁邊
+    }
   };
 
   const saveName = () => {
@@ -162,6 +174,63 @@ export function ProfileScreen() {
               );
             })}
             {captures.length === 0 && <span className="text-[10px] text-dex-muted">尚無收藏</span>}
+          </div>
+        </div>
+      </div>
+
+      {/* ────── 異圖卡（精靈化）顯示設定 ────── */}
+      <div className="px-4 pt-2 pb-4">
+        <div className="bg-dex-surface border border-dex-border rounded-xl p-4">
+          <div className="flex items-center justify-between gap-2 mb-1">
+            <div className="flex items-center gap-2">
+              <Sparkles size={14} className="text-dex-neon" />
+              <h3 className="text-sm font-black text-white tracking-wide">異圖卡顯示</h3>
+            </div>
+            <div className="text-[10px] font-mono text-dex-muted">
+              已解鎖 <span className="text-dex-neon font-bold">{altConfirmedCount}</span>
+              {altUnlockedCount > altConfirmedCount && (
+                <span className="text-white/40"> / 持有 {altUnlockedCount}</span>
+              )}
+            </div>
+          </div>
+          <p className="text-[11px] text-dex-muted mb-3 leading-relaxed">
+            異圖卡是精靈化版本的鳥卡（檔名 <code className="px-1 py-0.5 bg-black/30 rounded text-dex-neon">_UR.avif</code>）。
+            <b className="text-white/80"> 達 UR 稀有度自動解鎖</b>，這是王者的權利 👑
+          </p>
+
+          {([
+            { id: 'off',          label: '關閉',         desc: '全部使用普通圖卡',                icon: ImageOff },
+            { id: 'high-rarity',  label: '僅 UR / LR',   desc: '只在高稀有度時顯示異圖卡（預設）', icon: Sparkles },
+            { id: 'all',          label: '全部使用異圖卡', desc: '整本圖鑑都用精靈化版本',          icon: Wand2 },
+          ] as { id: AltArtMode; label: string; desc: string; icon: typeof Sparkles }[]).map((opt) => {
+            const Icon = opt.icon;
+            const active = settings.altArtMode === opt.id;
+            return (
+              <button
+                key={opt.id}
+                onClick={() => setAltArtMode(opt.id)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg mb-2 last:mb-0 transition-all border ${
+                  active
+                    ? 'bg-dex-neon/15 border-dex-neon text-white'
+                    : 'bg-dex-bg border-dex-border text-dex-muted hover:border-dex-neon/40 hover:text-white'
+                }`}
+              >
+                <Icon size={16} className={active ? 'text-dex-neon' : 'text-dex-muted'} />
+                <div className="flex-1 text-left">
+                  <div className="text-xs font-bold">{opt.label}</div>
+                  <div className="text-[10px] opacity-70">{opt.desc}</div>
+                </div>
+                {active && (
+                  <div className="w-2 h-2 rounded-full bg-dex-neon shadow-[0_0_8px_#00F0FF]" />
+                )}
+              </button>
+            );
+          })}
+
+          <div className="mt-3 pt-3 border-t border-dex-border/50 text-[10px] text-dex-muted leading-relaxed space-y-1">
+            <div>💡 <b>建議</b>：拍照辨識用「關閉」或「僅 UR / LR」，瀏覽收藏時切「全部使用異圖卡」最帥。</div>
+            <div>🔒 <b>規則</b>：只有「已擁有」異圖卡的鳥才會切換 — 把鳥升到 UR 即解鎖。</div>
+            <div>📦 <b>自動偵測</b>：若該鳥還沒做異圖卡（R2 上沒檔），系統自動退回普通卡，不會出現破圖。</div>
           </div>
         </div>
       </div>

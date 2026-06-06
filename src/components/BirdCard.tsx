@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BirdSpecies, CaptureRecord, Rarity } from '../types';
 import { RARITY_META } from '../lib/theme';
+import { useCollectionContext } from '../context/CollectionContext';
 import { MapPin, Ruler, Utensils, Eye } from 'lucide-react';
 
 interface BirdCardProps {
@@ -12,24 +13,34 @@ interface BirdCardProps {
 
 export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
   const [imgError, setImgError] = useState(false);
+  const { canShowAltArt, markAltArtExists, markAltArtMissing } = useCollectionContext();
   const rarity: Rarity = capture?.currentRarity ?? 'UC';
   const meta = RARITY_META[rarity];
   const isUncaptured = !capture;
 
-  // 動態讀取圖片邏輯：支援 UR / LR 異圖卡
-  // 從 R2 讀取，例如將 0001.avif 替換成 0001_UR.avif
-  const isHighRarity = rarity === 'UR' || rarity === 'LR';
+  // 動態讀取圖片邏輯（異圖卡需通過三重檢查 → 詳見 useCollection.canShowAltArt）：
+  //   ① 模式允許（off / high-rarity / all）
+  //   ② 用戶已「擁有」此鳥的異圖卡（達 UR 或創世神後門）
+  //   ③ R2 上該檔案確實存在
+  const wantsAltArt = canShowAltArt(bird.id, rarity);
   const altArtUrl = bird.photoUrl ? bird.photoUrl.replace('.avif', '_UR.avif') : null;
-  const currentImageUrl = (isHighRarity && altArtUrl && !imgError) ? altArtUrl : bird.photoUrl;
+  const currentImageUrl = (wantsAltArt && altArtUrl && !imgError) ? altArtUrl : bird.photoUrl;
 
-  // 處理普通的錯誤重試 (例如連預設的 .jpg 也沒有)
+  // 處理載入失敗：異圖卡載不到 → 記錄並退回普通卡；連普通卡也沒有就顯示 emoji
   const handleImgError = () => {
-    if (isHighRarity && !imgError) {
-      // 如果 UR 異圖卡載入失敗，我們標記失敗，這樣 React 重新渲染時就會退回普通圖片
+    if (wantsAltArt && !imgError) {
+      // 異圖卡載入失敗 → 永久記錄 R2 上沒這檔，下次別再請求
+      markAltArtMissing(bird.id);
       setImgError(true);
     } else {
-      // 如果普通圖片也失敗，就顯示 Emoji
       setImgError(true);
+    }
+  };
+
+  // 異圖卡載入成功 → 記錄到 R2 存在快取
+  const handleImgLoad = () => {
+    if (wantsAltArt && currentImageUrl === altArtUrl) {
+      markAltArtExists(bird.id);
     }
   };
 
@@ -50,6 +61,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
             alt={bird.name}
             className="absolute inset-0 w-full h-full object-cover opacity-70"
             onError={handleImgError}
+            onLoad={handleImgLoad}
             loading="lazy"
           />
         ) : (
@@ -97,6 +109,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
           alt={bird.name}
           className="absolute inset-0 w-full h-full object-cover opacity-60"
           onError={handleImgError}
+            onLoad={handleImgLoad}
         />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center">
