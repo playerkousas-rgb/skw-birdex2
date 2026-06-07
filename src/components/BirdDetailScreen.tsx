@@ -54,8 +54,11 @@ export function BirdDetailScreen({ speciesId, onBack }: BirdDetailScreenProps) {
   };
 
   const handleExternalLink = () => {
-    // 這裡我們直接傳遞 ID 過去，這樣如果 AvianDex 有支援 query parameter 可以直接打開對應的鳥
-    window.open(`https://skw-aviandex.vercel.app?search=${encodeURIComponent(bird.name)}`, '_blank');
+    // AvianDex 支援深層連結：?id=12（最可靠，兩邊共用同一套編號）
+    // 後備：?search=中文名
+    // 例：https://avian-dex.vercel.app/?id=12
+    const url = `https://avian-dex.vercel.app/?id=${bird.id}&search=${encodeURIComponent(bird.name)}`;
+    window.open(url, '_blank');
   };
 
   return (
