@@ -22,6 +22,9 @@
 //   BIRD_GATE_MIN_SCORE       選填，預設 0.30
 //   MIN_SPECIES_SCORE         選填，預設 0.35
 //   DISABLE_BIRD_GATE         選填，設 "1" 可關閉前置閘
+//   SPECIES_MODEL_2           選填，第二鳥種模型（HF model id）
+//                             主模型信心度不足時自動呼叫第二模型交叉驗證，
+//                             可提高稀有鳥種的辨識率（例如 'imageomics/vit-b-iNaturalist-2021'）
 // ============================================================
 
 import FormData from 'form-data';
@@ -60,6 +63,23 @@ const BIRD_KEYWORDS = [
   'woodpecker', 'kingfisher', 'cuckoo', 'nightjar', 'hoopoe',
   'shrike', 'oriole', 'tit ', 'tit,', 'tits', 'minivet', 'drongo',
   'crow', 'raven', 'rook', 'jackdaw',
+  // 補充常見鳥類字詞（提升 Gate 召回率）
+  'loon', 'grebe', 'anhinga', 'ibis', 'avocet', 'stilt', 'godwit',
+  'curlew', 'phalarope', 'jaeger', 'skua', 'auk', 'murre', 'guillemot',
+  'puffin', 'kittiwake', 'waxwing', 'nuthatch', 'creeper', 'kinglet',
+  'gnatcatcher', 'chat', 'redstart', 'bluetail', 'blackbird', 'myna',
+  'mynah', 'lark', 'martin', 'waxbill', 'munia', 'silverbill', 'weaver',
+  'cardinal', 'grosbeak', 'tanager', 'dove', 'shelduck', 'pintail',
+  'shoveler', 'wigeon', 'scaup', 'eider', 'scoter', 'goldeneye',
+  'bufflehead', 'rail', 'crake', 'gallinule', 'moorhen', 'cisticola',
+  'prinia', 'tailorbird', 'white-eye', 'sunbird', 'flowerpecker',
+  'leafbird', 'fairy-bluebird', 'iora', 'shrike-babbler', 'fulvetta',
+  'yuhina', 'parrotbill', 'babbler', 'laughingthrush', 'leiothrix',
+  'mesia', 'sibia', 'barwing', 'minla', 'liocichla', 'babax',
+  'timalia', 'wren-babbler', 'scimitar-babbler', 'cupwing', 'pitta',
+  'broadbill', 'trogon', 'roller', 'bee-eater', 'bee eater', 'jewel-babbler',
+  'pigeon', 'imperial-pigeon', 'green-pigeon', 'dove', 'cuckoo-dove',
+  'coucal', 'malkoha', 'koel', 'asian koel', 'channel-billed cuckoo',
 ];
 
 const BIRD_REGEX = new RegExp(
@@ -331,6 +351,26 @@ export default async function handler(req, res) {
       } catch (e) {
         errors.push(`HF: ${e.message}`);
       }
+
+      // === 階段 2b: 第二模型交叉驗證（選配 SPECIES_MODEL_2）===
+      // 主模型完全沒結果、或 top-1 信心度偏低時，用第二模型再試一次，
+      // 若第二模型 top-1 分數更高就採用（提高稀有鳥種辨識率）。
+      if (
+        process.env.SPECIES_MODEL_2 &&
+        (results.length === 0 || (results[0]?.score ?? 0) < minSpeciesScore * 1.2)
+      ) {
+        try {
+          const alt = await hfClassify(buffer, contentType || 'image/jpeg', process.env.SPECIES_MODEL_2);
+          if (alt.length > 0 && (alt[0]?.score ?? 0) > (results[0]?.score ?? 0)) {
+            results = alt;
+            usedEngine = 'huggingface-2';
+            console.log(`[model2] 採用第二模型結果 top="${alt[0].label}" score=${alt[0].score.toFixed(3)}`);
+          }
+        } catch (e) {
+          errors.push(`Model2: ${e.message}`);
+        }
+      }
+
       if (results.length === 0) {
         try {
           results = await identifyImageWithNyckel(buffer, contentType);

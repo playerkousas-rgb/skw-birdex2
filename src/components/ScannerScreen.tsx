@@ -13,11 +13,21 @@ interface ScannerScreenProps {
   onBusyChange?: (busy: boolean) => void;
 }
 
-type ScanPhase = 'idle' | 'starting' | 'active' | 'countdown' | 'snapping' | 'analyzing' | 'found' | 'missed' | 'error';
+type ScanPhase = 'idle' | 'starting' | 'active' | 'countdown' | 'snapping' | 'analyzing' | 'found' | 'missed' | 'candidate' | 'error';
 
 const ANALYZE_TIMEOUT_MS = 60_000; // HF 冷啟動可能較慢，給 60 秒
 const STORED_PHOTO_MAX_WIDTH = 480; // 存入 localStorage 的照片寬度上限
 const DIGITAL_ZOOM_MAX = 5;          // 相機不支援硬體變焦時的數位變焦上限
+
+// 辨識信心度門檻：
+//   >= AUTO_CATCH   → 直接捕捉
+//   >= MIN_CANDIDATE→ 顯示候選鳥讓使用者確認（避免誤捕）
+const AUTO_CATCH_SCORE = 0.70;
+const MIN_CANDIDATE_SCORE = 0.35;
+
+// 本地畫質預檢（不浪費 API 次數）
+const MIN_FRAME_BRIGHTNESS = 16;      // 平均亮度低於此 → 太暗
+const MIN_FRAME_SHARPNESS = 10;       // 銳利度低於此 → 太模糊（鏡頭遮住等）
 
 interface ZoomCapability {
   min: number;
@@ -25,16 +35,23 @@ interface ZoomCapability {
   step: number;
 }
 
+interface Candidate {
+  speciesId: number;
+  label: string;
+  score: number;
+}
+
 export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const mountedRef = useRef(true);
   const analyzingIntervalRef = useRef<number | null>(null);
   const abortRef = useRef<AbortController | null>(null);
+  const bestFrameRef = useRef<HTMLCanvasElement | null>(null);
   const [phase, setPhase] = useState<ScanPhase>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [analyzingText, setAnalyzingText] = useState('初始化影像...');
+  const [candidates, setCandidates] = useState<Candidate[]>([]);
   const { captureBird } = useCollectionContext();
 
   // ── 變焦狀態 ──
@@ -152,35 +169,152 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
 
   const onTouchEnd = () => { pinchRef.current = null; };
 
-  const snap = useCallback(async () => {
-    if (!videoRef.current || !canvasRef.current || phase !== 'active') return;
+  /** 把目前鏡頭畫面（含數位變焦裁切）畫到新 canvas */
+  const captureFrame = useCallback((): HTMLCanvasElement | null => {
     const video = videoRef.current;
-    const canvas = canvasRef.current;
+    if (!video) return null;
     const vw = video.videoWidth || 1280;
     const vh = video.videoHeight || 720;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    // 數位變焦時：只畫出畫面中央的裁切區域（等同把影片放大）
-    const z = zoomCap ? 1 : zoomRef.current; // 硬體變焦時影片本身已放大，直接畫整張
+    const z = zoomCap ? 1 : zoomRef.current; // 硬體變焦時影片本身已放大
+    const out = document.createElement('canvas');
+    const ctx = out.getContext('2d');
+    if (!ctx) return null;
     if (z > 1.001) {
       const cropW = vw / z;
       const cropH = vh / z;
-      const sx = (vw - cropW) / 2;
-      const sy = (vh - cropH) / 2;
-      canvas.width = Math.round(vw / z);
-      canvas.height = Math.round(vh / z);
-      ctx.drawImage(video, sx, sy, cropW, cropH, 0, 0, canvas.width, canvas.height);
+      out.width = Math.round(vw / z);
+      out.height = Math.round(vh / z);
+      ctx.drawImage(video, (vw - cropW) / 2, (vh - cropH) / 2, cropW, cropH, 0, 0, out.width, out.height);
     } else {
-      canvas.width = vw;
-      canvas.height = vh;
+      out.width = vw;
+      out.height = vh;
       ctx.drawImage(video, 0, 0, vw, vh);
     }
+    return out;
+  }, [zoomCap]);
 
-    // Simulate a flash
+  /** 銳利度評估：縮小後算相鄰像素亮度差（SAD），越高越清晰 */
+  function frameSharpness(source: HTMLCanvasElement): number {
+    const W = 96, H = 72;
+    const small = document.createElement('canvas');
+    small.width = W;
+    small.height = H;
+    const ctx = small.getContext('2d', { willReadFrequently: true });
+    if (!ctx) return 0;
+    ctx.drawImage(source, 0, 0, W, H);
+    const data = ctx.getImageData(0, 0, W, H).data;
+    let sum = 0, count = 0;
+    for (let y = 1; y < H; y++) {
+      for (let x = 1; x < W; x++) {
+        const i = (y * W + x) * 4;
+        const l = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+        const iu = ((y - 1) * W + x) * 4;
+        const lu = 0.299 * data[iu] + 0.587 * data[iu + 1] + 0.114 * data[iu + 2];
+        const il = (y * W + x - 1) * 4;
+        const ll = 0.299 * data[il] + 0.587 * data[il + 1] + 0.114 * data[il + 2];
+        sum += (l - lu) * (l - lu) + (l - ll) * (l - ll);
+        count += 2;
+      }
+    }
+    return count ? sum / count : 0;
+  }
+
+  /** 平均亮度 0~255 */
+  function frameBrightness(source: HTMLCanvasElement): number {
+    const W = 96, H = 72;
+    const small = document.createElement('canvas');
+    small.width = W;
+    small.height = H;
+    const ctx = small.getContext('2d', { willReadFrequently: true });
+    if (!ctx) return 255;
+    ctx.drawImage(source, 0, 0, W, H);
+    const data = ctx.getImageData(0, 0, W, H).data;
+    let sum = 0;
+    for (let i = 0; i < data.length; i += 4) {
+      sum += data[i] + data[i + 1] + data[i + 2];
+    }
+    return sum / (W * H * 3);
+  }
+
+  /** 把 canvas 縮到 maxWidth 以內，回傳壓縮後的 JPEG dataURL */
+  function downscalePhoto(source: HTMLCanvasElement, maxWidth: number): string {
+    const scale = Math.min(1, maxWidth / (source.width || maxWidth));
+    const w = Math.max(1, Math.round((source.width || maxWidth) * scale));
+    const h = Math.max(1, Math.round((source.height || maxWidth) * scale));
+    const small = document.createElement('canvas');
+    small.width = w;
+    small.height = h;
+    const sctx = small.getContext('2d');
+    if (!sctx) return source.toDataURL('image/jpeg', 0.4);
+    sctx.drawImage(source, 0, 0, w, h);
+    return small.toDataURL('image/jpeg', 0.4);
+  }
+
+  /** 統一失敗出口 */
+  const failCapture = useCallback((reason: string, kind: 'not-bird' | 'low-confidence' | 'not-in-dex' | 'escaped') => {
+    onCapture({
+      record: null,
+      isNew: false,
+      oldRarity: 'UC',
+      newRarity: 'UC',
+      xpGained: 0,
+      species: null,
+      failed: true,
+      failReason: reason,
+      failKind: kind,
+    });
+  }, [onCapture]);
+
+  /** 候選鳥被選中 → 捕捉 */
+  const chooseCandidate = useCallback((speciesId: number) => {
+    const bird = getBirdById(speciesId);
+    if (!bird) return;
+    const photoDataUrl = bestFrameRef.current
+      ? downscalePhoto(bestFrameRef.current, STORED_PHOTO_MAX_WIDTH)
+      : undefined;
+    const captureResult = captureBird(speciesId, { photoDataUrl });
+    setCandidates([]);
+    bestFrameRef.current = null;
+    onCapture(captureResult);
+  }, [captureBird, onCapture]);
+
+  const snap = useCallback(async () => {
+    if (!videoRef.current || phase !== 'active') return;
+
+    // 快門閃光
     setPhase('snapping');
     await new Promise(r => setTimeout(r, 200));
     if (!mountedRef.current) return;
+
+    // ── 連拍 3 張，自動選最清晰的一張（減少手震模糊失敗）──
+    let best: HTMLCanvasElement | null = null;
+    let bestSharp = -1;
+    for (let i = 0; i < 3; i++) {
+      const frame = captureFrame();
+      if (frame) {
+        const s = frameSharpness(frame);
+        if (s > bestSharp) { bestSharp = s; best = frame; }
+      }
+      if (i < 2) await new Promise(r => setTimeout(r, 140));
+      if (!mountedRef.current) return;
+    }
+    if (!best) {
+      setPhase('error');
+      setErrorMsg('無法讀取鏡頭畫面，請重試。');
+      return;
+    }
+    bestFrameRef.current = best;
+
+    // ── 本地畫質預檢（省 API 次數 + 即時回饋）──
+    const brightness = frameBrightness(best);
+    if (brightness < MIN_FRAME_BRIGHTNESS) {
+      failCapture('畫面太暗，請走到光線充足的地方再試。', 'escaped');
+      return;
+    }
+    if (bestSharp < MIN_FRAME_SHARPNESS) {
+      failCapture('畫面太模糊，請穩住手機、擦一下鏡頭再試。', 'escaped');
+      return;
+    }
 
     setPhase('analyzing');
     onBusyChange?.(true);
@@ -203,7 +337,7 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
     };
 
     try {
-      const blob = await new Promise<Blob | null>(res => canvas.toBlob(res, 'image/jpeg', 0.9));
+      const blob = await new Promise<Blob | null>(res => best!.toBlob(res, 'image/jpeg', 0.9));
       if (!blob) throw new Error('照片生成失敗');
       const data = await analyzeImageDetailed(blob, controller.signal);
       if (!mountedRef.current) return;
@@ -212,57 +346,57 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
 
       const results = data.results || [];
 
-      const fail = (
-        reason: string,
-        kind: 'not-bird' | 'low-confidence' | 'not-in-dex' | 'escaped',
-      ) => {
-        onCapture({
-          record: null,
-          isNew: false,
-          oldRarity: 'UC',
-          newRarity: 'UC',
-          xpGained: 0,
-          species: null,
-          failed: true,
-          failReason: reason,
-          failKind: kind,
-        });
-      };
-
       // 1) 後端 Bird Gate 判定不是鳥
       if (data.notBird) {
         const guess = data.topGuess ? `（看起來像「${data.topGuess}」）` : '';
-        fail(`畫面中沒有偵測到鳥類${guess}，請對準鳥類再試。`, 'not-bird');
+        failCapture(`畫面中沒有偵測到鳥類${guess}，請對準鳥類再試。`, 'not-bird');
         return;
       }
 
-      // 2) 沒有結果 / 信心度過低（鳥是鳥，但模糊／拍不清）
-      if (!results.length || results[0].score < 0.7 || results[0].label === 'Unknown Object') {
-        fail('辨識信心度不足，請靠近一點或在光線充足處再試。', 'escaped');
+      // 2) 完全沒有結果／信心度過低 → 逃走
+      const scored = results.filter(r => r.label && r.label !== 'Unknown Object' && r.score > 0);
+      if (!scored.length || scored[0].score < MIN_CANDIDATE_SCORE) {
+        failCapture('辨識信心度不足，請靠近一點或在光線充足處再試。', 'escaped');
         return;
       }
 
-      const top = results[0];
-      const speciesId = resolveBirdId(top.label) ?? (top.scientific ? resolveBirdId(top.scientific) : undefined);
+      // 3) 高信心度 → 直接捕捉（top 依序嘗試，top-1 不在圖鑑就試 top-2/3）
+      for (const r of scored) {
+        if (r.score < AUTO_CATCH_SCORE) break; // 已排序，後面的更低
+        const speciesId = resolveBirdId(r.label) ?? (r.scientific ? resolveBirdId(r.scientific) : undefined);
+        if (speciesId) {
+          const bird = getBirdById(speciesId);
+          if (bird) {
+            const photoDataUrl = bestFrameRef.current
+              ? downscalePhoto(bestFrameRef.current, STORED_PHOTO_MAX_WIDTH)
+              : undefined;
+            const captureResult = captureBird(speciesId, { photoDataUrl });
+            bestFrameRef.current = null;
+            onCapture(captureResult);
+            return;
+          }
+        }
+      }
 
-      // 3) 模型認得是某種鳥，但不在我們的圖鑑名單裡
-      if (!speciesId) {
-        fail(`偵測到「${top.label}」，但這隻鳥不在 BIRD-DEX 圖鑑中。`, 'not-in-dex');
+      // 4) 中等信心度 → 顯示候選鳥讓使用者確認（避免誤捕，也避免白白放走）
+      const cand: Candidate[] = [];
+      const seen = new Set<number>();
+      for (const r of scored) {
+        const speciesId = resolveBirdId(r.label) ?? (r.scientific ? resolveBirdId(r.scientific) : undefined);
+        if (speciesId && !seen.has(speciesId)) {
+          seen.add(speciesId);
+          cand.push({ speciesId, label: r.label, score: r.score });
+        }
+        if (cand.length >= 3) break;
+      }
+      if (cand.length > 0) {
+        setCandidates(cand);
+        setPhase('candidate');
         return;
       }
 
-      const bird = getBirdById(speciesId);
-      if (!bird) {
-        fail('圖鑑資料異常，請重試。', 'escaped');
-        return;
-      }
-
-      // 縮圖後才存入 localStorage（避免 5MB 配額爆掉 → App 白屏）
-      const photoDataUrl = downscalePhoto(canvas, STORED_PHOTO_MAX_WIDTH);
-
-      // 觸發捕捉成功的精靈球動畫
-      const captureResult = captureBird(speciesId, { photoDataUrl });
-      onCapture(captureResult);
+      // 5) 全都不在圖鑑
+      failCapture(`偵測到「${scored[0].label}」，但這隻鳥不在 BIRD-DEX 圖鑑中。`, 'not-in-dex');
     } catch (err: any) {
       cleanup();
       onBusyChange?.(false);
@@ -275,25 +409,13 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
         setErrorMsg(err.message || '辨識過程發生錯誤');
       }
     }
-  }, [phase, captureBird, onCapture, onBusyChange, zoomCap]);
-
-  /** 把 canvas 縮到 maxWidth 以內，回傳壓縮後的 JPEG dataURL */
-  function downscalePhoto(source: HTMLCanvasElement, maxWidth: number): string {
-    const scale = Math.min(1, maxWidth / (source.width || maxWidth));
-    const w = Math.max(1, Math.round((source.width || maxWidth) * scale));
-    const h = Math.max(1, Math.round((source.height || maxWidth) * scale));
-    const small = document.createElement('canvas');
-    small.width = w;
-    small.height = h;
-    const sctx = small.getContext('2d');
-    if (!sctx) return source.toDataURL('image/jpeg', 0.4);
-    sctx.drawImage(source, 0, 0, w, h);
-    return small.toDataURL('image/jpeg', 0.4);
-  }
+  }, [phase, captureBird, onCapture, onBusyChange, captureFrame, failCapture]);
 
   const tryAgain = useCallback(() => {
     setPhase('active');
     setErrorMsg('');
+    setCandidates([]);
+    bestFrameRef.current = null;
   }, []);
 
   const showZoomUI = phase === 'active' && maxZoom > 1.001;
@@ -313,7 +435,6 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
         onTouchEnd={onTouchEnd}
         onTouchCancel={onTouchEnd}
       />
-      <canvas ref={canvasRef} className="hidden" />
 
       {/* Scan frame overlay */}
       {(phase === 'active' || phase === 'countdown') && (
@@ -377,6 +498,46 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
         </div>
       )}
 
+      {/* 候選鳥確認（中等信心度） */}
+      {phase === 'candidate' && candidates.length > 0 && (
+        <div className="absolute inset-0 z-30 bg-dex-bg/95 backdrop-blur-md flex flex-col items-center justify-center px-6">
+          <div className="text-2xl font-black text-white mb-1">牠是這幾隻嗎？</div>
+          <p className="text-xs text-dex-muted mb-5 text-center">
+            信心度不夠高，幫我選出最接近的一隻～（點錯不會扣分，放心）
+          </p>
+          <div className="w-full max-w-xs space-y-2 mb-6">
+            {candidates.map(c => {
+              const bird = getBirdById(c.speciesId);
+              if (!bird) return null;
+              return (
+                <button
+                  key={c.speciesId}
+                  onClick={() => chooseCandidate(c.speciesId)}
+                  className="w-full flex items-center gap-3 p-3 rounded-xl bg-dex-surface border border-dex-border hover:border-dex-neon active:scale-[0.98] transition text-left"
+                >
+                  {bird.photoUrl ? (
+                    <img src={bird.photoUrl} alt={bird.name} className="w-12 h-12 rounded-lg object-cover shrink-0" loading="lazy" />
+                  ) : (
+                    <span className="w-12 h-12 rounded-lg bg-dex-border flex items-center justify-center text-2xl shrink-0">{bird.emoji}</span>
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-black text-white truncate">{bird.name}</div>
+                    <div className="text-[10px] text-dex-muted truncate">{bird.nameEn}</div>
+                  </div>
+                  <span className="text-[10px] font-mono text-dex-neon shrink-0">{Math.round(c.score * 100)}%</span>
+                </button>
+              );
+            })}
+          </div>
+          <button
+            onClick={tryAgain}
+            className="px-5 py-2.5 rounded-xl bg-dex-surface border border-dex-border text-white text-xs font-bold hover:bg-white/10 transition"
+          >
+            都不是，再試一次
+          </button>
+        </div>
+      )}
+
       {/* Missed overlay */}
       {phase === 'missed' && (
         <div className="absolute inset-0 bg-dex-bg/90 backdrop-blur-md flex flex-col items-center justify-center z-20">
@@ -412,7 +573,7 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
       {(phase === 'active' || phase === 'countdown') && (
         <div className="absolute bottom-[calc(2rem+env(safe-area-inset-bottom))] left-0 right-0 flex flex-col items-center gap-4 z-10">
           <div className="text-xs text-white/40 font-mono">
-            {maxZoom > 1.001 ? '雙指縮放可變焦 · 對準鳥類按下快門' : '對準鳥類，按下快門捕捉'}
+            {maxZoom > 1.001 ? '雙指縮放變焦 · 自動挑最清晰畫面' : '對準鳥類，按下快門捕捉'}
           </div>
           <button
             onClick={snap}
