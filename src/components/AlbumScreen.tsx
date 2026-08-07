@@ -12,6 +12,7 @@ interface AlbumScreenProps {
 export function AlbumScreen({ onSelectSpecies }: AlbumScreenProps) {
   const { captures } = useCollectionContext();
   const [sortBy, setSortBy] = useState<'rarity' | 'newest' | 'count'>('rarity');
+  const shinyCount = captures.filter(c => c.shiny).length;
 
   const capturedBirds = useMemo(() => {
     const items = captures.map(c => {
@@ -64,6 +65,13 @@ export function AlbumScreen({ onSelectSpecies }: AlbumScreenProps) {
               </div>
             );
           })}
+          {shinyCount > 0 && (
+            <div className="flex-shrink-0 px-2.5 py-1 rounded-lg text-[10px] font-black border flex items-center gap-1"
+              style={{ borderColor: '#FFD700', color: '#FFD700', background: '#FFD70015' }}>
+              ✨色違
+              <span className="text-white">{shinyCount}</span>
+            </div>
+          )}
         </div>
       </div>
 

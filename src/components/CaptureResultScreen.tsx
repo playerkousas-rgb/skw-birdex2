@@ -5,6 +5,7 @@ import { BirdCard } from './BirdCard';
 import { RARITY_META } from '../lib/theme';
 import { BIRD_SPECIES } from '../data/birdData';
 import { Star, Sparkles, ChevronRight, XCircle } from 'lucide-react';
+import { playThrow, playGotcha, playSuccess, playShiny, playFail, playLevelUp, vibrate } from '../lib/sfx';
 
 interface CaptureResultScreenProps {
   result: CaptureResult;
@@ -14,7 +15,7 @@ interface CaptureResultScreenProps {
 export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProps) {
   const [phase, setPhase] = useState<'throw' | 'wiggle' | 'caught' | 'card' | 'stats' | 'escaped'>('throw');
   
-  const { species, isNew, oldRarity, newRarity, xpGained, record, failed, failReason, failKind } = result;
+  const { species, isNew, oldRarity, newRarity, xpGained, record, failed, failReason, failKind, isShiny, leveledUp, newLevel } = result;
   const rarityMeta = RARITY_META[newRarity];
 
   // ────────────────────────────────────────────────
@@ -38,7 +39,7 @@ export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProp
     return null;
   }, [failed, failKind, species]);
 
-  const ambientColor = rarityMeta?.color || '#00F0FF';
+  const ambientColor = isShiny ? '#FFD700' : (rarityMeta?.color || '#00F0FF');
 
   useEffect(() => {
     // 丟球 -> 搖晃
@@ -58,6 +59,27 @@ export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProp
     
     return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, [failed]);
+
+  // 各階段的音效與震動回饋
+  useEffect(() => {
+    if (phase === 'throw') {
+      playThrow();
+    } else if (phase === 'caught') {
+      playGotcha();
+      vibrate([30, 60, 90]);
+    } else if (phase === 'card') {
+      if (isShiny) playShiny();
+      else playSuccess();
+    } else if (phase === 'stats') {
+      if (leveledUp) {
+        playLevelUp();
+        vibrate([40, 80, 160]);
+      }
+    } else if (phase === 'escaped') {
+      playFail();
+      vibrate([90]);
+    }
+  }, [phase, isShiny, leveledUp]);
 
   const upgraded = !isNew && oldRarity !== newRarity;
 
@@ -229,10 +251,13 @@ export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProp
           exit={{ opacity: 0, scale: 1.2 }}
           className="text-center mb-4 mt-8"
         >
-          <div className="text-4xl mb-2">{isNew ? '✨' : upgraded ? '🎉' : '📸'}</div>
+          <div className="text-4xl mb-2">{isShiny ? '🌈' : isNew ? '✨' : upgraded ? '🎉' : '📸'}</div>
           <h2 className="text-2xl font-black text-white tracking-wide">
-            {isNew ? '圖鑑新登錄！' : upgraded ? '稀有度突破！' : '資料更新成功！'}
+            {isShiny ? '✨ 色違鳥現身！' : isNew ? '圖鑑新登錄！' : upgraded ? '稀有度突破！' : '資料更新成功！'}
           </h2>
+          {isShiny && (
+            <p className="text-xs text-dex-gold font-bold mt-1 tracking-wider">萬中選一的色違個體，運氣爆棚！</p>
+          )}
         </motion.div>
       )}
 
@@ -273,6 +298,17 @@ export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProp
               {rarityMeta.label} · {rarityMeta.labelZh}
             </div>
           </div>
+
+          {/* 升級提示 */}
+          {leveledUp && newLevel && (
+            <div className="bg-dex-surface/80 backdrop-blur border border-dex-gold/50 rounded-xl p-3 flex items-center justify-between shadow-lg shadow-dex-gold/10">
+              <div className="flex items-center gap-2">
+                <span className="text-lg">⬆️</span>
+                <span className="text-sm font-bold text-white">訓練師升級！</span>
+              </div>
+              <span className="text-xl font-black text-dex-gold">Lv.{newLevel}</span>
+            </div>
+          )}
 
           {/* XP gain */}
           <div className="bg-dex-surface/80 backdrop-blur border border-dex-border rounded-xl p-3 flex items-center justify-between">

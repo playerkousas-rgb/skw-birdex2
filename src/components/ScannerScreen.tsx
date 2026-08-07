@@ -5,6 +5,7 @@ import { resolveBirdId } from '../data/nameAliases';
 import { getBirdById } from '../data/birdData';
 import { Camera, Zap, AlertTriangle } from 'lucide-react';
 import { CaptureResult as CaptureResultType } from '../types';
+import { ensureAudio, playThrow } from '../lib/sfx';
 
 
 interface ScannerScreenProps {
@@ -147,6 +148,8 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
 
   // ── 捏合變焦手勢（兩指）──
   const onTouchStart = (e: React.TouchEvent) => {
+    // 在使用者手勢時解鎖音訊（autoplay policy 要求）
+    ensureAudio();
     if (e.touches.length === 2) {
       const d = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
@@ -280,6 +283,10 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
 
   const snap = useCallback(async () => {
     if (!videoRef.current || phase !== 'active') return;
+
+    // 丟球音效
+    ensureAudio();
+    playThrow();
 
     // 快門閃光
     setPhase('snapping');
