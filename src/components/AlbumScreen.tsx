@@ -12,6 +12,8 @@ interface AlbumScreenProps {
 export function AlbumScreen({ onSelectSpecies }: AlbumScreenProps) {
   const { captures } = useCollectionContext();
   const [sortBy, setSortBy] = useState<'rarity' | 'newest' | 'count'>('rarity');
+  const [mode, setMode] = useState<'cards' | 'photos'>('cards');
+  const shinyCount = captures.filter(c => c.shiny).length;
 
   const capturedBirds = useMemo(() => {
     const items = captures.map(c => {
@@ -64,19 +66,71 @@ export function AlbumScreen({ onSelectSpecies }: AlbumScreenProps) {
               </div>
             );
           })}
+          {shinyCount > 0 && (
+            <div className="flex-shrink-0 px-2.5 py-1 rounded-lg text-[10px] font-black border flex items-center gap-1"
+              style={{ borderColor: '#FFD700', color: '#FFD700', background: '#FFD70015' }}>
+              ✨色違
+              <span className="text-white">{shinyCount}</span>
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-4">
-        {capturedBirds.map(({ bird, capture }) => (
-          <BirdCard
-            key={bird.id}
-            bird={bird}
-            capture={capture}
-            onClick={() => onSelectSpecies(bird.id)}
-          />
-        ))}
+      {/* 檢視模式切換 */}
+      <div className="flex gap-2 mb-3 px-4 pt-1">
+        <button
+          onClick={() => setMode('cards')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+            mode === 'cards' ? 'bg-dex-neon text-dex-bg' : 'bg-dex-surface text-dex-muted border border-dex-border'
+          }`}
+        >
+          🃏 卡片
+        </button>
+        <button
+          onClick={() => setMode('photos')}
+          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition ${
+            mode === 'photos' ? 'bg-dex-neon text-dex-bg' : 'bg-dex-surface text-dex-muted border border-dex-border'
+          }`}
+        >
+          🖼️ 照片牆
+        </button>
       </div>
+
+      {mode === 'cards' ? (
+        <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-4">
+          {capturedBirds.map(({ bird, capture }) => (
+            <BirdCard
+              key={bird.id}
+              bird={bird}
+              capture={capture}
+              onClick={() => onSelectSpecies(bird.id)}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
+          {capturedBirds.map(({ bird, capture }) => (
+            <button
+              key={bird.id}
+              onClick={() => onSelectSpecies(bird.id)}
+              className="relative aspect-square rounded-xl overflow-hidden bg-dex-surface border border-dex-border active:scale-[0.97] transition"
+            >
+              {capture.photoDataUrl ? (
+                <img src={capture.photoDataUrl} alt={bird.name} className="w-full h-full object-cover" loading="lazy" />
+              ) : (
+                <div className="w-full h-full flex flex-col items-center justify-center gap-1 bg-dex-border/30">
+                  <span className="text-3xl opacity-40">{bird.emoji}</span>
+                  <span className="text-[9px] text-dex-muted">尚未拍照</span>
+                </div>
+              )}
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent pt-6 pb-1.5 px-2 flex items-end justify-between gap-1">
+                <span className="text-[10px] font-bold text-white truncate">{bird.name}</span>
+                {capture.shiny && <span className="text-[10px] shrink-0">✨</span>}
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
 
       {capturedBirds.length === 0 && (
         <div className="py-32 flex flex-col items-center text-center px-6">

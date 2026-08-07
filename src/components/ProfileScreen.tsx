@@ -1,9 +1,13 @@
 import { useState, useRef } from 'react';
 import { useCollectionContext } from '../context/CollectionContext';
 import { BIRD_SPECIES } from '../data/birdData';
-import { getLevelFromXp, RARITY_ORDER, RARITY_META } from '../lib/theme';
-import { User, Edit3, Award, Feather, Target, Trash2, Check, X, Sparkles, ImageOff, Wand2 } from 'lucide-react';
+import { getLevelFromXp, LEVEL_TITLES, RARITY_ORDER, RARITY_META } from '../lib/theme';
+import { User, Edit3, Award, Feather, Target, Trash2, Check, X, Sparkles, ImageOff, Wand2, Flame, Volume2 } from 'lucide-react';
 import type { AltArtMode } from '../hooks/useCollection';
+import { DailyQuests } from './DailyQuests';
+import { AchievementWall } from './AchievementWall';
+import { HotspotStamps } from './HotspotStamps';
+import { CompanionSection } from './CompanionSection';
 
 const AVATARS = [
   { emoji: '🥾', unlockLevel: 1, desc: '見習裝備' },
@@ -15,8 +19,13 @@ const AVATARS = [
   { emoji: '👑', unlockLevel: 10, desc: '傳說王冠' },
 ];
 
+// 每日登入 7 日循環（與 useCollection LOGIN_REWARDS 對應）
+const LOGIN_DAYS = [1, 2, 3, 4, 5, 6, 7];
+const LOGIN_XP = [10, 15, 20, 25, 30, 40, 60];
+
 export function ProfileScreen() {
-  const { profile, captures, totalCount, resetAll, unlockAll, updateProfileName, updateProfileAvatar, settings, setAltArtMode, altArt } = useCollectionContext();
+  const { profile, captures, totalCount, resetAll, unlockAll, updateProfileName, updateProfileAvatar, settings, setAltArtMode, setSfx, altArt, streak, loginReward, claimLoginReward } = useCollectionContext();
+  const shinyCount = captures.filter(c => c.shiny).length;
 
   // 異圖卡統計
   const altUnlockedCount = altArt.unlocked.length;
@@ -27,6 +36,12 @@ export function ProfileScreen() {
   const [nameDraft, setNameDraft] = useState(profile.name);
   const [showAvatarSelect, setShowAvatarSelect] = useState(false);
   const levelInfo = getLevelFromXp(profile.xp);
+  // 目前等級的 XP 門檻（修正：舊公式把「下一級門檻」當成「當前門檻」，導致分母為 0 → 進度條壞掉）
+  const levelStartXp = LEVEL_TITLES[levelInfo.level - 1]?.xp ?? 0;
+  const levelEndXp = levelInfo.nextXp ?? levelStartXp;
+  const xpPct = levelEndXp > levelStartXp
+    ? Math.min(100, Math.max(0, ((profile.xp - levelStartXp) / (levelEndXp - levelStartXp)) * 100))
+    : 100;
 
   // Admin backdoor counter
   // 50 連點才觸發創世神模式，避免誤觸
@@ -121,11 +136,7 @@ export function ProfileScreen() {
           <div className="h-2.5 rounded-full bg-dex-border overflow-hidden relative">
             <div
               className="absolute left-0 top-0 bottom-0 rounded-full bg-gradient-to-r from-dex-neon to-dex-accent transition-all duration-700"
-              style={{
-                width: levelInfo.nextXp
-                  ? `${Math.min(100, ((profile.xp - (getLevelFromXp(profile.xp - 1)?.nextXp || 0)) / ((levelInfo.nextXp || profile.xp) - (getLevelFromXp(profile.xp - 1)?.nextXp || 0))) * 100)}%`
-                  : '100%'
-              }}
+              style={{ width: `${xpPct}%` }}
             />
           </div>
         </div>
@@ -174,9 +185,107 @@ export function ProfileScreen() {
               );
             })}
             {captures.length === 0 && <span className="text-[10px] text-dex-muted">尚無收藏</span>}
+            {shinyCount > 0 && (
+              <span className="px-1.5 py-0.5 rounded text-[10px] font-black"
+                style={{ background: '#FFD70022', color: '#FFD700', border: '1px solid #FFD70044' }}>
+                ✨色違 {shinyCount}
+              </span>
+            )}
           </div>
         </div>
       </div>
+
+      {/* ────── 夥伴鳥 ────── */}
+      <CompanionSection />
+
+      {/* ────── 每日任務 ────── */}
+      <DailyQuests />
+
+      {/* ────── 每日登入獎勵 ────── */}
+      <div className="px-4 pt-2 pb-2">
+        <div className="bg-dex-surface border border-dex-border rounded-xl p-4">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2">
+              <Flame size={16} className="text-dex-accent" />
+              <h3 className="text-sm font-black text-white tracking-wide">每日登入</h3>
+              <span className="text-[10px] font-bold text-dex-accent bg-dex-accent/15 border border-dex-accent/30 rounded-full px-2 py-0.5">
+                連續 {streak.streak} 天
+              </span>
+            </div>
+            <span className="text-[10px] font-mono text-dex-muted">累計領取 {streak.totalLogins} 天</span>
+          </div>
+
+          {/* 7 日獎勵循環 */}
+          <div className="flex items-center gap-1.5 mb-3">
+            {LOGIN_DAYS.map(i => {
+              const day = i + 1;
+              const rewardXp = LOGIN_XP[i];
+              const done = day < (loginReward ? loginReward.day : streak.cycleDay);
+              const today = day === (loginReward ? loginReward.day : streak.cycleDay);
+              return (
+                <div
+                  key={day}
+                  className={`flex-1 h-10 rounded-lg flex flex-col items-center justify-center border ${
+                    done
+                      ? 'bg-dex-neon/15 border-dex-neon/40 text-dex-neon'
+                      : today
+                        ? loginReward
+                          ? 'bg-dex-gold/20 border-dex-gold animate-pulse'
+                          : 'bg-dex-gold/10 border-dex-gold/50'
+                        : 'bg-dex-bg border-dex-border text-dex-muted'
+                  }`}
+                >
+                  <span className="text-[11px] font-black leading-none">{done ? '✓' : `D${day}`}</span>
+                  <span className="text-[9px] font-mono mt-0.5 leading-none opacity-80">+{rewardXp}</span>
+                </div>
+              );
+            })}
+          </div>
+
+          {loginReward ? (
+            <button
+              onClick={claimLoginReward}
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-dex-neon to-dex-accent text-dex-bg font-black text-sm tracking-wider active:scale-[0.98] transition shadow-lg shadow-dex-neon/20"
+            >
+              領取今日獎勵 +{loginReward.xp} XP
+              {loginReward.isNewStreak ? '（新一輪）' : '（連續獎勵）'}
+            </button>
+          ) : (
+            <p className="text-center text-[11px] text-dex-muted py-1.5">
+              今日已領取 ✅ 明天再來，保持連續登入拿更多獎勵！
+            </p>
+          )}
+          <p className="text-[10px] text-dex-muted mt-2 text-center leading-relaxed">
+            連續 7 天可領最大獎 +60 XP；漏一天就會重新開始 🔥
+          </p>
+        </div>
+      </div>
+
+      {/* ────── 音效與震動設定 ────── */}
+      <div className="px-4 pt-2 pb-2">
+        <div className="bg-dex-surface border border-dex-border rounded-xl p-4 flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 min-w-0">
+            <Volume2 size={16} className="text-dex-neon shrink-0" />
+            <div className="min-w-0">
+              <h3 className="text-sm font-black text-white">音效與震動</h3>
+              <p className="text-[10px] text-dex-muted">捕捉時的提示音與手機震動回饋</p>
+            </div>
+          </div>
+          <button
+            onClick={() => setSfx(!settings.sfx)}
+            aria-label="切換音效與震動"
+            className={`w-12 h-7 rounded-full relative transition shrink-0 ${settings.sfx ? 'bg-dex-neon' : 'bg-dex-border'}`}
+          >
+            <span className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow transition-all ${settings.sfx ? 'left-[22px]' : 'left-0.5'}`} />
+          </button>
+        </div>
+      </div>
+
+      {/* ────── 觀鳥熱點探索 ────── */}
+      <HotspotStamps />
+
+      {/* ────── 成就徽章牆 ────── */}
+      <AchievementWall />
 
       {/* ────── 異圖卡（精靈化）顯示設定 ────── */}
       <div className="px-4 pt-2 pb-4">

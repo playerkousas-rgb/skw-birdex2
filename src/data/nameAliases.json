@@ -1,13 +1,36 @@
 [
   {
+    "speciesId": 9,
+    "aliases": [
+      "masked laughingthrush"
+    ]
+  },
+  {
+    "speciesId": 16,
+    "aliases": [
+      "parus major"
+    ]
+  },
+  {
+    "speciesId": 84,
+    "aliases": [
+      "malaysian hawk-cuckoo",
+      "hierococcyx fugax"
+    ]
+  },
+  {
+    "speciesId": 237,
+    "aliases": [
+      "von schrenck's bittern"
+    ]
+  },
+  {
     "speciesId": 1,
     "aliases": [
       "spotted dove",
       "spilopelia chinensis",
       "珠頸斑鳩",
-      "珠頸斑鸠",
-      "black-throated laughingthrush",
-      "pterorhinus chinensis"
+      "珠颈斑鸠"
     ]
   },
   {
@@ -34,7 +57,7 @@
       "yellow-crested cockatoo",
       "cacatua sulphurea",
       "小葵花鳳頭鸚鵡",
-      "小葵花鳳頭鹦鹉"
+      "小葵花凤头鹦鹉"
     ]
   },
   {
@@ -52,7 +75,7 @@
       "red-whiskered bulbul",
       "pycnonotus jocosus",
       "紅耳鵯",
-      "紅耳鹎"
+      "红耳鹎"
     ]
   },
   {
@@ -61,7 +84,7 @@
       "light-vented bulbul",
       "pycnonotus sinensis",
       "白頭鵯",
-      "白頭鹎"
+      "白头鹎"
     ]
   },
   {
@@ -70,7 +93,16 @@
       "oriental magpie-robin",
       "copsychus saularis",
       "鵲鴝",
-      "鹊鴝"
+      "鹊鸲"
+    ]
+  },
+  {
+    "speciesId": 9,
+    "aliases": [
+      "black-faced laughingthrush",
+      "pterorhinus perspicillatus",
+      "黑臉噪眉",
+      "黑脸噪眉"
     ]
   },
   {
@@ -78,12 +110,8 @@
     "aliases": [
       "slaty-breasted rail",
       "lewinia striata",
-      "白腰文鳥",
-      "白腰文鸟",
-      "striated heron",
-      "butorides striata",
-      "white-rumped munia",
-      "lonchura striata"
+      "灰胸秧雞",
+      "灰胸秧鸡"
     ]
   },
   {
@@ -92,6 +120,15 @@
       "eurasian tree sparrow",
       "passer montanus",
       "麻雀"
+    ]
+  },
+  {
+    "speciesId": 12,
+    "aliases": [
+      "black-collared starling",
+      "gracupica nigricollis",
+      "黑領椋鳥",
+      "黑领椋鸟"
     ]
   },
   {
@@ -107,8 +144,8 @@
     "aliases": [
       "eurasian magpie",
       "pica pica",
-      "喜鵲",
-      "喜鹊"
+      "歐亞喜鵲",
+      "欧亚喜鹊"
     ]
   },
   {
@@ -117,7 +154,15 @@
       "red-billed blue magpie",
       "urocissa erythrorhyncha",
       "紅嘴藍鵲",
-      "紅嘴藍鹊"
+      "红嘴蓝鹊"
+    ]
+  },
+  {
+    "speciesId": 16,
+    "aliases": [
+      "great tit",
+      "parus minor",
+      "大山雀"
     ]
   },
   {
@@ -125,8 +170,8 @@
     "aliases": [
       "eastern buzzard",
       "buteo japonicus",
-      "暗綠繡眼鳥",
-      "暗綠繡眼鸟"
+      "東方鵟",
+      "东方鵟"
     ]
   },
   {
@@ -134,7 +179,8 @@
     "aliases": [
       "chinese hwamei",
       "garrulax canorus",
-      "畫眉"
+      "畫眉",
+      "画眉"
     ]
   },
   {
@@ -143,7 +189,7 @@
       "fork-tailed sunbird",
       "aethopyga christinae",
       "叉尾太陽鳥",
-      "叉尾太陽鸟"
+      "叉尾太阳鸟"
     ]
   },
   {
@@ -152,7 +198,16 @@
       "common tailorbird",
       "orthotomus sutorius",
       "長尾縫葉鶯",
-      "長尾縫葉莺"
+      "长尾缝叶莺"
+    ]
+  },
+  {
+    "speciesId": 21,
+    "aliases": [
+      "alexandrine parakeet",
+      "psittacula eupatria",
+      "亞歷山大鸚鵡",
+      "亚历山大鹦鹉"
     ]
   },
   {
@@ -161,7 +216,7 @@
       "lesser whistling-duck",
       "dendrocygna javanica",
       "栗樹鴨",
-      "栗樹鸭"
+      "栗树鸭"
     ]
   },
   {
@@ -178,8 +233,7 @@
       "greater white-fronted goose",
       "anser albifrons",
       "白額雁",
-      "little tern",
-      "sternula albifrons"
+      "白额雁"
     ]
   },
   {
@@ -187,7 +241,8 @@
     "aliases": [
       "lesser white-fronted goose",
       "anser erythropus",
-      "小白額雁"
+      "小白額雁",
+      "小白额雁"
     ]
   },
   {
@@ -203,7 +258,8 @@
     "aliases": [
       "tundra bean goose",
       "anser serrirostris",
-      "凍原豆雁"
+      "凍原豆雁",
+      "冻原豆雁"
     ]
   },
   {
@@ -230,7 +286,7 @@
       "common shelduck",
       "tadorna tadorna",
       "翹鼻麻鴨",
-      "翹鼻麻鸭"
+      "翘鼻麻鸭"
     ]
   },
   {
@@ -238,7 +294,8 @@
     "aliases": [
       "cotton pygmy-goose",
       "nettapus coromandelianus",
-      "棉鳧"
+      "棉鳧",
+      "棉凫"
     ]
   },
   {
@@ -246,7 +303,8 @@
     "aliases": [
       "mandarin duck",
       "aix galericulata",
-      "鴛鴦"
+      "鴛鴦",
+      "鸳鸯"
     ]
   },
   {
@@ -255,7 +313,7 @@
       "baikal teal",
       "sibirionetta formosa",
       "花臉鴨",
-      "花臉鸭"
+      "花脸鸭"
     ]
   },
   {
@@ -291,7 +349,7 @@
       "falcated duck",
       "mareca falcata",
       "羅紋鴨",
-      "羅紋鸭"
+      "罗纹鸭"
     ]
   },
   {
@@ -300,7 +358,7 @@
       "eurasian wigeon",
       "mareca penelope",
       "赤頸鴨",
-      "赤頸鸭"
+      "赤颈鸭"
     ]
   },
   {
@@ -308,10 +366,8 @@
     "aliases": [
       "american wigeon",
       "mareca americana",
-      "美洲黑海番鴨",
-      "美洲黑海番鸭",
-      "black scoter",
-      "melanitta americana"
+      "綠眉鴨",
+      "绿眉鸭"
     ]
   },
   {
@@ -320,7 +376,7 @@
       "philippine duck",
       "anas luzonica",
       "棕頸鴨",
-      "棕頸鸭"
+      "棕颈鸭"
     ]
   },
   {
@@ -338,7 +394,7 @@
       "eastern spot-billed duck",
       "anas zonorhyncha",
       "中華斑嘴鴨",
-      "中華斑嘴鸭"
+      "中华斑嘴鸭"
     ]
   },
   {
@@ -347,7 +403,7 @@
       "mallard",
       "anas platyrhynchos",
       "綠頭鴨",
-      "綠頭鸭"
+      "绿头鸭"
     ]
   },
   {
@@ -356,7 +412,7 @@
       "northern pintail",
       "anas acuta",
       "針尾鴨",
-      "針尾鸭"
+      "针尾鸭"
     ]
   },
   {
@@ -365,7 +421,7 @@
       "green-winged teal",
       "anas crecca",
       "綠翅鴨",
-      "綠翅鸭"
+      "绿翅鸭"
     ]
   },
   {
@@ -374,7 +430,7 @@
       "red-crested pochard",
       "netta rufina",
       "赤嘴潛鴨",
-      "赤嘴潛鸭"
+      "赤嘴潜鸭"
     ]
   },
   {
@@ -383,7 +439,7 @@
       "common pochard",
       "aythya ferina",
       "紅頭潛鴨",
-      "紅頭潛鸭"
+      "红头潜鸭"
     ]
   },
   {
@@ -392,7 +448,7 @@
       "ferruginous duck",
       "aythya nyroca",
       "白眼潛鴨",
-      "白眼潛鸭"
+      "白眼潜鸭"
     ]
   },
   {
@@ -401,7 +457,7 @@
       "baer's pochard",
       "aythya baeri",
       "青頭潛鴨",
-      "青頭潛鸭"
+      "青头潜鸭"
     ]
   },
   {
@@ -410,7 +466,7 @@
       "tufted duck",
       "aythya fuligula",
       "鳳頭潛鴨",
-      "鳳頭潛鸭"
+      "凤头潜鸭"
     ]
   },
   {
@@ -419,7 +475,7 @@
       "greater scaup",
       "aythya marila",
       "斑背潛鴨",
-      "斑背潛鸭"
+      "斑背潜鸭"
     ]
   },
   {
@@ -427,27 +483,26 @@
     "aliases": [
       "velvet scoter",
       "melanitta fusca",
-      "紅胸田雞",
-      "ruddy-breasted crake",
-      "zapornia fusca"
+      "絲絨海番鴨",
+      "丝绒海番鸭"
     ]
   },
   {
     "speciesId": 53,
     "aliases": [
       "white-winged scoter",
-      "melanitta deglandi"
+      "melanitta deglandi",
+      "白翅海番鴨",
+      "白翅海番鸭"
     ]
   },
   {
     "speciesId": 54,
     "aliases": [
-      "stejneger's scoter",
       "melanitta stejnegeri",
-      "斑臉海番鴨",
-      "斑臉海番鸭",
       "amur stonechat",
-      "saxicola stejnegeri"
+      "斑臉海番鴨",
+      "斑脸海番鸭"
     ]
   },
   {
@@ -465,7 +520,7 @@
       "smew",
       "mergellus albellus",
       "斑頭秋沙鴨",
-      "斑頭秋沙鸭"
+      "斑头秋沙鸭"
     ]
   },
   {
@@ -474,21 +529,25 @@
       "red-breasted merganser",
       "mergus serrator",
       "紅胸秋沙鴨",
-      "紅胸秋沙鸭"
+      "红胸秋沙鸭"
     ]
   },
   {
     "speciesId": 58,
     "aliases": [
       "scaly-sided merganser",
-      "mergus squamatus"
+      "mergus squamatus",
+      "中華秋沙鴨",
+      "中华秋沙鸭"
     ]
   },
   {
     "speciesId": 59,
     "aliases": [
       "chinese bamboo-partridge",
-      "bambusicola thoracicus"
+      "bambusicola thoracicus",
+      "灰胸竹雞",
+      "灰胸竹鸡"
     ]
   },
   {
@@ -497,7 +556,7 @@
       "chinese francolin",
       "francolinus pintadeanus",
       "中華鷓鴣",
-      "中華鷓鸪"
+      "中华鹧鸪"
     ]
   },
   {
@@ -506,9 +565,7 @@
       "japanese quail",
       "coturnix japonica",
       "鵪鶉",
-      "鹌鹑",
-      "northern boobook",
-      "ninox japonica"
+      "鹌鹑"
     ]
   },
   {
@@ -517,7 +574,7 @@
       "little grebe",
       "tachybaptus ruficollis",
       "小鸊鷉",
-      "小䴙鷉"
+      "小䴙䴙"
     ]
   },
   {
@@ -526,7 +583,7 @@
       "horned grebe",
       "podiceps auritus",
       "角鸊鷉",
-      "角䴙鷉"
+      "角䴙䴙"
     ]
   },
   {
@@ -535,7 +592,7 @@
       "great crested grebe",
       "podiceps cristatus",
       "鳳頭鸊鷉",
-      "鳳頭䴙鷉"
+      "凤头䴙䴙"
     ]
   },
   {
@@ -544,9 +601,7 @@
       "eared grebe",
       "podiceps nigricollis",
       "黑頸鸊鷉",
-      "黑頸䴙鷉",
-      "black-collared starling",
-      "gracupica nigricollis"
+      "黑颈䴙䴙"
     ]
   },
   {
@@ -591,7 +646,7 @@
       "asian emerald dove",
       "chalcophaps indica",
       "綠翅金鳩",
-      "綠翅金鸠"
+      "绿翅金鸠"
     ]
   },
   {
@@ -600,7 +655,7 @@
       "orange-breasted green-pigeon",
       "treron bicinctus",
       "橙胸綠鳩",
-      "橙胸綠鸠"
+      "橙胸绿鸠"
     ]
   },
   {
@@ -609,14 +664,16 @@
       "thick-billed green-pigeon",
       "treron curvirostra",
       "厚嘴綠鳩",
-      "厚嘴綠鸠"
+      "厚嘴绿鸠"
     ]
   },
   {
     "speciesId": 73,
     "aliases": [
       "wedge-tailed green-pigeon",
-      "treron sphenurus"
+      "treron sphenurus",
+      "楔尾綠鳩",
+      "楔尾绿鸠"
     ]
   },
   {
@@ -625,7 +682,7 @@
       "white-bellied green-pigeon",
       "treron sieboldii",
       "紅翅綠鳩",
-      "紅翅綠鸠"
+      "红翅绿鸠"
     ]
   },
   {
@@ -633,10 +690,8 @@
     "aliases": [
       "whistling green-pigeon",
       "treron formosae",
-      "灰樹鵲",
-      "灰樹鹊",
-      "gray treepie",
-      "dendrocitta formosae"
+      "紅頂綠鳩",
+      "红顶绿鸠"
     ]
   },
   {
@@ -663,7 +718,7 @@
       "chestnut-winged cuckoo",
       "clamator coromandus",
       "紅翅鳳頭鵑",
-      "紅翅鳳頭鹃"
+      "红翅凤头鹃"
     ]
   },
   {
@@ -672,7 +727,7 @@
       "plaintive cuckoo",
       "cacomantis merulinus",
       "八聲杜鵑",
-      "八聲杜鹃"
+      "八声杜鹃"
     ]
   },
   {
@@ -681,9 +736,7 @@
       "square-tailed drongo-cuckoo",
       "surniculus lugubris",
       "烏鵑",
-      "烏鹃",
-      "crested kingfisher",
-      "megaceryle lugubris"
+      "乌鹃"
     ]
   },
   {
@@ -709,15 +762,15 @@
     "aliases": [
       "hodgson's hawk-cuckoo",
       "hierococcyx nisicolor",
-      "棕腹杜鵑",
-      "棕腹杜鹃"
+      "霍氏鷹鵑",
+      "霍氏鹰鹃"
     ]
   },
   {
     "speciesId": 84,
     "aliases": [
-      "malaysian hawk-cuckoo",
-      "hierococcyx fugax"
+      "棕腹杜鵑",
+      "棕腹杜鹃"
     ]
   },
   {
@@ -726,9 +779,7 @@
       "lesser cuckoo",
       "cuculus poliocephalus",
       "小杜鵑",
-      "小杜鹃",
-      "gray-headed swamphen",
-      "porphyrio poliocephalus"
+      "小杜鹃"
     ]
   },
   {
@@ -737,7 +788,7 @@
       "indian cuckoo",
       "cuculus micropterus",
       "四聲杜鵑",
-      "四聲杜鹃"
+      "四声杜鹃"
     ]
   },
   {
@@ -773,9 +824,7 @@
       "savanna nightjar",
       "caprimulgus affinis",
       "林夜鷹",
-      "林夜鹰",
-      "white-spectacled warbler",
-      "phylloscopus affinis"
+      "林夜鹰"
     ]
   },
   {
@@ -783,7 +832,8 @@
     "aliases": [
       "white-throated needletail",
       "hirundapus caudacutus",
-      "白喉針尾雨燕"
+      "白喉針尾雨燕",
+      "白喉针尾雨燕"
     ]
   },
   {
@@ -791,9 +841,8 @@
     "aliases": [
       "silver-backed needletail",
       "hirundapus cochinchinensis",
-      "白背針尾雨燕",
-      "blue-winged leafbird",
-      "chloropsis cochinchinensis"
+      "灰喉針尾雨燕",
+      "灰喉针尾雨燕"
     ]
   },
   {
@@ -801,7 +850,8 @@
     "aliases": [
       "brown-backed needletail",
       "hirundapus giganteus",
-      "褐背針尾雨燕"
+      "褐背針尾雨燕",
+      "褐背针尾雨燕"
     ]
   },
   {
@@ -809,7 +859,8 @@
     "aliases": [
       "himalayan swiftlet",
       "aerodramus brevirostris",
-      "短嘴金絲燕"
+      "短嘴金絲燕",
+      "短嘴金丝燕"
     ]
   },
   {
@@ -817,7 +868,8 @@
     "aliases": [
       "common swift",
       "apus apus",
-      "樓燕"
+      "樓燕",
+      "楼燕"
     ]
   },
   {
@@ -825,7 +877,7 @@
     "aliases": [
       "pacific swift",
       "apus pacificus",
-      "雨燕"
+      "白腰雨燕"
     ]
   },
   {
@@ -833,12 +885,7 @@
     "aliases": [
       "house swift",
       "apus nipalensis",
-      "草原鵰",
-      "草原雕",
-      "mountain hawk-eagle",
-      "nisaetus nipalensis",
-      "steppe eagle",
-      "aquila nipalensis"
+      "小白腰雨燕"
     ]
   },
   {
@@ -846,7 +893,8 @@
     "aliases": [
       "water rail",
       "rallus aquaticus",
-      "普通秧雞"
+      "西方秧雞",
+      "西方秧鸡"
     ]
   },
   {
@@ -854,10 +902,8 @@
     "aliases": [
       "brown-cheeked rail",
       "rallus indicus",
-      "灰面鷲",
-      "灰面鹫",
-      "gray-faced buzzard",
-      "butastur indicus"
+      "普通秧雞",
+      "普通秧鸡"
     ]
   },
   {
@@ -865,7 +911,8 @@
     "aliases": [
       "eurasian moorhen",
       "gallinula chloropus",
-      "黑水雞"
+      "黑水雞",
+      "黑水鸡"
     ]
   },
   {
@@ -873,7 +920,8 @@
     "aliases": [
       "eurasian coot",
       "fulica atra",
-      "白骨頂"
+      "白骨頂",
+      "白骨顶"
     ]
   },
   {
@@ -881,9 +929,8 @@
     "aliases": [
       "white-browed crake",
       "poliolimnas cinereus",
-      "灰頭麥雞",
-      "gray-headed lapwing",
-      "vanellus cinereus"
+      "白眉田雞",
+      "白眉田鸡"
     ]
   },
   {
@@ -891,7 +938,8 @@
     "aliases": [
       "watercock",
       "gallicrex cinerea",
-      "董雞"
+      "董雞",
+      "董鸡"
     ]
   },
   {
@@ -900,7 +948,7 @@
       "white-breasted waterhen",
       "amaurornis phoenicurus",
       "白胸苦惡鳥",
-      "白胸苦惡鸟"
+      "白胸苦恶鸟"
     ]
   },
   {
@@ -908,7 +956,8 @@
     "aliases": [
       "slaty-legged crake",
       "rallina eurizonoides",
-      "白喉斑秧雞"
+      "白喉斑秧雞",
+      "白喉斑秧鸡"
     ]
   },
   {
@@ -916,7 +965,8 @@
     "aliases": [
       "band-bellied crake",
       "zapornia paykullii",
-      "斑脇田雞"
+      "斑脇田雞",
+      "斑胁田鸡"
     ]
   },
   {
@@ -925,7 +975,7 @@
       "brown crake",
       "zapornia akool",
       "紅腳苦惡鳥",
-      "紅腳苦惡鸟"
+      "红脚苦恶鸟"
     ]
   },
   {
@@ -933,7 +983,8 @@
     "aliases": [
       "baillon's crake",
       "zapornia pusilla",
-      "小田雞"
+      "小田雞",
+      "小田鸡"
     ]
   },
   {
@@ -969,7 +1020,7 @@
       "black-winged stilt",
       "himantopus himantopus",
       "黑翅長腳鷸",
-      "黑翅長腳鹬"
+      "黑翅长脚鹬"
     ]
   },
   {
@@ -987,7 +1038,7 @@
       "eurasian oystercatcher",
       "haematopus ostralegus",
       "蠣鷸",
-      "蠣鹬"
+      "蛎鹬"
     ]
   },
   {
@@ -995,22 +1046,26 @@
     "aliases": [
       "black-bellied plover",
       "pluvialis squatarola",
-      "灰鴴",
-      "灰鸻"
+      "灰斑鴴",
+      "灰斑鸻"
     ]
   },
   {
     "speciesId": 116,
     "aliases": [
       "european golden-plover",
-      "pluvialis apricaria"
+      "pluvialis apricaria",
+      "歐洲金鴴",
+      "欧洲金鸻"
     ]
   },
   {
     "speciesId": 117,
     "aliases": [
       "american golden-plover",
-      "pluvialis dominica"
+      "pluvialis dominica",
+      "美洲金鴴",
+      "美洲金鸻"
     ]
   },
   {
@@ -1018,8 +1073,8 @@
     "aliases": [
       "pacific golden-plover",
       "pluvialis fulva",
-      "金鴴",
-      "金鸻"
+      "金斑鴴",
+      "金斑鸻"
     ]
   },
   {
@@ -1027,7 +1082,8 @@
     "aliases": [
       "northern lapwing",
       "vanellus vanellus",
-      "鳳頭麥雞"
+      "鳳頭麥雞",
+      "凤头麦鸡"
     ]
   },
   {
@@ -1045,7 +1101,7 @@
       "greater sand-plover",
       "charadrius leschenaultii",
       "鐵嘴沙鴴",
-      "鐵嘴沙鸻"
+      "铁嘴沙鸻"
     ]
   },
   {
@@ -1054,21 +1110,25 @@
       "kentish plover",
       "charadrius alexandrinus",
       "環頸鴴",
-      "環頸鸻"
+      "环颈鸻"
     ]
   },
   {
     "speciesId": 123,
     "aliases": [
       "white-faced plover",
-      "charadrius dealbatus"
+      "charadrius dealbatus",
+      "白臉鴴",
+      "白脸鸻"
     ]
   },
   {
     "speciesId": 124,
     "aliases": [
       "snowy plover",
-      "charadrius nivosus"
+      "charadrius nivosus",
+      "雪鴴",
+      "雪鸻"
     ]
   },
   {
@@ -1077,7 +1137,7 @@
       "common ringed plover",
       "charadrius hiaticula",
       "劍鴴",
-      "劍鸻"
+      "剑鸻"
     ]
   },
   {
@@ -1086,7 +1146,7 @@
       "long-billed plover",
       "charadrius placidus",
       "長嘴鴴",
-      "長嘴鸻"
+      "长嘴鸻"
     ]
   },
   {
@@ -1104,7 +1164,7 @@
       "oriental plover",
       "charadrius veredus",
       "東方鴴",
-      "東方鸻"
+      "东方鸻"
     ]
   },
   {
@@ -1139,9 +1199,7 @@
       "little curlew",
       "numenius minutus",
       "小杓鷸",
-      "小杓鹬",
-      "black noddy",
-      "anous minutus"
+      "小杓鹬"
     ]
   },
   {
@@ -1195,7 +1253,7 @@
       "great knot",
       "calidris tenuirostris",
       "大濱鷸",
-      "大濱鹬"
+      "大滨鹬"
     ]
   },
   {
@@ -1204,7 +1262,7 @@
       "red knot",
       "calidris canutus",
       "紅腹濱鷸",
-      "紅腹濱鹬"
+      "红腹滨鹬"
     ]
   },
   {
@@ -1213,7 +1271,7 @@
       "ruff",
       "calidris pugnax",
       "流蘇鷸",
-      "流蘇鹬"
+      "流苏鹬"
     ]
   },
   {
@@ -1222,9 +1280,7 @@
       "broad-billed sandpiper",
       "calidris falcinellus",
       "闊嘴鷸",
-      "闊嘴鹬",
-      "glossy ibis",
-      "plegadis falcinellus"
+      "阔嘴鹬"
     ]
   },
   {
@@ -1233,7 +1289,7 @@
       "sharp-tailed sandpiper",
       "calidris acuminata",
       "尖尾濱鷸",
-      "尖尾濱鹬"
+      "尖尾滨鹬"
     ]
   },
   {
@@ -1242,7 +1298,7 @@
       "curlew sandpiper",
       "calidris ferruginea",
       "彎嘴濱鷸",
-      "彎嘴濱鹬"
+      "弯嘴滨鹬"
     ]
   },
   {
@@ -1251,7 +1307,7 @@
       "temminck's stint",
       "calidris temminckii",
       "青腳濱鷸",
-      "青腳濱鹬"
+      "青脚滨鹬"
     ]
   },
   {
@@ -1260,7 +1316,7 @@
       "long-toed stint",
       "calidris subminuta",
       "長趾濱鷸",
-      "長趾濱鹬"
+      "长趾滨鹬"
     ]
   },
   {
@@ -1278,7 +1334,7 @@
       "red-necked stint",
       "calidris ruficollis",
       "紅頸濱鷸",
-      "紅頸濱鹬"
+      "红颈滨鹬"
     ]
   },
   {
@@ -1287,7 +1343,7 @@
       "sanderling",
       "calidris alba",
       "三趾濱鷸",
-      "三趾濱鹬"
+      "三趾滨鹬"
     ]
   },
   {
@@ -1296,7 +1352,7 @@
       "dunlin",
       "calidris alpina",
       "黑腹濱鷸",
-      "黑腹濱鹬"
+      "黑腹滨鹬"
     ]
   },
   {
@@ -1305,14 +1361,16 @@
       "little stint",
       "calidris minuta",
       "小濱鷸",
-      "小濱鹬"
+      "小滨鹬"
     ]
   },
   {
     "speciesId": 151,
     "aliases": [
       "buff-breasted sandpiper",
-      "calidris subruficollis"
+      "calidris subruficollis",
+      "黃胸濱鷸",
+      "黄胸滨鹬"
     ]
   },
   {
@@ -1321,7 +1379,7 @@
       "pectoral sandpiper",
       "calidris melanotos",
       "斑胸濱鷸",
-      "斑胸濱鹬"
+      "斑胸滨鹬"
     ]
   },
   {
@@ -1339,7 +1397,7 @@
       "long-billed dowitcher",
       "limnodromus scolopaceus",
       "長嘴半蹼鷸",
-      "長嘴半蹼鹬"
+      "长嘴半蹼鹬"
     ]
   },
   {
@@ -1354,12 +1412,10 @@
   {
     "speciesId": 156,
     "aliases": [
-      "latham's snipe",
-      "gallinago hardwickii",
-      "橙腹葉鵯",
-      "橙腹葉鹎",
       "orange-bellied leafbird",
-      "chloropsis hardwickii"
+      "chloropsis hardwickii",
+      "橙腹葉鵯",
+      "橙腹叶鹎"
     ]
   },
   {
@@ -1367,7 +1423,8 @@
     "aliases": [
       "common snipe",
       "gallinago gallinago",
-      "扇尾沙錐"
+      "扇尾沙錐",
+      "扇尾沙锥"
     ]
   },
   {
@@ -1375,7 +1432,8 @@
     "aliases": [
       "pin-tailed snipe",
       "gallinago stenura",
-      "針尾沙錐"
+      "針尾沙錐",
+      "针尾沙锥"
     ]
   },
   {
@@ -1383,7 +1441,8 @@
     "aliases": [
       "swinhoe's snipe",
       "gallinago megala",
-      "大沙錐"
+      "大沙錐",
+      "大沙锥"
     ]
   },
   {
@@ -1392,7 +1451,7 @@
       "terek sandpiper",
       "xenus cinereus",
       "翹嘴鷸",
-      "翹嘴鹬"
+      "翘嘴鹬"
     ]
   },
   {
@@ -1401,14 +1460,16 @@
       "red-necked phalarope",
       "phalaropus lobatus",
       "紅頸瓣蹼鷸",
-      "紅頸瓣蹼鹬"
+      "红颈瓣蹼鹬"
     ]
   },
   {
     "speciesId": 162,
     "aliases": [
       "red phalarope",
-      "phalaropus fulicarius"
+      "phalaropus fulicarius",
+      "灰瓣蹼鷸",
+      "灰瓣蹼鹬"
     ]
   },
   {
@@ -1417,7 +1478,7 @@
       "common sandpiper",
       "actitis hypoleucos",
       "磯鷸",
-      "磯鹬"
+      "矶鹬"
     ]
   },
   {
@@ -1453,7 +1514,7 @@
       "common greenshank",
       "tringa nebularia",
       "青腳鷸",
-      "青腳鹬"
+      "青脚鹬"
     ]
   },
   {
@@ -1462,7 +1523,7 @@
       "nordmann's greenshank",
       "tringa guttifer",
       "小青腳鷸",
-      "小青腳鹬"
+      "小青脚鹬"
     ]
   },
   {
@@ -1471,7 +1532,7 @@
       "lesser yellowlegs",
       "tringa flavipes",
       "小黃腳鷸",
-      "小黃腳鹬"
+      "小黄脚鹬"
     ]
   },
   {
@@ -1480,7 +1541,7 @@
       "marsh sandpiper",
       "tringa stagnatilis",
       "澤鷸",
-      "澤鹬"
+      "泽鹬"
     ]
   },
   {
@@ -1498,14 +1559,16 @@
       "common redshank",
       "tringa totanus",
       "紅腳鷸",
-      "紅腳鹬"
+      "红脚鹬"
     ]
   },
   {
     "speciesId": 173,
     "aliases": [
       "small buttonquail",
-      "turnix sylvaticus"
+      "turnix sylvaticus",
+      "林三趾鶉",
+      "林三趾鹑"
     ]
   },
   {
@@ -1514,7 +1577,7 @@
       "yellow-legged buttonquail",
       "turnix tanki",
       "黃腳三趾鶉",
-      "黃腳三趾鹑"
+      "黄脚三趾鹑"
     ]
   },
   {
@@ -1539,7 +1602,9 @@
     "speciesId": 177,
     "aliases": [
       "small pratincole",
-      "glareola lactea"
+      "glareola lactea",
+      "灰燕鴴",
+      "灰燕鸻"
     ]
   },
   {
@@ -1548,7 +1613,7 @@
       "pomarine jaeger",
       "stercorarius pomarinus",
       "中賊鷗",
-      "中賊鸥"
+      "中贼鸥"
     ]
   },
   {
@@ -1557,7 +1622,7 @@
       "parasitic jaeger",
       "stercorarius parasiticus",
       "短尾賊鷗",
-      "短尾賊鸥"
+      "短尾贼鸥"
     ]
   },
   {
@@ -1566,7 +1631,7 @@
       "long-tailed jaeger",
       "stercorarius longicaudus",
       "長尾賊鷗",
-      "長尾賊鸥"
+      "长尾贼鸥"
     ]
   },
   {
@@ -1609,7 +1674,7 @@
       "slender-billed gull",
       "chroicocephalus genei",
       "細嘴鷗",
-      "細嘴鸥"
+      "细嘴鸥"
     ]
   },
   {
@@ -1618,7 +1683,7 @@
       "black-headed gull",
       "chroicocephalus ridibundus",
       "紅嘴鷗",
-      "紅嘴鸥"
+      "红嘴鸥"
     ]
   },
   {
@@ -1627,7 +1692,7 @@
       "brown-headed gull",
       "chroicocephalus brunnicephalus",
       "棕頭鷗",
-      "棕頭鸥"
+      "棕头鸥"
     ]
   },
   {
@@ -1643,7 +1708,9 @@
     "speciesId": 189,
     "aliases": [
       "franklin's gull",
-      "leucophaeus pipixcan"
+      "leucophaeus pipixcan",
+      "弗氏鷗",
+      "弗氏鸥"
     ]
   },
   {
@@ -1652,7 +1719,7 @@
       "relict gull",
       "ichthyaetus relictus",
       "遺鷗",
-      "遺鸥"
+      "遗鸥"
     ]
   },
   {
@@ -1661,7 +1728,7 @@
       "pallas's gull",
       "ichthyaetus ichthyaetus",
       "漁鷗",
-      "漁鸥"
+      "渔鸥"
     ]
   },
   {
@@ -1686,21 +1753,27 @@
     "speciesId": 194,
     "aliases": [
       "short-billed gull",
-      "larus brachyrhynchus"
+      "larus brachyrhynchus",
+      "美洲海鷗",
+      "美洲海鸥"
     ]
   },
   {
     "speciesId": 195,
     "aliases": [
       "ring-billed gull",
-      "larus delawarensis"
+      "larus delawarensis",
+      "環嘴鷗",
+      "环嘴鸥"
     ]
   },
   {
     "speciesId": 196,
     "aliases": [
       "herring gull",
-      "larus argentatus"
+      "larus argentatus",
+      "銀鷗",
+      "银鸥"
     ]
   },
   {
@@ -1708,15 +1781,17 @@
     "aliases": [
       "caspian gull",
       "larus cachinnans",
-      "黃腿銀鷗",
-      "黃腿銀鸥"
+      "黃腳銀鷗",
+      "黄脚银鸥"
     ]
   },
   {
     "speciesId": 198,
     "aliases": [
       "iceland gull",
-      "larus glaucoides"
+      "larus glaucoides",
+      "冰島鷗",
+      "冰岛鸥"
     ]
   },
   {
@@ -1724,9 +1799,8 @@
     "aliases": [
       "lesser black-backed gull",
       "larus fuscus",
-      "灰燕鵙",
-      "ashy woodswallow",
-      "artamus fuscus"
+      "小黑背鷗",
+      "小黑背鸥"
     ]
   },
   {
@@ -1753,14 +1827,16 @@
       "glaucous gull",
       "larus hyperboreus",
       "北極鷗",
-      "北極鸥"
+      "北极鸥"
     ]
   },
   {
     "speciesId": 203,
     "aliases": [
       "brown noddy",
-      "anous stolidus"
+      "anous stolidus",
+      "白頂玄燕鷗",
+      "白顶玄燕鸥"
     ]
   },
   {
@@ -1768,10 +1844,8 @@
     "aliases": [
       "sooty tern",
       "onychoprion fuscatus",
-      "褐柳鶯",
-      "褐柳莺",
-      "dusky warbler",
-      "phylloscopus fuscatus"
+      "烏燕鷗",
+      "乌燕鸥"
     ]
   },
   {
@@ -1787,7 +1861,9 @@
     "speciesId": 206,
     "aliases": [
       "aleutian tern",
-      "onychoprion aleuticus"
+      "onychoprion aleuticus",
+      "白腰燕鷗",
+      "白腰燕鸥"
     ]
   },
   {
@@ -1805,7 +1881,7 @@
       "caspian tern",
       "hydroprogne caspia",
       "紅嘴巨鷗",
-      "紅嘴巨鸥"
+      "红嘴巨鸥"
     ]
   },
   {
@@ -1821,7 +1897,9 @@
     "speciesId": 210,
     "aliases": [
       "whiskered tern",
-      "chlidonias hybrida"
+      "chlidonias hybrida",
+      "須浮鷗",
+      "须浮鸥"
     ]
   },
   {
@@ -1830,7 +1908,7 @@
       "roseate tern",
       "sterna dougallii",
       "粉紅燕鷗",
-      "粉紅燕鸥"
+      "粉红燕鸥"
     ]
   },
   {
@@ -1857,7 +1935,7 @@
       "great crested tern",
       "thalasseus bergii",
       "大鳳頭燕鷗",
-      "大鳳頭燕鸥"
+      "大凤头燕鸥"
     ]
   },
   {
@@ -1865,7 +1943,8 @@
     "aliases": [
       "white-tailed tropicbird",
       "phaethon lepturus",
-      "白尾鸏"
+      "白尾鸏",
+      "白尾鹲"
     ]
   },
   {
@@ -1874,7 +1953,7 @@
       "red-throated loon",
       "gavia stellata",
       "紅喉潛鳥",
-      "紅喉潛鸟"
+      "红喉潜鸟"
     ]
   },
   {
@@ -1883,7 +1962,7 @@
       "pacific loon",
       "gavia pacifica",
       "太平洋潛鳥",
-      "太平洋潛鸟"
+      "太平洋潜鸟"
     ]
   },
   {
@@ -1892,7 +1971,7 @@
       "yellow-billed loon",
       "gavia adamsii",
       "黃嘴潛鳥",
-      "黃嘴潛鸟"
+      "黄嘴潜鸟"
     ]
   },
   {
@@ -1900,7 +1979,8 @@
     "aliases": [
       "bulwer's petrel",
       "bulweria bulwerii",
-      "褐燕鸌"
+      "褐燕鸌",
+      "褐燕鹱"
     ]
   },
   {
@@ -1908,14 +1988,17 @@
     "aliases": [
       "streaked shearwater",
       "calonectris leucomelas",
-      "白額鸌"
+      "白額鸌",
+      "白额鹱"
     ]
   },
   {
     "speciesId": 221,
     "aliases": [
       "flesh-footed shearwater",
-      "ardenna carneipes"
+      "ardenna carneipes",
+      "淡足鸌",
+      "淡足鹱"
     ]
   },
   {
@@ -1923,7 +2006,8 @@
     "aliases": [
       "wedge-tailed shearwater",
       "ardenna pacificus",
-      "楔尾鸌"
+      "楔尾鸌",
+      "楔尾鹱"
     ]
   },
   {
@@ -1931,7 +2015,8 @@
     "aliases": [
       "short-tailed shearwater",
       "ardenna tenuirostris",
-      "短尾鸌"
+      "短尾鸌",
+      "短尾鹱"
     ]
   },
   {
@@ -1949,7 +2034,7 @@
       "oriental stork",
       "ciconia boyciana",
       "東方白鸛",
-      "東方白鹳"
+      "东方白鹳"
     ]
   },
   {
@@ -1958,7 +2043,7 @@
       "lesser frigatebird",
       "fregata ariel",
       "白斑軍艦鳥",
-      "白斑軍艦鸟"
+      "白斑军舰鸟"
     ]
   },
   {
@@ -1967,7 +2052,7 @@
       "christmas island frigatebird",
       "fregata andrewsi",
       "白腹軍艦鳥",
-      "白腹軍艦鸟"
+      "白腹军舰鸟"
     ]
   },
   {
@@ -1976,9 +2061,7 @@
       "great frigatebird",
       "fregata minor",
       "黑腹軍艦鳥",
-      "黑腹軍艦鸟",
-      "japanese tit",
-      "parus minor"
+      "黑腹军舰鸟"
     ]
   },
   {
@@ -1987,7 +2070,7 @@
       "masked booby",
       "sula dactylatra",
       "藍臉鰹鳥",
-      "藍臉鰹鸟"
+      "蓝脸鲣鸟"
     ]
   },
   {
@@ -1996,7 +2079,7 @@
       "brown booby",
       "sula leucogaster",
       "褐鰹鳥",
-      "褐鰹鸟"
+      "褐鲣鸟"
     ]
   },
   {
@@ -2005,7 +2088,7 @@
       "red-footed booby",
       "sula sula",
       "紅腳鰹鳥",
-      "紅腳鰹鸟"
+      "红脚鲣鸟"
     ]
   },
   {
@@ -2013,7 +2096,8 @@
     "aliases": [
       "great cormorant",
       "phalacrocorax carbo",
-      "普通鸕鷀"
+      "普通鸕鷀",
+      "普通鸬鹚"
     ]
   },
   {
@@ -2021,7 +2105,8 @@
     "aliases": [
       "japanese cormorant",
       "phalacrocorax capillatus",
-      "綠背鸕鷀"
+      "暗綠背鸕鷀",
+      "暗绿背鸬鹚"
     ]
   },
   {
@@ -2029,7 +2114,8 @@
     "aliases": [
       "dalmatian pelican",
       "pelecanus crispus",
-      "卷羽鵜鶘"
+      "卷羽鵜鶘",
+      "卷羽鹈鹕"
     ]
   },
   {
@@ -2046,8 +2132,7 @@
       "yellow bittern",
       "ixobrychus sinensis",
       "黃斑葦鳽",
-      "white-shouldered starling",
-      "sturnia sinensis"
+      "黄斑苇鳽"
     ]
   },
   {
@@ -2055,7 +2140,8 @@
     "aliases": [
       "schrenck's bittern",
       "ixobrychus eurhythmus",
-      "紫背葦鳽"
+      "紫背葦鳽",
+      "紫背苇鳽"
     ]
   },
   {
@@ -2064,8 +2150,7 @@
       "cinnamon bittern",
       "ixobrychus cinnamomeus",
       "栗葦鳽",
-      "russet sparrow",
-      "passer cinnamomeus"
+      "栗苇鳽"
     ]
   },
   {
@@ -2082,7 +2167,7 @@
       "gray heron",
       "ardea cinerea",
       "蒼鷺",
-      "蒼鹭"
+      "苍鹭"
     ]
   },
   {
@@ -2118,7 +2203,7 @@
       "chinese egret",
       "egretta eulophotes",
       "黃嘴白鷺",
-      "黃嘴白鹭"
+      "黄嘴白鹭"
     ]
   },
   {
@@ -2171,7 +2256,8 @@
     "aliases": [
       "japanese night-heron",
       "gorsachius goisagi",
-      "栗頭鳽"
+      "栗頭鳽",
+      "栗头鳽"
     ]
   },
   {
@@ -2186,7 +2272,9 @@
     "speciesId": 252,
     "aliases": [
       "black-headed ibis",
-      "threskiornis melanocephalus"
+      "threskiornis melanocephalus",
+      "黑頭白䴉",
+      "黑头白鹮"
     ]
   },
   {
@@ -2204,7 +2292,7 @@
       "black-faced spoonbill",
       "platalea minor",
       "黑臉琵鷺",
-      "黑臉琵鹭"
+      "黑脸琵鹭"
     ]
   },
   {
@@ -2213,7 +2301,7 @@
       "osprey",
       "pandion haliaetus",
       "魚鷹",
-      "魚鹰"
+      "鱼鹰"
     ]
   },
   {
@@ -2229,7 +2317,9 @@
     "speciesId": 257,
     "aliases": [
       "oriental honey-buzzard",
-      "pernis ptilorhynchus"
+      "pernis ptilorhynchus",
+      "鳳頭蜂鷹",
+      "凤头蜂鹰"
     ]
   },
   {
@@ -2247,7 +2337,7 @@
       "cinereous vulture",
       "aegypius monachus",
       "禿鷲",
-      "禿鹫"
+      "秃鹫"
     ]
   },
   {
@@ -2265,7 +2355,7 @@
       "greater spotted eagle",
       "clanga clanga",
       "烏鵰",
-      "烏雕"
+      "乌雕"
     ]
   },
   {
@@ -2281,7 +2371,9 @@
     "speciesId": 263,
     "aliases": [
       "bonelli's eagle",
-      "aquila fasciata"
+      "aquila fasciata",
+      "白腹隼鵰",
+      "白腹隼雕"
     ]
   },
   {
@@ -2290,16 +2382,16 @@
       "eastern marsh-harrier",
       "circus spilonotus",
       "白腹鷂",
-      "白腹鹞",
-      "yellow-cheeked tit",
-      "machlolophus spilonotus"
+      "白腹鹞"
     ]
   },
   {
     "speciesId": 265,
     "aliases": [
       "hen harrier",
-      "circus cyaneus"
+      "circus cyaneus",
+      "白尾鷂",
+      "白尾鹞"
     ]
   },
   {
@@ -2317,7 +2409,7 @@
       "crested goshawk",
       "accipiter trivirgatus",
       "鳳頭鷹",
-      "鳳頭鹰"
+      "凤头鹰"
     ]
   },
   {
@@ -2362,7 +2454,7 @@
       "northern goshawk",
       "accipiter gentilis",
       "蒼鷹",
-      "蒼鹰"
+      "苍鹰"
     ]
   },
   {
@@ -2395,21 +2487,27 @@
     "speciesId": 276,
     "aliases": [
       "australasian grass-owl",
-      "tyto longimembris"
+      "tyto longimembris",
+      "草鴞",
+      "草鸮"
     ]
   },
   {
     "speciesId": 277,
     "aliases": [
       "collared scops-owl",
-      "otus lettia"
+      "otus lettia",
+      "領角鴞",
+      "领角鸮"
     ]
   },
   {
     "speciesId": 278,
     "aliases": [
       "sunda scops-owl",
-      "otus lempiji"
+      "otus lempiji",
+      "巽他角鴞",
+      "巽他角鸮"
     ]
   },
   {
@@ -2418,14 +2516,16 @@
       "oriental scops-owl",
       "otus sunia",
       "紅角鴞",
-      "紅角鸮"
+      "红角鸮"
     ]
   },
   {
     "speciesId": 280,
     "aliases": [
       "mountain scops owl",
-      "otus spilocephalus"
+      "otus spilocephalus",
+      "黃嘴角鴞",
+      "黄嘴角鸮"
     ]
   },
   {
@@ -2442,8 +2542,8 @@
     "aliases": [
       "brown fish-owl",
       "ketupa zeylonensis",
-      "褐魚鴞",
-      "褐魚鸮"
+      "褐漁鴞",
+      "褐渔鸮"
     ]
   },
   {
@@ -2451,14 +2551,17 @@
     "aliases": [
       "asian barred owlet",
       "glaucidium cuculoides",
-      "斑頭鵂鶹"
+      "斑頭鵂鶹",
+      "斑头鸺鹠"
     ]
   },
   {
     "speciesId": 284,
     "aliases": [
       "collared owlet",
-      "taenioptynx brodiei"
+      "taenioptynx brodiei",
+      "領鵂鶹",
+      "领鸺鹠"
     ]
   },
   {
@@ -2493,7 +2596,8 @@
     "aliases": [
       "eurasian hoopoe",
       "upupa epops",
-      "戴勝"
+      "戴勝",
+      "戴胜"
     ]
   },
   {
@@ -2509,7 +2613,9 @@
     "speciesId": 290,
     "aliases": [
       "black-backed dwarf-kingfisher",
-      "ceyx erithaca"
+      "ceyx erithaca",
+      "三趾翠鳥",
+      "三趾翠鸟"
     ]
   },
   {
@@ -2533,7 +2639,8 @@
     "aliases": [
       "black-capped kingfisher",
       "halcyon pileata",
-      "藍翡翠"
+      "藍翡翠",
+      "蓝翡翠"
     ]
   },
   {
@@ -2541,7 +2648,8 @@
     "aliases": [
       "collared kingfisher",
       "todirhamphus chloris",
-      "白領翡翠"
+      "白領翡翠",
+      "白领翡翠"
     ]
   },
   {
@@ -2549,7 +2657,8 @@
     "aliases": [
       "pied kingfisher",
       "ceryle rudis",
-      "斑魚狗"
+      "斑魚狗",
+      "斑鱼狗"
     ]
   },
   {
@@ -2557,7 +2666,8 @@
     "aliases": [
       "blue-throated bee-eater",
       "merops viridis",
-      "藍喉蜂虎"
+      "藍喉蜂虎",
+      "蓝喉蜂虎"
     ]
   },
   {
@@ -2573,7 +2683,8 @@
     "aliases": [
       "european roller",
       "coracias garrulus",
-      "藍胸佛法僧"
+      "藍胸佛法僧",
+      "蓝胸佛法僧"
     ]
   },
   {
@@ -2582,7 +2693,7 @@
       "dollarbird",
       "eurystomus orientalis",
       "三寶鳥",
-      "三寶鸟"
+      "三宝鸟"
     ]
   },
   {
@@ -2590,14 +2701,17 @@
     "aliases": [
       "great barbet",
       "psilopogon virens",
-      "大擬鴷"
+      "大擬啄木鳥",
+      "大拟啄木鸟"
     ]
   },
   {
     "speciesId": 301,
     "aliases": [
       "chinese barbet",
-      "psilopogon faber"
+      "psilopogon faber",
+      "黑眉擬啄木鳥",
+      "黑眉拟啄木鸟"
     ]
   },
   {
@@ -2605,7 +2719,8 @@
     "aliases": [
       "eurasian wryneck",
       "jynx torquilla",
-      "蟻鴷"
+      "蟻鴷",
+      "蚁䴕"
     ]
   },
   {
@@ -2632,7 +2747,7 @@
       "bay woodpecker",
       "blythipicus pyrrhotis",
       "黃嘴栗啄木鳥",
-      "黃嘴栗啄木鸟"
+      "黄嘴栗啄木鸟"
     ]
   },
   {
@@ -2650,7 +2765,7 @@
       "gray-headed woodpecker",
       "picus canus",
       "灰頭綠啄木鳥",
-      "灰頭綠啄木鸟"
+      "灰头绿啄木鸟"
     ]
   },
   {
@@ -2658,14 +2773,17 @@
     "aliases": [
       "eurasian kestrel",
       "falco tinnunculus",
-      "紅隼"
+      "紅隼",
+      "红隼"
     ]
   },
   {
     "speciesId": 309,
     "aliases": [
       "amur falcon",
-      "falco amurensis"
+      "falco amurensis",
+      "紅腳隼",
+      "红脚隼"
     ]
   },
   {
@@ -2681,14 +2799,8 @@
     "aliases": [
       "peregrine falcon",
       "falco peregrinus",
-      "遊隼"
-    ]
-  },
-  {
-    "speciesId": 312,
-    "aliases": [
-      "alexandrine parakeet",
-      "psittacula eupatria"
+      "遊隼",
+      "游隼"
     ]
   },
   {
@@ -2697,7 +2809,7 @@
       "rose-ringed parakeet",
       "psittacula krameri",
       "紅領綠鸚鵡",
-      "紅領綠鹦鹉"
+      "红领绿鹦鹉"
     ]
   },
   {
@@ -2706,7 +2818,7 @@
       "blue-winged pitta",
       "pitta moluccensis",
       "藍翅八色鶇",
-      "藍翅八色鸫"
+      "蓝翅八色鸫"
     ]
   },
   {
@@ -2731,14 +2843,18 @@
     "speciesId": 317,
     "aliases": [
       "scarlet minivet",
-      "pericrocotus speciosus"
+      "pericrocotus speciosus",
+      "赤紅山椒鳥",
+      "赤红山椒鸟"
     ]
   },
   {
     "speciesId": 318,
     "aliases": [
       "ryukyu minivet",
-      "pericrocotus tegimae"
+      "pericrocotus tegimae",
+      "琉球山椒鳥",
+      "琉球山椒鸟"
     ]
   },
   {
@@ -2764,10 +2880,8 @@
     "aliases": [
       "rosy minivet",
       "pericrocotus roseus",
-      "粉紅椋鳥",
-      "粉紅椋鸟",
-      "rosy starling",
-      "pastor roseus"
+      "粉紅山椒鳥",
+      "粉红山椒鸟"
     ]
   },
   {
@@ -2784,7 +2898,8 @@
     "aliases": [
       "white-bellied erpornis",
       "erpornis zantholeuca",
-      "白腹鳳鶥"
+      "白腹鳳鶥",
+      "白腹凤鹛"
     ]
   },
   {
@@ -2792,21 +2907,26 @@
     "aliases": [
       "black-naped oriole",
       "oriolus chinensis",
-      "黑枕黃鸝"
+      "黑枕黃鸝",
+      "黑枕黄鹂"
     ]
   },
   {
     "speciesId": 325,
     "aliases": [
       "maroon oriole",
-      "oriolus traillii"
+      "oriolus traillii",
+      "朱鸝",
+      "朱鹂"
     ]
   },
   {
     "speciesId": 326,
     "aliases": [
       "silver oriole",
-      "oriolus mellianus"
+      "oriolus mellianus",
+      "鵲色鸝",
+      "鹊色鹂"
     ]
   },
   {
@@ -2829,7 +2949,9 @@
     "speciesId": 329,
     "aliases": [
       "crow-billed drongo",
-      "dicrurus annectens"
+      "dicrurus annectens",
+      "鴉嘴卷尾",
+      "鸦嘴卷尾"
     ]
   },
   {
@@ -2837,7 +2959,8 @@
     "aliases": [
       "hair-crested drongo",
       "dicrurus hottentottus",
-      "髮冠卷尾"
+      "髮冠卷尾",
+      "发冠卷尾"
     ]
   },
   {
@@ -2854,14 +2977,17 @@
     "aliases": [
       "japanese paradise-flycatcher",
       "terpsiphone atrocaudata",
-      "紫壽帶"
+      "紫壽帶",
+      "紫寿带"
     ]
   },
   {
     "speciesId": 333,
     "aliases": [
       "amur paradise-flycatcher",
-      "terpsiphone incei"
+      "terpsiphone incei",
+      "壽帶",
+      "寿带"
     ]
   },
   {
@@ -2869,7 +2995,8 @@
     "aliases": [
       "tiger shrike",
       "lanius tigrinus",
-      "虎紋伯勞"
+      "虎紋伯勞",
+      "虎纹伯劳"
     ]
   },
   {
@@ -2877,7 +3004,8 @@
     "aliases": [
       "bull-headed shrike",
       "lanius bucephalus",
-      "牛頭伯勞"
+      "牛頭伯勞",
+      "牛头伯劳"
     ]
   },
   {
@@ -2885,7 +3013,8 @@
     "aliases": [
       "red-backed shrike",
       "lanius collurio",
-      "紅背伯勞"
+      "紅背伯勞",
+      "红背伯劳"
     ]
   },
   {
@@ -2893,7 +3022,8 @@
     "aliases": [
       "brown shrike",
       "lanius cristatus",
-      "紅尾伯勞"
+      "紅尾伯勞",
+      "红尾伯劳"
     ]
   },
   {
@@ -2901,21 +3031,26 @@
     "aliases": [
       "long-tailed shrike",
       "lanius schach",
-      "棕背伯勞"
+      "棕背伯勞",
+      "棕背伯劳"
     ]
   },
   {
     "speciesId": 339,
     "aliases": [
       "gray-backed shrike",
-      "lanius tephronotus"
+      "lanius tephronotus",
+      "灰背伯勞",
+      "灰背伯劳"
     ]
   },
   {
     "speciesId": 340,
     "aliases": [
       "chinese gray shrike",
-      "lanius sphenocercus"
+      "lanius sphenocercus",
+      "楔尾伯勞",
+      "楔尾伯劳"
     ]
   },
   {
@@ -2931,21 +3066,27 @@
     "speciesId": 342,
     "aliases": [
       "azure-winged magpie",
-      "cyanopica cyanus"
+      "cyanopica cyanus",
+      "灰喜鵲",
+      "灰喜鹊"
     ]
   },
   {
     "speciesId": 343,
     "aliases": [
       "indochinese green-magpie",
-      "cissa hypoleuca"
+      "cissa hypoleuca",
+      "印支綠鵲",
+      "印支绿鹊"
     ]
   },
   {
     "speciesId": 344,
     "aliases": [
       "oriental magpie",
-      "pica serica"
+      "pica serica",
+      "喜鵲",
+      "喜鹊"
     ]
   },
   {
@@ -2954,21 +3095,25 @@
       "daurian jackdaw",
       "corvus dauuricus",
       "達烏里寒鴉",
-      "達烏里寒鸦"
+      "达乌里寒鸦"
     ]
   },
   {
     "speciesId": 346,
     "aliases": [
       "house crow",
-      "corvus splendens"
+      "corvus splendens",
+      "家鴉",
+      "家鸦"
     ]
   },
   {
     "speciesId": 347,
     "aliases": [
       "rook",
-      "corvus frugilegus"
+      "corvus frugilegus",
+      "禿鼻烏鴉",
+      "秃鼻乌鸦"
     ]
   },
   {
@@ -2977,7 +3122,7 @@
       "carrion crow",
       "corvus corone",
       "小嘴烏鴉",
-      "小嘴烏鸦"
+      "小嘴乌鸦"
     ]
   },
   {
@@ -2986,7 +3131,7 @@
       "large-billed crow",
       "corvus macrorhynchos",
       "大嘴烏鴉",
-      "大嘴烏鸦"
+      "大嘴乌鸦"
     ]
   },
   {
@@ -2995,7 +3140,7 @@
       "collared crow",
       "corvus torquatus",
       "白頸鴉",
-      "白頸鸦"
+      "白颈鸦"
     ]
   },
   {
@@ -3011,7 +3156,8 @@
     "speciesId": 352,
     "aliases": [
       "fire-capped tit",
-      "cephalopyrus flammiceps"
+      "cephalopyrus flammiceps",
+      "火冠雀"
     ]
   },
   {
@@ -3019,7 +3165,8 @@
     "aliases": [
       "yellow-bellied tit",
       "periparus venustulus",
-      "黃腹山雀"
+      "黃腹山雀",
+      "黄腹山雀"
     ]
   },
   {
@@ -3027,7 +3174,8 @@
     "aliases": [
       "varied tit",
       "sittiparus varius",
-      "雜色山雀"
+      "雜色山雀",
+      "杂色山雀"
     ]
   },
   {
@@ -3035,14 +3183,17 @@
     "aliases": [
       "chinese penduline-tit",
       "remiz consobrinus",
-      "攀雀"
+      "中華攀雀",
+      "中华攀雀"
     ]
   },
   {
     "speciesId": 356,
     "aliases": [
       "mongolian short-toed lark",
-      "calandrella dukhunensis"
+      "calandrella dukhunensis",
+      "蒙古短趾百靈",
+      "蒙古短趾百灵"
     ]
   },
   {
@@ -3050,7 +3201,8 @@
     "aliases": [
       "eurasian skylark",
       "alauda arvensis",
-      "雲雀"
+      "雲雀",
+      "云雀"
     ]
   },
   {
@@ -3058,7 +3210,8 @@
     "aliases": [
       "oriental skylark",
       "alauda gulgula",
-      "小雲雀"
+      "小雲雀",
+      "小云雀"
     ]
   },
   {
@@ -3067,7 +3220,7 @@
       "yellow-bellied prinia",
       "prinia flaviventris",
       "黃腹山鷦鶯",
-      "黃腹山鷦莺"
+      "黄腹山鹪莺"
     ]
   },
   {
@@ -3076,7 +3229,7 @@
       "plain prinia",
       "prinia inornata",
       "純色山鷦鶯",
-      "純色山鷦莺"
+      "纯色山鹪莺"
     ]
   },
   {
@@ -3094,7 +3247,7 @@
       "golden-headed cisticola",
       "cisticola exilis",
       "金頭扇尾鶯",
-      "金頭扇尾莺"
+      "金头扇尾莺"
     ]
   },
   {
@@ -3103,14 +3256,16 @@
       "thick-billed warbler",
       "arundinax aedon",
       "厚嘴葦鶯",
-      "厚嘴葦莺"
+      "厚嘴苇莺"
     ]
   },
   {
     "speciesId": 364,
     "aliases": [
       "booted warbler",
-      "iduna caligata"
+      "iduna caligata",
+      "靴籬鶯",
+      "靴篱莺"
     ]
   },
   {
@@ -3119,7 +3274,7 @@
       "sykes's warbler",
       "iduna rama",
       "賽氏篱鶯",
-      "賽氏篱莺"
+      "赛氏篱莺"
     ]
   },
   {
@@ -3128,7 +3283,7 @@
       "black-browed reed warbler",
       "acrocephalus bistrigiceps",
       "黑眉葦鶯",
-      "黑眉葦莺"
+      "黑眉苇莺"
     ]
   },
   {
@@ -3137,7 +3292,7 @@
       "paddyfield warbler",
       "acrocephalus agricola",
       "稻田葦鶯",
-      "稻田葦莺"
+      "稻田苇莺"
     ]
   },
   {
@@ -3146,7 +3301,7 @@
       "blunt-winged warbler",
       "acrocephalus concinens",
       "鈍翅葦鶯",
-      "鈍翅葦莺"
+      "钝翅苇莺"
     ]
   },
   {
@@ -3155,7 +3310,7 @@
       "manchurian reed warbler",
       "acrocephalus tangorum",
       "遠東葦鶯",
-      "遠東葦莺"
+      "远东苇莺"
     ]
   },
   {
@@ -3164,7 +3319,7 @@
       "blyth's reed warbler",
       "acrocephalus dumetorum",
       "布氏葦鶯",
-      "布氏葦莺"
+      "布氏苇莺"
     ]
   },
   {
@@ -3173,14 +3328,16 @@
       "oriental reed warbler",
       "acrocephalus orientalis",
       "東方大葦鶯",
-      "東方大葦莺"
+      "东方大苇莺"
     ]
   },
   {
     "speciesId": 372,
     "aliases": [
       "gray's grasshopper warbler",
-      "helopsaltes fasciolatus"
+      "helopsaltes fasciolatus",
+      "蒼眉蝗鶯",
+      "苍眉蝗莺"
     ]
   },
   {
@@ -3224,8 +3381,8 @@
     "aliases": [
       "lanceolated warbler",
       "locustella lanceolata",
-      "矛紋蝗鶯",
-      "矛紋蝗莺"
+      "矛斑蝗鶯",
+      "矛斑蝗莺"
     ]
   },
   {
@@ -3241,7 +3398,9 @@
     "speciesId": 379,
     "aliases": [
       "chinese bush warbler",
-      "locustella tacsanowskia"
+      "locustella tacsanowskia",
+      "中華短翅蝗鶯",
+      "中华短翅蝗莺"
     ]
   },
   {
@@ -3266,7 +3425,9 @@
     "speciesId": 382,
     "aliases": [
       "benguet bush warbler",
-      "locustella seebohmi"
+      "locustella seebohmi",
+      "本格特短翅蝗鶯",
+      "本格特短翅蝗莺"
     ]
   },
   {
@@ -3274,7 +3435,8 @@
     "aliases": [
       "pygmy cupwing",
       "pnoepyga pusilla",
-      "小鷦鶥"
+      "小鷦鶥",
+      "小鹪鹛"
     ]
   },
   {
@@ -3289,7 +3451,8 @@
     "speciesId": 385,
     "aliases": [
       "bank swallow",
-      "riparia riparia"
+      "riparia riparia",
+      "崖沙燕"
     ]
   },
   {
@@ -3321,7 +3484,8 @@
     "aliases": [
       "common house-martin",
       "delichon urbicum",
-      "白腹毛腳燕"
+      "白腹毛腳燕",
+      "白腹毛脚燕"
     ]
   },
   {
@@ -3329,7 +3493,8 @@
     "aliases": [
       "asian house-martin",
       "delichon dasypus",
-      "煙腹毛腳燕"
+      "煙腹毛腳燕",
+      "烟腹毛脚燕"
     ]
   },
   {
@@ -3338,7 +3503,7 @@
       "sooty-headed bulbul",
       "pycnonotus aurigaster",
       "白喉紅臀鵯",
-      "白喉紅臀鹎"
+      "白喉红臀鹎"
     ]
   },
   {
@@ -3347,14 +3512,16 @@
       "black bulbul",
       "hypsipetes leucocephalus",
       "黑短腳鵯",
-      "黑短腳鹎"
+      "黑短脚鹎"
     ]
   },
   {
     "speciesId": 393,
     "aliases": [
       "brown-eared bulbul",
-      "hypsipetes amaurotis"
+      "hypsipetes amaurotis",
+      "栗耳短腳鵯",
+      "栗耳短脚鹎"
     ]
   },
   {
@@ -3363,7 +3530,7 @@
       "chestnut bulbul",
       "hemixos castanonotus",
       "栗背短腳鵯",
-      "栗背短腳鹎"
+      "栗背短脚鹎"
     ]
   },
   {
@@ -3372,14 +3539,16 @@
       "mountain bulbul",
       "ixos mcclellandii",
       "綠翅短腳鵯",
-      "綠翅短腳鹎"
+      "绿翅短脚鹎"
     ]
   },
   {
     "speciesId": 396,
     "aliases": [
       "wood warbler",
-      "phylloscopus sibilatrix"
+      "phylloscopus sibilatrix",
+      "林柳鶯",
+      "林柳莺"
     ]
   },
   {
@@ -3388,7 +3557,7 @@
       "yellow-browed warbler",
       "phylloscopus inornatus",
       "黃眉柳鶯",
-      "黃眉柳莺"
+      "黄眉柳莺"
     ]
   },
   {
@@ -3406,7 +3575,7 @@
       "chinese leaf warbler",
       "phylloscopus yunnanensis",
       "雲南柳鶯",
-      "雲南柳莺"
+      "云南柳莺"
     ]
   },
   {
@@ -3415,7 +3584,7 @@
       "pallas's leaf warbler",
       "phylloscopus proregulus",
       "黃腰柳鶯",
-      "黃腰柳莺"
+      "黄腰柳莺"
     ]
   },
   {
@@ -3442,14 +3611,16 @@
       "willow warbler",
       "phylloscopus trochilus",
       "歐柳鶯",
-      "歐柳莺"
+      "欧柳莺"
     ]
   },
   {
     "speciesId": 404,
     "aliases": [
       "mountain chiffchaff",
-      "phylloscopus sindianus"
+      "phylloscopus sindianus",
+      "東方嘰喳柳鶯",
+      "东方叽喳柳莺"
     ]
   },
   {
@@ -3458,7 +3629,7 @@
       "common chiffchaff",
       "phylloscopus collybita",
       "嘰喳柳鶯",
-      "嘰喳柳莺"
+      "叽喳柳莺"
     ]
   },
   {
@@ -3474,7 +3645,9 @@
     "speciesId": 407,
     "aliases": [
       "ijima's leaf warbler",
-      "phylloscopus ijimae"
+      "phylloscopus ijimae",
+      "飯島柳鶯",
+      "饭岛柳莺"
     ]
   },
   {
@@ -3499,7 +3672,9 @@
     "speciesId": 410,
     "aliases": [
       "martens's warbler",
-      "phylloscopus omeiensis"
+      "phylloscopus omeiensis",
+      "峨眉鶲鶯",
+      "峨眉鹟莺"
     ]
   },
   {
@@ -3508,7 +3683,7 @@
       "alström's warbler",
       "phylloscopus soror",
       "純色尾鶲鶯",
-      "純色尾鹟莺"
+      "纯色尾鹟莺"
     ]
   },
   {
@@ -3517,14 +3692,16 @@
       "greenish warbler",
       "phylloscopus trochiloides",
       "暗綠柳鶯",
-      "暗綠柳莺"
+      "暗绿柳莺"
     ]
   },
   {
     "speciesId": 413,
     "aliases": [
       "emei leaf warbler",
-      "phylloscopus emeiensis"
+      "phylloscopus emeiensis",
+      "峨眉柳鶯",
+      "峨眉柳莺"
     ]
   },
   {
@@ -3533,7 +3710,7 @@
       "pale-legged leaf warbler",
       "phylloscopus tenellipes",
       "淡腳柳鶯",
-      "淡腳柳莺"
+      "淡脚柳莺"
     ]
   },
   {
@@ -3542,14 +3719,16 @@
       "sakhalin leaf warbler",
       "phylloscopus borealoides",
       "日本淡腳柳鶯",
-      "日本淡腳柳莺"
+      "日本淡脚柳莺"
     ]
   },
   {
     "speciesId": 416,
     "aliases": [
       "japanese leaf warbler",
-      "phylloscopus xanthodryas"
+      "phylloscopus xanthodryas",
+      "日本柳鶯",
+      "日本柳莺"
     ]
   },
   {
@@ -3558,7 +3737,7 @@
       "arctic warbler",
       "phylloscopus borealis",
       "極北柳鶯",
-      "極北柳莺"
+      "极北柳莺"
     ]
   },
   {
@@ -3566,7 +3745,8 @@
     "aliases": [
       "chestnut-crowned warbler",
       "phylloscopus castaniceps",
-      "栗耳鳳鶥"
+      "栗頭鶲鶯",
+      "栗头鹟莺"
     ]
   },
   {
@@ -3582,21 +3762,27 @@
     "speciesId": 420,
     "aliases": [
       "claudia's leaf warbler",
-      "phylloscopus claudiae"
+      "phylloscopus claudiae",
+      "冠紋柳鶯",
+      "冠纹柳莺"
     ]
   },
   {
     "speciesId": 421,
     "aliases": [
       "hartert's leaf warbler",
-      "phylloscopus goodsoni"
+      "phylloscopus goodsoni",
+      "華南冠紋柳鶯",
+      "华南冠纹柳莺"
     ]
   },
   {
     "speciesId": 422,
     "aliases": [
       "kloss's leaf warbler",
-      "phylloscopus ogilviegranti"
+      "phylloscopus ogilviegranti",
+      "白斑尾柳鶯",
+      "白斑尾柳莺"
     ]
   },
   {
@@ -3605,7 +3791,7 @@
       "pale-footed bush warbler",
       "urosphena pallidipes",
       "淡腳樹鶯",
-      "淡腳樹莺"
+      "淡脚树莺"
     ]
   },
   {
@@ -3614,7 +3800,7 @@
       "asian stubtail",
       "urosphena squameiceps",
       "鱗頭樹鶯",
-      "鱗頭樹莺"
+      "鳞头树莺"
     ]
   },
   {
@@ -3623,7 +3809,7 @@
       "rufous-faced warbler",
       "abroscopus albogularis",
       "棕臉鶲鶯",
-      "棕臉鹟莺"
+      "棕脸鹟莺"
     ]
   },
   {
@@ -3632,7 +3818,7 @@
       "mountain tailorbird",
       "phyllergates cuculatus",
       "栗頭縫葉鶯",
-      "栗頭縫葉莺"
+      "栗头缝叶莺"
     ]
   },
   {
@@ -3641,7 +3827,7 @@
       "manchurian bush warbler",
       "horornis borealis",
       "遠東樹鶯",
-      "遠東樹莺"
+      "远东树莺"
     ]
   },
   {
@@ -3650,14 +3836,16 @@
       "brownish-flanked bush warbler",
       "horornis fortipes",
       "強腳樹鶯",
-      "強腳樹莺"
+      "强脚树莺"
     ]
   },
   {
     "speciesId": 429,
     "aliases": [
       "black-throated tit",
-      "aegithalos concinnus"
+      "aegithalos concinnus",
+      "紅頭長尾山雀",
+      "红头长尾山雀"
     ]
   },
   {
@@ -3673,28 +3861,36 @@
     "speciesId": 431,
     "aliases": [
       "spot-breasted parrotbill",
-      "paradoxornis guttaticollis"
+      "paradoxornis guttaticollis",
+      "點胸鴉雀",
+      "点胸鸦雀"
     ]
   },
   {
     "speciesId": 432,
     "aliases": [
       "vinous-throated parrotbill",
-      "sinosuthora webbiana"
+      "sinosuthora webbiana",
+      "粉紅鸚嘴",
+      "粉红鹦嘴"
     ]
   },
   {
     "speciesId": 433,
     "aliases": [
       "indochinese yuhina",
-      "staphida torqueola"
+      "staphida torqueola",
+      "栗頸鳳鶥",
+      "栗颈凤鹛"
     ]
   },
   {
     "speciesId": 434,
     "aliases": [
       "black-chinned yuhina",
-      "yuhina nigrimenta"
+      "yuhina nigrimenta",
+      "黑額鳳鶥",
+      "黑额凤鹛"
     ]
   },
   {
@@ -3703,14 +3899,16 @@
       "chestnut-flanked white-eye",
       "zosterops erythropleurus",
       "紅脇繡眼鳥",
-      "紅脇繡眼鸟"
+      "红胁绣眼鸟"
     ]
   },
   {
     "speciesId": 436,
     "aliases": [
       "swinhoe's white-eye",
-      "zosterops simplex"
+      "zosterops simplex",
+      "暗綠繡眼鳥",
+      "暗绿绣眼鸟"
     ]
   },
   {
@@ -3718,7 +3916,8 @@
     "aliases": [
       "rufous-capped babbler",
       "stachyridopsis ruficeps",
-      "紅頭穗鶥"
+      "紅頭穗鶥",
+      "红头穗鹛"
     ]
   },
   {
@@ -3726,7 +3925,8 @@
     "aliases": [
       "streak-breasted scimitar-babbler",
       "pomatorhinus ruficollis",
-      "棕頸鈎嘴鶥"
+      "棕頸鈎嘴鶥",
+      "棕颈钩嘴鹛"
     ]
   },
   {
@@ -3734,8 +3934,8 @@
     "aliases": [
       "chinese grassbird",
       "graminicola striatus",
-      "綠鷺",
-      "綠鹭"
+      "中華草鶥",
+      "中华草鹛"
     ]
   },
   {
@@ -3743,7 +3943,8 @@
     "aliases": [
       "huet's fulvetta",
       "alcippe hueti",
-      "黑眉雀鶥"
+      "黑眉雀鶥",
+      "黑眉雀鹛"
     ]
   },
   {
@@ -3751,7 +3952,8 @@
     "aliases": [
       "blue-winged minla",
       "minla cyanouroptera",
-      "藍翅希鶥"
+      "藍翅希鶥",
+      "蓝翅希鹛"
     ]
   },
   {
@@ -3760,7 +3962,7 @@
       "red-billed leiothrix",
       "leiothrix lutea",
       "紅嘴相思鳥",
-      "紅嘴相思鸟"
+      "红嘴相思鸟"
     ]
   },
   {
@@ -3769,7 +3971,7 @@
       "silver-eared mesia",
       "leiothrix argentauris",
       "銀耳相思鳥",
-      "銀耳相思鸟"
+      "银耳相思鸟"
     ]
   },
   {
@@ -3777,15 +3979,15 @@
     "aliases": [
       "white-browed laughingthrush",
       "pterorhinus sannio",
-      "白頰噪鶥"
+      "白頰噪鶥",
+      "白颊噪鹛"
     ]
   },
   {
     "speciesId": 445,
     "aliases": [
-      "masked laughingthrush",
-      "pterorhinus perspicillatus",
-      "黑臉噪鶥"
+      "黑臉噪鶥",
+      "黑脸噪鹛"
     ]
   },
   {
@@ -3793,7 +3995,8 @@
     "aliases": [
       "greater necklaced laughingthrush",
       "pterorhinus pectoralis",
-      "黑領噪鶥"
+      "黑領噪鶥",
+      "黑领噪鹛"
     ]
   },
   {
@@ -3801,7 +4004,8 @@
     "aliases": [
       "chinese babax",
       "pterorhinus lanceolatus",
-      "矛紋草鶥"
+      "矛紋草鶥",
+      "矛纹草鹛"
     ]
   },
   {
@@ -3810,7 +4014,7 @@
       "velvet-fronted nuthatch",
       "sitta frontalis",
       "絨額鳾",
-      "絨額䴓"
+      "绒额䴓"
     ]
   },
   {
@@ -3844,7 +4048,9 @@
     "speciesId": 452,
     "aliases": [
       "chestnut-tailed starling",
-      "sturnia malabarica"
+      "sturnia malabarica",
+      "灰頭椋鳥",
+      "灰头椋鸟"
     ]
   },
   {
@@ -3853,7 +4059,7 @@
       "red-billed starling",
       "spodiopsar sericeus",
       "絲光椋鳥",
-      "絲光椋鸟"
+      "丝光椋鸟"
     ]
   },
   {
@@ -3877,7 +4083,9 @@
     "speciesId": 456,
     "aliases": [
       "white's thrush",
-      "zoothera aurea"
+      "zoothera aurea",
+      "懷氏地鶇",
+      "怀氏地鸫"
     ]
   },
   {
@@ -3904,7 +4112,7 @@
       "orange-headed thrush",
       "geokichla citrina",
       "橙頭地鶇",
-      "橙頭地鸫"
+      "橙头地鸫"
     ]
   },
   {
@@ -3913,7 +4121,7 @@
       "chinese thrush",
       "otocichla mupinensis",
       "寶興歌鶇",
-      "寶興歌鸫"
+      "宝兴歌鸫"
     ]
   },
   {
@@ -3921,15 +4129,17 @@
     "aliases": [
       "eurasian blackbird",
       "turdus merula",
-      "烏鶇",
-      "烏鸫"
+      "歐烏鶇",
+      "欧乌鸫"
     ]
   },
   {
     "speciesId": 462,
     "aliases": [
       "chinese blackbird",
-      "turdus mandarinus"
+      "turdus mandarinus",
+      "烏鶇",
+      "乌鸫"
     ]
   },
   {
@@ -3938,7 +4148,7 @@
       "japanese thrush",
       "turdus cardis",
       "烏灰鶇",
-      "烏灰鸫"
+      "乌灰鸫"
     ]
   },
   {
@@ -3981,7 +4191,9 @@
     "speciesId": 468,
     "aliases": [
       "black-throated thrush",
-      "turdus atrogularis"
+      "turdus atrogularis",
+      "黑喉鶇",
+      "黑喉鸫"
     ]
   },
   {
@@ -3990,14 +4202,16 @@
       "red-throated thrush",
       "turdus ruficollis",
       "赤頸鶇",
-      "赤頸鸫"
+      "赤颈鸫"
     ]
   },
   {
     "speciesId": 470,
     "aliases": [
       "dusky thrush",
-      "turdus eunomus"
+      "turdus eunomus",
+      "斑鶇",
+      "斑鸫"
     ]
   },
   {
@@ -4005,8 +4219,8 @@
     "aliases": [
       "naumann's thrush",
       "turdus naumanni",
-      "斑鶇",
-      "斑鸫"
+      "紅尾斑鶇",
+      "红尾斑鸫"
     ]
   },
   {
@@ -4015,7 +4229,7 @@
       "gray-streaked flycatcher",
       "muscicapa griseisticta",
       "灰紋鶲",
-      "灰紋鹟"
+      "灰纹鹟"
     ]
   },
   {
@@ -4024,7 +4238,7 @@
       "dark-sided flycatcher",
       "muscicapa sibirica",
       "烏鶲",
-      "烏鹟"
+      "乌鹟"
     ]
   },
   {
@@ -4059,8 +4273,8 @@
     "aliases": [
       "white-rumped shama",
       "copsychus malabaricus",
-      "灰頭椋鳥",
-      "灰頭椋鸟"
+      "白腰鵲鴝",
+      "白腰鹊鸲"
     ]
   },
   {
@@ -4069,7 +4283,7 @@
       "hainan blue flycatcher",
       "cyornis hainanus",
       "海南藍仙鶲",
-      "海南藍仙鹟"
+      "海南蓝仙鹟"
     ]
   },
   {
@@ -4078,21 +4292,25 @@
       "chinese blue flycatcher",
       "cyornis glaucicomans",
       "中華仙鶲",
-      "中華仙鹟"
+      "中华仙鹟"
     ]
   },
   {
     "speciesId": 480,
     "aliases": [
       "hill blue flycatcher",
-      "cyornis whitei"
+      "cyornis whitei",
+      "山藍仙鶲",
+      "山蓝仙鹟"
     ]
   },
   {
     "speciesId": 481,
     "aliases": [
       "brown-chested jungle flycatcher",
-      "cyornis brunneatus"
+      "cyornis brunneatus",
+      "白喉林鶲",
+      "白喉林鹟"
     ]
   },
   {
@@ -4119,7 +4337,7 @@
       "blue-and-white flycatcher",
       "cyanoptila cyanomelana",
       "白腹藍姬鶲",
-      "白腹藍姬鹟"
+      "白腹蓝姬鹟"
     ]
   },
   {
@@ -4128,21 +4346,25 @@
       "zappey's flycatcher",
       "cyanoptila cumatilis",
       "琉璃藍鶲",
-      "琉璃藍鹟"
+      "琉璃蓝鹟"
     ]
   },
   {
     "speciesId": 486,
     "aliases": [
       "verditer flycatcher",
-      "eumyias thalassinus"
+      "eumyias thalassinus",
+      "銅藍鶲",
+      "铜蓝鹟"
     ]
   },
   {
     "speciesId": 487,
     "aliases": [
       "lesser shortwing",
-      "brachypteryx leucophris"
+      "brachypteryx leucophris",
+      "白喉短翅鶇",
+      "白喉短翅鸫"
     ]
   },
   {
@@ -4150,7 +4372,8 @@
     "aliases": [
       "rufous-tailed robin",
       "larvivora sibilans",
-      "紅尾歌鴝"
+      "紅尾歌鴝",
+      "红尾歌鸲"
     ]
   },
   {
@@ -4158,7 +4381,8 @@
     "aliases": [
       "japanese robin",
       "larvivora akahige",
-      "日本歌鴝"
+      "日本歌鴝",
+      "日本歌鸲"
     ]
   },
   {
@@ -4166,7 +4390,8 @@
     "aliases": [
       "siberian blue robin",
       "larvivora cyane",
-      "藍歌鴝"
+      "藍歌鴝",
+      "蓝歌鸲"
     ]
   },
   {
@@ -4174,7 +4399,8 @@
     "aliases": [
       "bluethroat",
       "luscinia svecica",
-      "藍喉歌鴝"
+      "藍喉歌鴝",
+      "蓝喉歌鸲"
     ]
   },
   {
@@ -4183,14 +4409,15 @@
       "blue whistling-thrush",
       "myophonus caeruleus",
       "紫嘯鶇",
-      "紫嘯鸫"
+      "紫啸鸫"
     ]
   },
   {
     "speciesId": 493,
     "aliases": [
       "white-crowned forktail",
-      "enicurus leschenaulti"
+      "enicurus leschenaulti",
+      "白冠燕尾"
     ]
   },
   {
@@ -4206,14 +4433,17 @@
     "aliases": [
       "siberian rubythroat",
       "calliope calliope",
-      "紅喉歌鴝"
+      "紅喉歌鴝",
+      "红喉歌鸲"
     ]
   },
   {
     "speciesId": 496,
     "aliases": [
       "white-tailed robin",
-      "myiomela leucura"
+      "myiomela leucura",
+      "白尾藍地鴝",
+      "白尾蓝地鸲"
     ]
   },
   {
@@ -4221,7 +4451,8 @@
     "aliases": [
       "red-flanked bluetail",
       "tarsiger cyanurus",
-      "紅脇藍尾鴝"
+      "紅脇藍尾鴝",
+      "红胁蓝尾鸲"
     ]
   },
   {
@@ -4239,7 +4470,7 @@
       "green-backed flycatcher",
       "ficedula elisae",
       "綠背姬鶲",
-      "綠背姬鹟"
+      "绿背姬鹟"
     ]
   },
   {
@@ -4248,14 +4479,16 @@
       "narcissus flycatcher",
       "ficedula narcissina",
       "黃眉姬鶲",
-      "黃眉姬鹟"
+      "黄眉姬鹟"
     ]
   },
   {
     "speciesId": 501,
     "aliases": [
-      "ryuku flycatcher",
-      "ficedula owstoni"
+      "ryukyu flycatcher",
+      "ficedula owstoni",
+      "琉球姬鶲",
+      "琉球姬鹟"
     ]
   },
   {
@@ -4264,14 +4497,16 @@
       "mugimaki flycatcher",
       "ficedula mugimaki",
       "鴝姬鶲",
-      "鴝姬鹟"
+      "鸲姬鹟"
     ]
   },
   {
     "speciesId": 503,
     "aliases": [
       "slaty-backed flycatcher",
-      "ficedula erithacus"
+      "ficedula erithacus",
+      "鏽胸藍姬鶲",
+      "锈胸蓝姬鹟"
     ]
   },
   {
@@ -4287,7 +4522,9 @@
     "speciesId": 505,
     "aliases": [
       "ultramarine flycatcher",
-      "ficedula superciliaris"
+      "ficedula superciliaris",
+      "白眉藍姬鶲",
+      "白眉蓝姬鹟"
     ]
   },
   {
@@ -4296,7 +4533,7 @@
       "taiga flycatcher",
       "ficedula albicilla",
       "紅喉姬鶲",
-      "紅喉姬鹟"
+      "红喉姬鹟"
     ]
   },
   {
@@ -4305,7 +4542,7 @@
       "red-breasted flycatcher",
       "ficedula parva",
       "紅胸姬鶲",
-      "紅胸姬鹟"
+      "红胸姬鹟"
     ]
   },
   {
@@ -4313,7 +4550,8 @@
     "aliases": [
       "plumbeous redstart",
       "phoenicurus fuliginosus",
-      "紅尾水鴝"
+      "紅尾水鴝",
+      "红尾水鸲"
     ]
   },
   {
@@ -4321,7 +4559,8 @@
     "aliases": [
       "hodgson's redstart",
       "phoenicurus hodgsoni",
-      "黑喉紅尾鴝"
+      "黑喉紅尾鴝",
+      "黑喉红尾鸲"
     ]
   },
   {
@@ -4329,7 +4568,8 @@
     "aliases": [
       "black redstart",
       "phoenicurus ochruros",
-      "赭紅尾鴝"
+      "赭紅尾鴝",
+      "赭红尾鸲"
     ]
   },
   {
@@ -4337,7 +4577,8 @@
     "aliases": [
       "daurian redstart",
       "phoenicurus auroreus",
-      "北紅尾鴝"
+      "北紅尾鴝",
+      "北红尾鸲"
     ]
   },
   {
@@ -4346,7 +4587,7 @@
       "chestnut-bellied rock-thrush",
       "monticola rufiventris",
       "栗腹磯鶇",
-      "栗腹磯鸫"
+      "栗腹矶鸫"
     ]
   },
   {
@@ -4355,7 +4596,7 @@
       "white-throated rock-thrush",
       "monticola gularis",
       "白喉磯鶇",
-      "白喉磯鸫"
+      "白喉矶鸫"
     ]
   },
   {
@@ -4364,28 +4605,32 @@
       "blue rock-thrush",
       "monticola solitarius",
       "藍磯鶇",
-      "藍磯鸫"
+      "蓝矶鸫"
     ]
   },
   {
     "speciesId": 515,
     "aliases": [
       "siberian stonechat",
-      "saxicola maurus"
+      "saxicola maurus",
+      "黑喉石䳭"
     ]
   },
   {
     "speciesId": 516,
     "aliases": [
       "gray bushchat",
-      "saxicola ferreus"
+      "saxicola ferreus",
+      "灰林䳭"
     ]
   },
   {
     "speciesId": 517,
     "aliases": [
       "pied wheatear",
-      "oenanthe pleschanka"
+      "oenanthe pleschanka",
+      "白頂䳭",
+      "白顶䳭"
     ]
   },
   {
@@ -4401,7 +4646,9 @@
     "speciesId": 519,
     "aliases": [
       "plain flowerpecker",
-      "dicaeum minullum"
+      "dicaeum minullum",
+      "純色啄花鳥",
+      "纯色啄花鸟"
     ]
   },
   {
@@ -4410,7 +4657,7 @@
       "fire-breasted flowerpecker",
       "dicaeum ignipectus",
       "紅胸啄花鳥",
-      "紅胸啄花鸟"
+      "红胸啄花鸟"
     ]
   },
   {
@@ -4428,7 +4675,7 @@
       "mrs. gould's sunbird",
       "aethopyga gouldiae",
       "藍喉太陽鳥",
-      "藍喉太陽鸟"
+      "蓝喉太阳鸟"
     ]
   },
   {
@@ -4436,7 +4683,8 @@
     "aliases": [
       "baya weaver",
       "ploceus philippinus",
-      "黃胸織雀"
+      "黃胸織雀",
+      "黄胸织雀"
     ]
   },
   {
@@ -4461,7 +4709,8 @@
     "speciesId": 526,
     "aliases": [
       "house sparrow",
-      "passer domesticus"
+      "passer domesticus",
+      "家麻雀"
     ]
   },
   {
@@ -4487,15 +4736,17 @@
     "aliases": [
       "western yellow wagtail",
       "motacilla flava",
-      "黃鶺鴒",
-      "黃鹡鸰"
+      "西方黃鶺鴒",
+      "西方黄鹡鸰"
     ]
   },
   {
     "speciesId": 530,
     "aliases": [
       "eastern yellow wagtail",
-      "motacilla tschutschensis"
+      "motacilla tschutschensis",
+      "黃鶺鴒",
+      "黄鹡鸰"
     ]
   },
   {
@@ -4504,7 +4755,7 @@
       "citrine wagtail",
       "motacilla citreola",
       "黃頭鶺鴒",
-      "黃頭鹡鸰"
+      "黄头鹡鸰"
     ]
   },
   {
@@ -4521,7 +4772,8 @@
     "aliases": [
       "richard's pipit",
       "anthus richardi",
-      "田鷚"
+      "田鷚",
+      "田鹨"
     ]
   },
   {
@@ -4529,7 +4781,8 @@
     "aliases": [
       "blyth's pipit",
       "anthus godlewskii",
-      "布氏鷚"
+      "布氏鷚",
+      "布氏鹨"
     ]
   },
   {
@@ -4537,7 +4790,8 @@
     "aliases": [
       "upland pipit",
       "anthus sylvanus",
-      "山鷚"
+      "山鷚",
+      "山鹨"
     ]
   },
   {
@@ -4545,14 +4799,17 @@
     "aliases": [
       "rosy pipit",
       "anthus roseatus",
-      "粉紅胸鷚"
+      "粉紅胸鷚",
+      "粉红胸鹨"
     ]
   },
   {
     "speciesId": 537,
     "aliases": [
       "tree pipit",
-      "anthus trivialis"
+      "anthus trivialis",
+      "林鷚",
+      "林鹨"
     ]
   },
   {
@@ -4560,7 +4817,8 @@
     "aliases": [
       "olive-backed pipit",
       "anthus hodgsoni",
-      "樹鷚"
+      "樹鷚",
+      "树鹨"
     ]
   },
   {
@@ -4568,7 +4826,8 @@
     "aliases": [
       "pechora pipit",
       "anthus gustavi",
-      "北鷚"
+      "北鷚",
+      "北鹨"
     ]
   },
   {
@@ -4576,7 +4835,8 @@
     "aliases": [
       "red-throated pipit",
       "anthus cervinus",
-      "紅喉鷚"
+      "紅喉鷚",
+      "红喉鹨"
     ]
   },
   {
@@ -4584,7 +4844,8 @@
     "aliases": [
       "water pipit",
       "anthus spinoletta",
-      "水鷚"
+      "水鷚",
+      "水鹨"
     ]
   },
   {
@@ -4592,7 +4853,8 @@
     "aliases": [
       "american pipit",
       "anthus rubescens",
-      "黃腹鷚"
+      "黃腹鷚",
+      "黄腹鹨"
     ]
   },
   {
@@ -4608,7 +4870,8 @@
     "aliases": [
       "hawfinch",
       "coccothraustes coccothraustes",
-      "錫嘴雀"
+      "錫嘴雀",
+      "锡嘴雀"
     ]
   },
   {
@@ -4616,7 +4879,8 @@
     "aliases": [
       "yellow-billed grosbeak",
       "eophona migratoria",
-      "黑尾蠟嘴雀"
+      "黑尾蠟嘴雀",
+      "黑尾蜡嘴雀"
     ]
   },
   {
@@ -4624,7 +4888,8 @@
     "aliases": [
       "japanese grosbeak",
       "eophona personata",
-      "黑頭蠟嘴雀"
+      "黑頭蠟嘴雀",
+      "黑头蜡嘴雀"
     ]
   },
   {
@@ -4648,14 +4913,17 @@
     "aliases": [
       "eurasian siskin",
       "spinus spinus",
-      "黃雀"
+      "黃雀",
+      "黄雀"
     ]
   },
   {
     "speciesId": 550,
     "aliases": [
       "lapland longspur",
-      "calcarius lapponicus"
+      "calcarius lapponicus",
+      "鐵爪鵐",
+      "铁爪鹀"
     ]
   },
   {
@@ -4664,7 +4932,7 @@
       "crested bunting",
       "emberiza lathami",
       "鳳頭鵐",
-      "鳳頭鹀"
+      "凤头鹀"
     ]
   },
   {
@@ -4673,7 +4941,7 @@
       "black-headed bunting",
       "emberiza melanocephala",
       "黑頭鵐",
-      "黑頭鹀"
+      "黑头鹀"
     ]
   },
   {
@@ -4682,7 +4950,7 @@
       "red-headed bunting",
       "emberiza bruniceps",
       "褐頭鵐",
-      "褐頭鹀"
+      "褐头鹀"
     ]
   },
   {
@@ -4698,7 +4966,9 @@
     "speciesId": 555,
     "aliases": [
       "pine bunting",
-      "emberiza leucocephalos"
+      "emberiza leucocephalos",
+      "白頭鵐",
+      "白头鹀"
     ]
   },
   {
@@ -4716,7 +4986,7 @@
       "slaty bunting",
       "emberiza siemsseni",
       "藍鵐",
-      "藍鹀"
+      "蓝鹀"
     ]
   },
   {
@@ -4725,7 +4995,7 @@
       "yellow-throated bunting",
       "emberiza elegans",
       "黃喉鵐",
-      "黃喉鹀"
+      "黄喉鹀"
     ]
   },
   {
@@ -4734,7 +5004,7 @@
       "ochre-rumped bunting",
       "emberiza yessoensis",
       "紅頸葦鵐",
-      "紅頸葦鹀"
+      "红颈苇鹀"
     ]
   },
   {
@@ -4743,7 +5013,7 @@
       "pallas's bunting",
       "emberiza pallasi",
       "葦鵐",
-      "葦鹀"
+      "苇鹀"
     ]
   },
   {
@@ -4752,7 +5022,7 @@
       "reed bunting",
       "emberiza schoeniclus",
       "蘆鵐",
-      "蘆鹀"
+      "芦鹀"
     ]
   },
   {
@@ -4761,7 +5031,7 @@
       "yellow-breasted bunting",
       "emberiza aureola",
       "黃胸鵐",
-      "黃胸鹀"
+      "黄胸鹀"
     ]
   },
   {
@@ -4788,7 +5058,7 @@
       "yellow bunting",
       "emberiza sulphurata",
       "硫黃鵐",
-      "硫黃鹀"
+      "硫黄鹀"
     ]
   },
   {
@@ -4797,7 +5067,7 @@
       "black-faced bunting",
       "emberiza spodocephala",
       "灰頭鵐",
-      "灰頭鹀"
+      "灰头鹀"
     ]
   },
   {
@@ -4815,7 +5085,7 @@
       "yellow-browed bunting",
       "emberiza chrysophrys",
       "黃眉鵐",
-      "黃眉鹀"
+      "黄眉鹀"
     ]
   },
   {

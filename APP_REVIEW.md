@@ -1,0 +1,200 @@
+# BIRD-DEX 2（鳥精靈圖鑑）程式碼審查報告
+
+**日期：** 2026-08-07
+**檢查方式：** `npm run build`（tsc strict + vite build）✅ 通過；靜態程式碼追蹤；資料檔（birds.json / nameAliases.json）完整性檢查；XP 公式實測模擬。
+**結論：** 整體架構清晰、動畫與卡牌系統做得好，但發現 **6 個功能性 BUG、1 個會令 App 崩潰的隱患、多項手機友善問題**。建議優先修復 🔴 項目。
+
+---
+
+## ✅ 修復狀態（2026-08-07 更新）
+
+| 項目 | 狀態 | 修改內容 |
+|------|------|----------|
+| BUG-1 XP 進度條 | ✅ 已修 | `ProfileScreen.tsx` 改用目前等級門檻，實測 0~100% 正常 |
+| BUG-2 相機串流洩漏 | ✅ 已修 | `ScannerScreen.tsx` startCamera 前先 stopCamera + unmount 保護 |
+| BUG-3 分析中切頁 | ✅ 已修 | 分析中隱藏 Navbar + AbortController 取消請求 + mountedRef 防 setState |
+| BUG-4 localStorage 爆掉 | ✅ 已修 | 照片縮圖至 480px/q0.4 + saveStored 配額失敗自動降級（丟照片保記錄），不再白屏 |
+| BUG-5 異圖卡標記 | ✅ 已修 | `BirdDetailScreen.tsx` onLoad 確認 src 為異圖卡網址才標記存在 |
+| BUG-6 4 隻鳥捉不到 | ✅ 已修 | 補上 9/12/16/21 的英文名/學名 + aliases；移除 228/236/264/1 的錯置別名 |
+| BUG-7 音訊雙重觸發 | ✅ 已修 | 改用 pointer events + recordingRef 防重入（此功能尚未接入 App 路由） |
+| PWA 無法安裝 | ✅ 已修 | 新增 icon-192/512.png（AI 生成）、manifest 補 PNG 圖示、修 apple-touch-icon 404 |
+| 捕捉失敗跳錯頁 | ✅ 已修 | 失敗→回掃描器、成功→回收藏冊 |
+| 未捕捉卡不能點 | ✅ 已修 | 圖鑑所有卡都可點入看資料 |
+| 無 ErrorBoundary | ✅ 已修 | 新增 `ErrorBoundary.tsx`，錯誤顯示友善畫面而非白屏 |
+| API 無 timeout | ✅ 已修 | 60 秒 AbortController + 明確錯誤訊息 |
+| `h-screen` iOS 陷阱 | ✅ 已修 | 新增 `.app-shell`（100dvh），Navbar 加 safe-area padding |
+| input 14px 自動放大 | ✅ 已修 | 搜尋框改 16px |
+| user-scalable=no | ✅ 已修 | 移除（違反無障礙） |
+| BirdCard 破圖無 fallback | ✅ 已修 | 普通圖也壞掉時顯示 emoji |
+| Bundle 624KB | ✅ 已修 | vendor chunk 拆分，主 chunk 357KB，無警告 |
+| lint 壞掉 | ✅ 已修 | 新增 `.eslintrc.cjs`，`npm run lint` 通過 |
+| 未使用依賴 | ✅ 已修 | 移除 @tensorflow/tfjs、clsx、tailwind-merge |
+| 新增 .gitignore | ✅ 已修 | 避免 node_modules/dist 被提交 |
+| **相機變焦** | ✅ 新增 | 雙指捏合 + 右側滑桿變焦；支援硬體變焦的裝置用 `track.applyConstraints`（畫質最好），不支援的（如 iOS）自動用數位變焦（canvas 中央裁切），拍照與辨識同步套用；附 1x 重置按鈕 |
+| **94 張英文卡補中文名** | ✅ 已修 | 全部補上香港標準中文名（來源：eBird 學名對照 + 香港鳥會/台灣 eBird/維基百科查證） |
+| **19 張卡中文名錯置** | ✅ 已修 | 中文名是「另一種鳥」的錯誤（如「暗綠繡眼鳥」的學名其實是普通鵟、Buteo japonicus）→ 已全部改為與學名一致的鳥 |
+| **11 張卡港式用字** | ✅ 已修 | 統一香港標準（歐亞喜鵲/喜鵲、歐烏鶇/烏鶇、黃腳銀鷗、褐漁鴞、大擬啄木鳥、矛斑蝗鶯、栗頭鶲鶯、西方黃鶺鴒、東方鵟、白腰雨燕、中華攀雀、暗綠背鸕鷀） |
+| **39 張卡學名欄位** | ✅ 已修 | scientificName 從「Scientific Name」還原（學名原被誤放在 nameEn），nameEn 換回官方英文名 |
+| **aliases 全面重建** | ✅ 已修 | 依修正後資料重建 nameAliases.json（572 條、2238 個別名鍵），繁簡對照擴充至 130+ 字，90 組解析測試全過 |
+| **辨識功能加強** | ✅ 已修 | ① 連拍 3 張自動挑最清晰畫面 ② 太暗/太模糊本地即時攔截（省 API 次數）③ 信心度中等時顯示「候選鳥」讓你選（不誤捕也不白放走）④ top-1 不在圖鑑會自動試 top-2/3 ⑤ 後端可設 `SPECIES_MODEL_2` 第二模型交叉驗證 ⑥ Bird Gate 關鍵字擴充（loon/grebe/ibis/waxbill 等 80+ 字詞） |
+| 重複卡（21/312、9/445） | ⏸️ 暫不處理 | 依使用者要求保留；id 未動，AvianDex 深層連結不受影響 |
+
+---
+
+## 🎮 遊戲化功能（第二批）
+
+| 功能 | 狀態 | 說明 |
+|------|------|------|
+| **🎵 音效與震動** | ✅ 已加 | WebAudio 即時合成（零音檔）：丟球、GOTCHA、成功旋律、色違旋律、逃走低鳴、升級號角；Android 震動回饋。訓練師頁可一鍵關閉 |
+| **🔥 每日登入獎勵** | ✅ 已加 | 7 日獎勵循環（+10→+60 XP），連續登入天數與火焰徽章，漏一天重來；訓練師頁可領取，XP 與等級同步 |
+| **🌈 色違（Shiny）系統** | ✅ 已加 | 每次捕捉 1/64 機率色違；金框 + ✨色違 徽章（圖鑑/收藏/詳細卡通用）、捕捉畫面特殊彩虹特效與旋律、收藏冊色違計數、訓練師頁統計 |
+
+### 遊戲化功能（第三批）
+
+| 功能 | 狀態 | 說明 |
+|------|------|------|
+| **📋 每日任務** | ✅ 已加 | 每天 3 個任務（依日期輪換 7 種：捕捉 1/3 隻、捕捉 3 種、變焦捕捉、熱點捕捉、查看 3 隻詳細資料、5 次嘗試），進度條 + 領取 XP；跨日自動重置 |
+| **🏆 成就徽章牆** | ✅ 已加 | 18 個成就（收集 10/25/50/100 種、50 次捕捉、Lv.5/10、首隻 LR、色違 1/5、連登 7 天、登入 30 天、任務 10/50、熱點 5/27、照片 10 張），達成自動解鎖 + 全畫面金黃 toast |
+| **🗺️ 熱點探索（GPS）** | ✅ 已加 | 27 個香港觀鳥熱點圖章；捕捉地點在 2km 內自動蓋章，訓練師頁可「偵測位置」手動蓋章；成就含「香港走透透」 |
+| **❤️ 夥伴鳥** | ✅ 已加 | 選一隻已捕捉的鳥當夥伴顯示在訓練師頁，捕捉夥伴 +2 XP 加成；親密度隨捕捉數提升 |
+| **🖼️ 照片牆** | ✅ 已加 | 收藏冊新增「卡片 / 照片牆」切換，顯示真實捕捉照片（含色違標記） |
+| ~~抽卡包~~ | ⏭️ 不做 | 依使用者理念：不用抽卡機制，用任務/成就/探索培養觀鳥學習興趣 |
+
+---
+
+## 🔴 必須修的 BUG（已全部修復，以下為修復前紀錄）
+
+### BUG-1｜XP 進度條永遠壞掉（顯示全滿／升級瞬間全空）
+**位置：** `src/components/ProfileScreen.tsx:125-127`
+**問題：** 進度公式用錯了門檻值：
+```ts
+((profile.xp - (getLevelFromXp(profile.xp - 1)?.nextXp || 0)) / ((levelInfo.nextXp || profile.xp) - (getLevelFromXp(profile.xp - 1)?.nextXp || 0)))
+```
+`getLevelFromXp(xp-1).nextXp` 回傳的是「**下一級**的門檻」，不是「**目前等級**的門檻」，結果分母永遠是 0。實測：xp = 0/50/150/299/500 全部算出 `-Infinity%`，只有 xp 剛好等於門檻（100/300）時是 `0%`。CSS 收到 `width: -Infinity%` 屬無效值 → 進度條會**撐滿整條**，升級瞬間閃一下全空。
+**修法：** 用目前等級門檻：
+```ts
+const curThreshold = LEVEL_TITLES[levelInfo.level - 1].xp;
+const pct = levelInfo.nextXp
+  ? ((profile.xp - curThreshold) / (levelInfo.nextXp - curThreshold)) * 100
+  : 100;
+// width: `${Math.min(100, Math.max(0, pct))}%`
+```
+
+### BUG-2｜相機串流洩漏（重試後相機燈長亮、耗電）
+**位置：** `src/components/ScannerScreen.tsx:25-47, 207`
+**問題：** 辨識失敗進入 `error` 時，舊的 `MediaStream` 沒有停止。按「重新啟動相機」會再 `getUserMedia` 一次，`streamRef.current` 被覆蓋，**舊串流永遠不會被 stop**（`stopCamera` 只在 unmount 時停最新的那條）。戶外使用會持續亮相機燈、吃電。
+**修法：** `startCamera()` 第一行先 `stopCamera()`。
+
+### BUG-3｜辨識途中可以切頁，結果回來時「強行跳轉畫面」
+**位置：** `src/components/ScannerScreen.tsx:86-146` + `src/App.tsx`
+**問題：** 分析中底部 Navbar 仍然可點。使用者按快門後切去「圖鑑」，AI 回傳時 `onCapture()` 仍會執行 → 畫面被強制跳去捕捉結果，而且是在元件已卸載後 `setState`。戶外網路慢（HF 冷啟動可達 20 秒以上）時很容易發生。
+**修法：** 用 `AbortController` 取消 in-flight 請求 + `mountedRef` 檢查；分析中隱藏/鎖定 Navbar（或加「取消」按鈕）。
+
+### BUG-4｜localStorage 5MB 配額會爆 → App 崩潰 ⚠️ 最嚴重
+**位置：** `src/hooks/useCollection.ts:60-63`（`saveStored`）+ `src/components/ScannerScreen.tsx:132`
+**問題：** 每次捕捉把整張 **1280×720 JPEG（base64 約 100–300KB）** 存入 `localStorage`。而且 `photoDataUrl` **從來沒有在任何 UI 顯示過**（grep 確認只有存入、沒有讀取）——純粹是死資料。捕捉約 20–40 種鳥後 `setItem` 拋出 `QuotaExceededError`，而 `saveStored` 沒有 try/catch → React 18 中 effect 內未捕捉例外會**令整個 App 白屏崩潰**，且最後一次捕捉在重新載入後消失。
+**修法（任選）：**
+1. 快：儲存前把照片縮小（如寬度 480px、quality 0.4，約 30-60KB）；
+2. 保險：`saveStored` 包 try/catch，配額爆時降級為不存照片只存記錄；
+3. 長遠：照片改用 IndexedDB 存放；
+4. 最簡單：**目前根本沒顯示使用者照片，先不要存**，等做了「我的捕捉」照片牆功能再存。
+
+### BUG-5｜異圖卡「R2 存在」標記邏輯錯誤
+**位置：** `src/components/BirdDetailScreen.tsx:76`
+**問題：** `onLoad` 時只要 `wantsAltArt` 就 `markAltArtExists(bird.id)`。但異圖卡 404 後 fallback 載入普通圖成功，**也會觸發 onLoad** → 把「R2 上不存在」的鳥誤標記成存在 → 下次又去請求 404，徽章繼續顯示「✨ ALT ART」。
+**修法：** 跟 `BirdCard.tsx:43` 一樣，確認 `e.currentTarget.src === altArtUrl` 才標記。
+
+### BUG-6｜4 隻鳥永遠捉不到，且顯示「Unknown Species」
+**位置：** `src/data/birds.json`（id 9, 12, 16, 21）
+**問題：** `黑臉噪眉 / 黑領椋鳥 / 大山雀 / 亞歷山大鸚鵡` 的 `nameEn` 是佔位符 `"Unknown Species"`、`scientificName` 是 `"Scientific Name"`：
+- 卡片、分享訊息會顯示「Unknown Species」；
+- `resolveBirdId()` 在 alias 表找不到這幾個名字 → AI 辨識到牠們時會永遠被判「不在圖鑑中」，**這 4 種鳥無法捕捉**。
+**修法：** 補上真名 + `nameAliases.json` 條目（如 Great Tit、Alexandrine Parakeet、Black-collared Starling、Black-faced Laughingthrush）。
+
+### BUG-7｜音訊掃描器雙重觸發（休眠中的地雷）
+**位置：** `src/components/AudioScannerScreen.tsx:123-126`
+**問題：** 錄音鈕同時綁 `onMouseDown` + `onTouchStart`。手機上 touch 事件後瀏覽器會再派發合成 mouse 事件 → `startRecording` 會被呼叫兩次 → 兩條錄音串流、兩次 `processAudio`，可能重複捕捉。目前此畫面沒有被 App 路由（`App.tsx` 沒 render 它），接回去時就會爆。
+**修法：** 改用 pointer events，或加 `recordingRef` 防重入。
+
+---
+
+## 🟠 其他問題與隱患
+
+| # | 問題 | 位置 |
+|---|------|------|
+| 1 | **PWA 無法安裝**：manifest 只有 SVG icon（Chrome 安裝條件要求 192px/512px **PNG**）；`apple-touch-icon` 指向不存在的 `/icon-192.png`（404） | `public/manifest.json`、`index.html:11` |
+| 2 | **圖鑑未捕捉的卡點擊無反應**（`onClick={undefined}`），但詳細頁明明有「尚未捕獲」狀態 — 應允許點入看資料 | `DexScreen.tsx` |
+| 3 | **捕捉失敗後「返回繼續尋找」跳去收藏冊** — 應該回掃描器重試 | `App.tsx:23-27` |
+| 4 | **BirdCard 普通圖也壞掉時沒有 fallback**：`imgError` 只影響異圖卡切換，普通圖 404 會一直顯示破圖，不會退回 emoji | `BirdCard.tsx:27-45` |
+| 5 | **沒有 ErrorBoundary**：任何 runtime error（如 BUG-4）整頁白屏，建議加一個 fallback UI | `src/main.tsx` |
+| 6 | **API 無 timeout**：`postBlob` 沒有 AbortController，HF 冷啟動/Vercel 504 時 analyzing 畫面無限轉圈 | `src/lib/aiClient.ts`、`api/analyze.js` |
+| 7 | **API 無認證/限流**，`Access-Control-Allow-Origin: *` — HF_TOKEN 可被任何人濫用產生費用 | `api/analyze.js` |
+| 8 | **README 聲稱「內建離線影像感知引擎」但根本沒接入**：`visionLocal.ts`（假 hash「AI」）沒有被任何地方 import，實際必須連 `/api/analyze` — 文件誤導 | `src/lib/visionLocal.ts` |
+| 9 | **音訊功能是死碼**：`View` 有 `'audio'`、`AudioScannerScreen` 存在，但 `analyzeAudio()` 直接 throw、App 不 render | `src/lib/aiClient.ts:67` |
+| 10 | **Scanner 死狀態**：`idle / countdown / found / missed` phase 從未被設定（countdown 倒數 UI 寫好了但沒人觸發） | `ScannerScreen.tsx` |
+| 11 | **無地理位置**：`CaptureRecord.location` 有欄位，但 Scanner 從未呼叫 `geolocation` — 每次捕捉 location 都是 null | `types.ts` |
+| 12 | **`lint` script 壞掉**：package.json 有 `npm run lint`，但 repo 沒有 ESLint config 檔 | `package.json` |
+| 13 | **未使用依賴**：`@tensorflow/tfjs`（沒 import）、`clsx`、`tailwind-merge` — 可移除，減少安裝體積 | `package.json` |
+| 14 | **Bundle 624KB（gzip 140KB）**：framer-motion + 全量 birds.json 塞進主 chunk，可對 Scanner/Detail 做 lazy import | `vite.config.ts` |
+
+---
+
+## 📱 手機友善度評估
+
+**整體：中上（7/10）** — PWA、鏡頭 UX、觸控目標都做得不錯，但有以下具體問題：
+
+### 版面（重要）
+1. **`h-screen` = 100vh 的 iOS Safari 陷阱**（`App.tsx:46`）：iOS 的 100vh 是「工具列收合時」的高度，頁面剛載入（工具列展開）時底部導覽列會被 Safari 工具列遮住，而外層 `overflow-hidden` 無法滾動 → 導覽列「看不到也點不到」。**改用 `h-dvh`**（Tailwind 3.4 原生支援，舊瀏覽器可加 `h-screen` fallback）。
+2. **底部導覽沒有 `env(safe-area-inset-bottom)`**：`index.html` 已設 `viewport-fit=cover`，iPhone 的 Home Indicator 會跟「捕捉」按鈕重疊。Navbar 應加 `pb-[env(safe-area-inset-bottom)]`（或 `h-[calc(5rem+env(safe-area-inset-bottom))]`）。
+3. **`user-scalable=no, maximum-scale=1.0`**（`index.html:6`）：違反無障礙（WCAG 1.4.4 禁止文字縮放），而且對防止誤縮放沒幫助。刪掉它，改在 CSS 用 `touch-action: manipulation` 防雙擊縮放。
+
+### 互動
+4. **搜尋 input 只有 14px**（`DexScreen.tsx`）：iOS 聚焦字體 <16px 的 input 會**自動放大畫面**，跳來跳去。改成 `text-base`（16px）。
+5. 很多文字用 10px，戶外強光下手機閱讀吃力 — 建議至少 12px 起跳。
+6. 卡片圖片來自 R2，慢網時一片空白 — 可加 `bg` 佔位底色（已有 `bird-art-bg`，但 loading 時不顯示）。
+7. 可選加分：捕捉成功時 `navigator.vibrate(100)` 震動回饋（Android）。
+
+### 做得好的地方
+- ✅ `playsInline` + `facingMode: 'environment'` + 1280×720 理想解析度
+- ✅ 大觸控目標（快門 80px、導覽按鈕 ~48px）
+- ✅ `overscroll-behavior-y: none`、`-webkit-tap-highlight-color: transparent`
+- ✅ PWA `display: standalone`、`orientation: portrait`、主題色正確
+
+---
+
+## 📊 資料品質（birds.json）
+
+- ✅ **569/569 卡都有中文名**（原本 94 張是英文，已全數補上並查證）
+- ✅ 無殘留 `Scientific Name` / `Unknown Species` 佔位符
+- ✅ 中文名與學名一致性已全量驗證（剩餘 10 個差異均為「同一種鳥的新舊慣用名」，如 Whimbrel / Eurasian Whimbrel，非錯誤）
+- ⚠️ **尚有一組重複卡**：亞歷山大鸚鵡同時存在 id 21 與 id 312（同種 Psittacula eupatria）。建議刪除其中一張，AI 辨識目前會解析到 id 21（中文卡）。另一組 9/445 黑臉噪鶥 同種重複，保留待你決定。
+- ⚠️ 生態資料仍是空白：`hotspots: []`、`tags: []`、`call: "未知"`、`features: "尚未解鎖生態檔案..."`（569 隻全部）— 需靠 AvianDex 資料補齊。
+- ℹ️ `scripts/rebuild_aliases.py` 已同步更新繁簡字表；在你自己的電腦上重跑一次，AvianDex 的 `nameAliases.ts` 也會同步更新。
+
+---
+
+## ✅ 做得好的地方（值得保留）
+
+- 異圖卡「三重檢查 + 404 快取」設計（除 BUG-5 外）很扎實
+- 捕捉動畫流程完整，成功/失敗分流清楚
+- 資料防禦：`features === '尚未解鎖生態檔案...'` 的判斷避免了空卡面
+- `useCollection` 邏輯清晰、`resetAll` 保留 R2 快取是對的
+- TypeScript strict + build 零錯誤
+- Admin backdoor 50 連點防誤觸設計細心
+
+---
+
+## 🛠 建議修復順序
+
+1. **BUG-4**（localStorage 崩潰）— 最優先，會直接 crash
+2. **BUG-1**（XP bar）— 5 分鐘可修完
+3. **BUG-2 / BUG-3**（相機串流 + 分析中斷）
+4. **手機版面**（`h-dvh` + safe-area + input 16px + 刪 user-scalable）
+5. **BUG-5**（alt art 標記）
+6. **BUG-6**（4 隻鳥資料）
+7. **PWA icon**（補 PNG）
+8. 其餘（ErrorBoundary、API timeout、死碼清理）
+
+---
+
+*報告完畢 — 需要我直接動手修的話，說一聲即可，建議先修 🔴 項目。*

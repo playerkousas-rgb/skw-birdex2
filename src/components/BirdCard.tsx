@@ -12,34 +12,38 @@ interface BirdCardProps {
 }
 
 export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
-  const [imgError, setImgError] = useState(false);
+  const [altArtFailed, setAltArtFailed] = useState(false);
+  const [baseImgFailed, setBaseImgFailed] = useState(false);
   const { canShowAltArt, markAltArtExists, markAltArtMissing } = useCollectionContext();
   const rarity: Rarity = capture?.currentRarity ?? 'UC';
   const meta = RARITY_META[rarity];
   const isUncaptured = !capture;
+  const isShiny = !!capture?.shiny;
 
   // 動態讀取圖片邏輯（異圖卡需通過三重檢查 → 詳見 useCollection.canShowAltArt）：
   //   ① 模式允許（off / high-rarity / all）
   //   ② 用戶已「擁有」此鳥的異圖卡（達 UR 或創世神後門）
   //   ③ R2 上該檔案確實存在
-  const wantsAltArt = canShowAltArt(bird.id, rarity);
+  const wantsAltArt = canShowAltArt(bird.id, rarity) && !altArtFailed;
   const altArtUrl = bird.photoUrl ? bird.photoUrl.replace('.avif', '_UR.avif') : null;
-  const currentImageUrl = (wantsAltArt && altArtUrl && !imgError) ? altArtUrl : bird.photoUrl;
+  const currentImageUrl = (wantsAltArt && altArtUrl) ? altArtUrl : bird.photoUrl;
+  // 普通圖也載入失敗 → 顯示 emoji 佔位（不再卡破圖）
+  const showImage = !!currentImageUrl && !isUncaptured && !(currentImageUrl === bird.photoUrl && baseImgFailed);
 
   // 處理載入失敗：異圖卡載不到 → 記錄並退回普通卡；連普通卡也沒有就顯示 emoji
   const handleImgError = () => {
-    if (wantsAltArt && !imgError) {
+    if (currentImageUrl === altArtUrl) {
       // 異圖卡載入失敗 → 永久記錄 R2 上沒這檔，下次別再請求
       markAltArtMissing(bird.id);
-      setImgError(true);
+      setAltArtFailed(true);
     } else {
-      setImgError(true);
+      setBaseImgFailed(true);
     }
   };
 
   // 異圖卡載入成功 → 記錄到 R2 存在快取
   const handleImgLoad = () => {
-    if (wantsAltArt && currentImageUrl === altArtUrl) {
+    if (currentImageUrl === altArtUrl) {
       markAltArtExists(bird.id);
     }
   };
@@ -50,12 +54,17 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
         onClick={onClick}
         className="relative w-full aspect-[3/4] rounded-xl overflow-hidden card-3d text-left"
         style={{
-          border: isUncaptured ? '2px dashed #374151' : meta.border,
-          boxShadow: isUncaptured ? 'none' : meta.glow,
+          border: isUncaptured ? '2px dashed #374151' : isShiny ? '2px solid #FFD700' : meta.border,
+          boxShadow: isUncaptured ? 'none' : isShiny ? '0 0 14px rgba(255,215,0,0.65), 0 0 28px rgba(255,45,85,0.35)' : meta.glow,
         }}
       >
+        {isShiny && !isUncaptured && (
+          <div className="absolute top-2 left-2 z-10 px-1.5 py-0.5 rounded text-[10px] font-black bg-gradient-to-r from-yellow-400 to-pink-500 text-white shadow-md">
+            ✨色違
+          </div>
+        )}
         <div className="absolute inset-0 bird-art-bg" style={{ backgroundColor: isUncaptured ? '#111827' : bird.baseColor + '22' }} />
-        {currentImageUrl && !isUncaptured ? (
+        {showImage ? (
           <img
             src={currentImageUrl}
             alt={bird.name}
@@ -92,10 +101,15 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
       onClick={onClick}
       className="relative w-full max-w-sm mx-auto aspect-[3/4] rounded-2xl overflow-hidden card-3d cursor-pointer select-none"
       style={{
-        border: isUncaptured ? '2px dashed #374151' : meta.border,
-        boxShadow: isUncaptured ? 'inset 0 0 40px rgba(0,0,0,0.5)' : meta.glow,
+        border: isUncaptured ? '2px dashed #374151' : isShiny ? '2px solid #FFD700' : meta.border,
+        boxShadow: isUncaptured ? 'inset 0 0 40px rgba(0,0,0,0.5)' : isShiny ? '0 0 18px rgba(255,215,0,0.7), 0 0 36px rgba(255,45,85,0.4)' : meta.glow,
       }}
     >
+      {isShiny && !isUncaptured && (
+        <div className="absolute top-2 left-2 z-10 px-2 py-0.5 rounded text-[10px] font-black bg-gradient-to-r from-yellow-400 to-pink-500 text-white shadow-md">
+          ✨色違
+        </div>
+      )}
       {/* Background */}
       <div className="absolute inset-0" style={{ background: isUncaptured
         ? 'radial-gradient(circle at 50% 50%, #1f2937 0%, #0b0f19 100%)'
@@ -103,7 +117,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
       }} />
 
       {/* Photo */}
-      {currentImageUrl && !isUncaptured ? (
+      {showImage ? (
         <img
           src={currentImageUrl}
           alt={bird.name}

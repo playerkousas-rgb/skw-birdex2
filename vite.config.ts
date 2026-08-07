@@ -14,8 +14,22 @@ export default defineConfig({
       },
     }),
   ],
+  build: {
+    rollupOptions: {
+      output: {
+        // 拆分 vendor chunk，避免單一檔案過大（手機下載較慢、快取失效較頻繁）
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom'],
+          'vendor-motion': ['framer-motion'],
+          'vendor-icons': ['lucide-react'],
+        },
+      },
+    },
+  },
   server: {
     port: 3000,
     host: true,
+    // 允許預覽環境的 proxy host 存取（e2b.app 動態網域）
+    allowedHosts: true,
   },
 })

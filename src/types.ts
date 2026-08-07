@@ -62,6 +62,7 @@ export interface CaptureRecord {
   lastCaptureDate: string;
   location?: { lat: number; lng: number } | null;
   photoDataUrl?: string | null; // 使用者拍的照片
+  shiny?: boolean;          // 色違個體
 }
 
 export interface TrainerProfile {
@@ -91,6 +92,11 @@ export interface CaptureResult {
   failed?: boolean; // 失敗標記
   failReason?: string; // 失敗原因文字
   failKind?: 'not-bird' | 'low-confidence' | 'not-in-dex' | 'escaped'; // 失敗種類，控制背景
+  isShiny?: boolean;  // 這次捕捉「新發現」色違
+  leveledUp?: boolean; // 這次捕捉觸發訓練師升級
+  newLevel?: number;   // 升級後等級
+  atHotspot?: boolean;     // 捕捉地點在觀鳥熱點內
+  companionBonus?: boolean; // 捕捉到夥伴鳥（額外 XP）
 }
 
 export type View = 'scanner' | 'dex' | 'album' | 'profile' | 'detail' | 'capture-result' | 'audio';
