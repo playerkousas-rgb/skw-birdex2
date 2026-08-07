@@ -15,7 +15,7 @@
 | BUG-3 分析中切頁 | ✅ 已修 | 分析中隱藏 Navbar + AbortController 取消請求 + mountedRef 防 setState |
 | BUG-4 localStorage 爆掉 | ✅ 已修 | 照片縮圖至 480px/q0.4 + saveStored 配額失敗自動降級（丟照片保記錄），不再白屏 |
 | BUG-5 異圖卡標記 | ✅ 已修 | `BirdDetailScreen.tsx` onLoad 確認 src 為異圖卡網址才標記存在 |
-| BUG-6 4 隻鳥捉不到 | ✅ 已修 | 補上 9/12/16/21 的英文名/學名 + aliases；移除 228/236/264/1 的錯置別名（已驗證 20 組解析全部正確） |
+| BUG-6 4 隻鳥捉不到 | ✅ 已修 | 補上 9/12/16/21 的英文名/學名 + aliases；移除 228/236/264/1 的錯置別名 |
 | BUG-7 音訊雙重觸發 | ✅ 已修 | 改用 pointer events + recordingRef 防重入（此功能尚未接入 App 路由） |
 | PWA 無法安裝 | ✅ 已修 | 新增 icon-192/512.png（AI 生成）、manifest 補 PNG 圖示、修 apple-touch-icon 404 |
 | 捕捉失敗跳錯頁 | ✅ 已修 | 失敗→回掃描器、成功→回收藏冊 |
@@ -30,6 +30,12 @@
 | lint 壞掉 | ✅ 已修 | 新增 `.eslintrc.cjs`，`npm run lint` 通過 |
 | 未使用依賴 | ✅ 已修 | 移除 @tensorflow/tfjs、clsx、tailwind-merge |
 | 新增 .gitignore | ✅ 已修 | 避免 node_modules/dist 被提交 |
+| **相機變焦** | ✅ 新增 | 雙指捏合 + 右側滑桿變焦；支援硬體變焦的裝置用 `track.applyConstraints`（畫質最好），不支援的（如 iOS）自動用數位變焦（canvas 中央裁切），拍照與辨識同步套用；附 1x 重置按鈕 |
+| **94 張英文卡補中文名** | ✅ 已修 | 全部補上香港標準中文名（來源：eBird 學名對照 + 香港鳥會/台灣 eBird/維基百科查證） |
+| **19 張卡中文名錯置** | ✅ 已修 | 中文名是「另一種鳥」的錯誤（如「暗綠繡眼鳥」的學名其實是普通鵟、Buteo japonicus）→ 已全部改為與學名一致的鳥 |
+| **11 張卡港式用字** | ✅ 已修 | 統一香港標準（歐亞喜鵲/喜鵲、歐烏鶇/烏鶇、黃腳銀鷗、褐漁鴞、大擬啄木鳥、矛斑蝗鶯、栗頭鶲鶯、西方黃鶺鴒、東方鵟、白腰雨燕、中華攀雀、暗綠背鸕鷀） |
+| **39 張卡學名欄位** | ✅ 已修 | scientificName 從「Scientific Name」還原（學名原被誤放在 nameEn），nameEn 換回官方英文名 |
+| **aliases 全面重建** | ✅ 已修 | 依修正後資料重建 nameAliases.json（572 條、2238 個別名鍵），繁簡對照擴充至 130+ 字，90 組解析測試全過 |
 
 ---
 
@@ -135,9 +141,12 @@ const pct = levelInfo.nextXp
 
 ## 📊 資料品質（birds.json）
 
-- **569 種鳥全部** `hotspots: []`、`tags: []`、`call: "未知"`、`features: "尚未解鎖生態檔案..."`、`season: "四季"` → 卡片生態資訊全部空白（`BirdCard` 有防禦判斷所以不會崩，但「全港」會出現在每張卡上）。
-- `globalRange` 有資料欄位但 UI 完全沒顯示。
-- 這部分應該是你打算用 AvianDex 的資料補齊，建議寫個 sync script 驗證完整性。
+- ✅ **569/569 卡都有中文名**（原本 94 張是英文，已全數補上並查證）
+- ✅ 無殘留 `Scientific Name` / `Unknown Species` 佔位符
+- ✅ 中文名與學名一致性已全量驗證（剩餘 10 個差異均為「同一種鳥的新舊慣用名」，如 Whimbrel / Eurasian Whimbrel，非錯誤）
+- ⚠️ **尚有一組重複卡**：亞歷山大鸚鵡同時存在 id 21 與 id 312（同種 Psittacula eupatria）。建議刪除其中一張，AI 辨識目前會解析到 id 21（中文卡）。另一組 9/445 黑臉噪鶥 同種重複，保留待你決定。
+- ⚠️ 生態資料仍是空白：`hotspots: []`、`tags: []`、`call: "未知"`、`features: "尚未解鎖生態檔案..."`（569 隻全部）— 需靠 AvianDex 資料補齊。
+- ℹ️ `scripts/rebuild_aliases.py` 已同步更新繁簡字表；在你自己的電腦上重跑一次，AvianDex 的 `nameAliases.ts` 也會同步更新。
 
 ---
 

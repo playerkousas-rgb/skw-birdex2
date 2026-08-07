@@ -17,6 +17,13 @@ type ScanPhase = 'idle' | 'starting' | 'active' | 'countdown' | 'snapping' | 'an
 
 const ANALYZE_TIMEOUT_MS = 60_000; // HF 冷啟動可能較慢，給 60 秒
 const STORED_PHOTO_MAX_WIDTH = 480; // 存入 localStorage 的照片寬度上限
+const DIGITAL_ZOOM_MAX = 5;          // 相機不支援硬體變焦時的數位變焦上限
+
+interface ZoomCapability {
+  min: number;
+  max: number;
+  step: number;
+}
 
 export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -29,6 +36,36 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
   const [errorMsg, setErrorMsg] = useState('');
   const [analyzingText, setAnalyzingText] = useState('初始化影像...');
   const { captureBird } = useCollectionContext();
+
+  // ── 變焦狀態 ──
+  // zoomCap 存在 = 相機硬體變焦（品質最好）；否則用數位變焦（canvas 裁切）
+  const [zoomCap, setZoomCap] = useState<ZoomCapability | null>(null);
+  const [zoom, setZoom] = useState(1);
+  const zoomRef = useRef(1);
+  const pinchRef = useRef<{ dist: number; zoom: number } | null>(null);
+
+  const maxZoom = zoomCap ? zoomCap.max : DIGITAL_ZOOM_MAX;
+  const zoomStep = zoomCap?.step ?? 0.1;
+
+  /** 套用變焦：硬體 → track.applyConstraints；數位 → CSS scale（capture 時會同步裁切） */
+  const applyZoom = useCallback((z: number) => {
+    const clamped = Math.min(maxZoom, Math.max(1, z));
+    zoomRef.current = clamped;
+    setZoom(clamped);
+    const track = streamRef.current?.getVideoTracks()[0];
+    if (track && zoomCap) {
+      // 相機硬體變焦
+      const snapped = Math.round(clamped / zoomStep) * zoomStep;
+      track.applyConstraints({
+        advanced: [{ zoom: Math.min(zoomCap.max, Math.max(zoomCap.min, snapped)) }],
+      } as unknown as MediaTrackConstraints).catch(() => { /* 部分裝置會拒絕即時變焦，忽略 */ });
+    } else if (videoRef.current) {
+      // 數位變焦：CSS 縮放預覽（container overflow-hidden 會裁切）
+      videoRef.current.style.transform = `scale(${clamped})`;
+    }
+  }, [zoomCap, maxZoom, zoomStep]);
+
+  const resetZoom = useCallback(() => applyZoom(1), [applyZoom]);
 
   const stopCamera = useCallback(() => {
     streamRef.current?.getTracks().forEach(t => t.stop());
@@ -52,8 +89,23 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
         return;
       }
       streamRef.current = stream;
+
+      // 偵測相機是否支援硬體變焦（zoom 是非標準擴展屬性，需斷言型別）
+      const track = stream.getVideoTracks()[0];
+      const caps = track?.getCapabilities ? (track.getCapabilities() as MediaTrackCapabilities & { zoom?: { min: number; max: number; step: number } }) : {};
+      const z = caps?.zoom;
+      if (z && typeof z.max === 'number' && z.max > 1.001) {
+        setZoomCap({ min: z.min ?? 1, max: z.max, step: z.step ?? 0.1 });
+      } else {
+        setZoomCap(null);
+      }
+
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
+        // 數位變焦時重設 transform（防止上次殘留）
+        videoRef.current.style.transform = zoomRef.current > 1 && !(z && z.max > 1.001)
+          ? `scale(${zoomRef.current})`
+          : 'none';
         await videoRef.current.play();
         setPhase('active');
       }
@@ -76,15 +128,54 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
     };
   }, [startCamera, stopCamera]);
 
+  // ── 捏合變焦手勢（兩指）──
+  const onTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      const d = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY,
+      );
+      pinchRef.current = { dist: d, zoom: zoomRef.current };
+    }
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length !== 2 || !pinchRef.current) return;
+    e.preventDefault();
+    const d = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY,
+    );
+    const next = pinchRef.current.zoom * (d / pinchRef.current.dist);
+    applyZoom(next);
+  };
+
+  const onTouchEnd = () => { pinchRef.current = null; };
+
   const snap = useCallback(async () => {
     if (!videoRef.current || !canvasRef.current || phase !== 'active') return;
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    canvas.width = video.videoWidth || 1280;
-    canvas.height = video.videoHeight || 720;
+    const vw = video.videoWidth || 1280;
+    const vh = video.videoHeight || 720;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    // 數位變焦時：只畫出畫面中央的裁切區域（等同把影片放大）
+    const z = zoomCap ? 1 : zoomRef.current; // 硬體變焦時影片本身已放大，直接畫整張
+    if (z > 1.001) {
+      const cropW = vw / z;
+      const cropH = vh / z;
+      const sx = (vw - cropW) / 2;
+      const sy = (vh - cropH) / 2;
+      canvas.width = Math.round(vw / z);
+      canvas.height = Math.round(vh / z);
+      ctx.drawImage(video, sx, sy, cropW, cropH, 0, 0, canvas.width, canvas.height);
+    } else {
+      canvas.width = vw;
+      canvas.height = vh;
+      ctx.drawImage(video, 0, 0, vw, vh);
+    }
 
     // Simulate a flash
     setPhase('snapping');
@@ -184,7 +275,7 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
         setErrorMsg(err.message || '辨識過程發生錯誤');
       }
     }
-  }, [phase, captureBird, onCapture, onBusyChange]);
+  }, [phase, captureBird, onCapture, onBusyChange, zoomCap]);
 
   /** 把 canvas 縮到 maxWidth 以內，回傳壓縮後的 JPEG dataURL */
   function downscalePhoto(source: HTMLCanvasElement, maxWidth: number): string {
@@ -205,6 +296,8 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
     setErrorMsg('');
   }, []);
 
+  const showZoomUI = phase === 'active' && maxZoom > 1.001;
+
   return (
     <div className="relative h-full w-full bg-black overflow-hidden">
       {/* Video preview */}
@@ -213,6 +306,12 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${phase === 'snapping' ? 'opacity-30' : 'opacity-100'}`}
         playsInline
         muted
+        // touch-action none：讓捏合手勢不會被瀏覽器捲動吃掉
+        style={{ touchAction: 'none' }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchEnd}
       />
       <canvas ref={canvasRef} className="hidden" />
 
@@ -230,6 +329,38 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
               <div className="text-[10px] text-dex-neon/70 tracking-[0.3em] font-mono">BIRD-DEX SCANNER v2.0</div>
             </div>
           </div>
+        </div>
+      )}
+
+      {/* 變焦控制（右側滑桿） */}
+      {showZoomUI && (
+        <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex flex-col items-center gap-2">
+          <span className="text-[10px] font-mono text-white/80 bg-black/40 rounded px-1.5 py-0.5">
+            {zoom.toFixed(1)}x
+          </span>
+          <div className="h-40 w-10 flex items-center justify-center bg-black/30 rounded-full backdrop-blur-sm">
+            <input
+              type="range"
+              min={1}
+              max={maxZoom}
+              step={zoomStep}
+              value={zoom}
+              onChange={e => applyZoom(Number(e.target.value))}
+              aria-label="變焦"
+              className="zoom-range"
+              style={{ transform: 'rotate(-90deg)', width: '8rem', accentColor: '#00F0FF' }}
+            />
+          </div>
+          <button
+            onClick={resetZoom}
+            className={`text-[10px] font-mono font-bold px-2 py-1 rounded-full border transition ${
+              zoom > 1.05
+                ? 'bg-dex-neon/20 border-dex-neon text-dex-neon'
+                : 'bg-black/30 border-white/20 text-white/50'
+            }`}
+          >
+            1x
+          </button>
         </div>
       )}
 
@@ -280,7 +411,9 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
       {/* Bottom controls */}
       {(phase === 'active' || phase === 'countdown') && (
         <div className="absolute bottom-[calc(2rem+env(safe-area-inset-bottom))] left-0 right-0 flex flex-col items-center gap-4 z-10">
-          <div className="text-xs text-white/40 font-mono">對準鳥類，按下快門捕捉</div>
+          <div className="text-xs text-white/40 font-mono">
+            {maxZoom > 1.001 ? '雙指縮放可變焦 · 對準鳥類按下快門' : '對準鳥類，按下快門捕捉'}
+          </div>
           <button
             onClick={snap}
             className="relative w-20 h-20 rounded-full bg-white flex items-center justify-center shadow-lg active:scale-95 transition-transform"
