@@ -226,8 +226,8 @@
   {
     "id": 9,
     "name": "黑臉噪眉",
-    "nameEn": "Unknown Species",
-    "scientificName": "Scientific Name",
+    "nameEn": "Black-faced Laughingthrush",
+    "scientificName": "Pterorhinus perspicillatus",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -310,8 +310,8 @@
   {
     "id": 12,
     "name": "黑領椋鳥",
-    "nameEn": "Unknown Species",
-    "scientificName": "Scientific Name",
+    "nameEn": "Black-collared Starling",
+    "scientificName": "Gracupica nigricollis",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -422,8 +422,8 @@
   {
     "id": 16,
     "name": "大山雀",
-    "nameEn": "Unknown Species",
-    "scientificName": "Scientific Name",
+    "nameEn": "Great Tit",
+    "scientificName": "Parus minor",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [
@@ -562,8 +562,8 @@
   {
     "id": 21,
     "name": "亞歷山大鸚鵡",
-    "nameEn": "Unknown Species",
-    "scientificName": "Scientific Name",
+    "nameEn": "Alexandrine Parakeet",
+    "scientificName": "Psittacula eupatria",
     "family": "鳥綱",
     "size": "??? cm",
     "habitat": [

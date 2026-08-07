@@ -19,7 +19,11 @@ export interface AnalyzeResponse {
   warnings?: string[];
 }
 
-async function postBlob(file: Blob | File, mediaType: 'image' | 'audio'): Promise<AnalyzeResponse> {
+async function postBlob(
+  file: Blob | File,
+  mediaType: 'image' | 'audio',
+  signal?: AbortSignal,
+): Promise<AnalyzeResponse> {
   const contentType = file.type || (mediaType === 'image' ? 'image/jpeg' : 'audio/wav');
   const res = await fetch('/api/analyze', {
     method: 'POST',
@@ -28,6 +32,7 @@ async function postBlob(file: Blob | File, mediaType: 'image' | 'audio'): Promis
       'X-Media-Type': mediaType,
     },
     body: file,
+    signal,
   });
 
   const text = await res.text();
@@ -62,8 +67,8 @@ export async function analyzeImage(file: Blob | File): Promise<RecognizeResult[]
  * 完整版：除了結果之外把整個後端回應一起回傳，
  * 之後 ScannerScreen 想顯示「看起來像 ___，不是鳥」就靠它。
  */
-export async function analyzeImageDetailed(file: Blob | File): Promise<AnalyzeResponse> {
-  return postBlob(file, 'image');
+export async function analyzeImageDetailed(file: Blob | File, signal?: AbortSignal): Promise<AnalyzeResponse> {
+  return postBlob(file, 'image', signal);
 }
 
 export async function analyzeAudio(_file: Blob | File): Promise<RecognizeResult[]> {

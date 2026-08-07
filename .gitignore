@@ -1,0 +1,22 @@
+# 依賴
+node_modules/
+
+# 建置輸出
+dist/
+build/
+out/
+
+# 日誌
+*.log
+npm-debug.log*
+
+# 環境變數（含 HF_TOKEN 等敏感金鑰）
+.env
+.env.*
+!.env.example
+
+# 編輯器 / 系統
+.DS_Store
+.idea/
+.vscode/
+*.swp

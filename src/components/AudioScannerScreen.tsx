@@ -22,41 +22,10 @@ export function AudioScannerScreen({ onCapture, onBack }: AudioScannerProps) {
   const [analyzingText, setAnalyzingText] = useState('');
   const [recSec, setRecSec] = useState(0);
   const timerRef = useRef<any>(null);
+  // 防重入：手機上 pointerdown 不會像 mouse/touch 那樣被合成觸發兩次，
+  // 但仍加 ref 保險，避免同一次按下啟動兩條錄音串流
+  const recordingRef = useRef(false);
   const { captureBird } = useCollectionContext();
-
-  const startRecording = useCallback(async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mime = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
-        ? 'audio/webm;codecs=opus'
-        : MediaRecorder.isTypeSupported('audio/mp4')
-        ? 'audio/mp4'
-        : undefined;
-      const recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
-      mediaRef.current = recorder;
-      chunksRef.current = [];
-      recorder.ondataavailable = e => { if (e.data.size > 0) chunksRef.current.push(e.data); };
-      recorder.onstop = async () => {
-        const blob = new Blob(chunksRef.current, { type: mime || 'audio/webm' });
-        await processAudio(blob);
-        stream.getTracks().forEach(t => t.stop());
-      };
-      recorder.start(200);
-      setPhase('recording');
-      setRecSec(0);
-      timerRef.current = setInterval(() => setRecSec(s => s + 1), 1000);
-    } catch (e: any) {
-      setPhase('error');
-      setErrorMsg(e.name === 'NotAllowedError' ? '麥克風權限被拒絕' : `錄音失敗：${e.message}`);
-    }
-  }, []);
-
-  const stopRecording = useCallback(() => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    if (mediaRef.current && mediaRef.current.state !== 'inactive') {
-      mediaRef.current.stop();
-    }
-  }, []);
 
   const processAudio = useCallback(async (blob: Blob) => {
     setPhase('analyzing');
@@ -86,6 +55,45 @@ export function AudioScannerScreen({ onCapture, onBack }: AudioScannerProps) {
     }
   }, [captureBird, onCapture]);
 
+  const startRecording = useCallback(async () => {
+    if (recordingRef.current) return;
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mime = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+        ? 'audio/webm;codecs=opus'
+        : MediaRecorder.isTypeSupported('audio/mp4')
+        ? 'audio/mp4'
+        : undefined;
+      const recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined);
+      mediaRef.current = recorder;
+      chunksRef.current = [];
+      recorder.ondataavailable = e => { if (e.data.size > 0) chunksRef.current.push(e.data); };
+      recorder.onstop = async () => {
+        const blob = new Blob(chunksRef.current, { type: mime || 'audio/webm' });
+        await processAudio(blob);
+        stream.getTracks().forEach(t => t.stop());
+      };
+      recorder.start(200);
+      recordingRef.current = true;
+      setPhase('recording');
+      setRecSec(0);
+      timerRef.current = setInterval(() => setRecSec(s => s + 1), 1000);
+    } catch (e: any) {
+      recordingRef.current = false;
+      setPhase('error');
+      setErrorMsg(e.name === 'NotAllowedError' ? '麥克風權限被拒絕' : `錄音失敗：${e.message}`);
+    }
+  }, [processAudio]);
+
+  const stopRecording = useCallback(() => {
+    if (!recordingRef.current) return;
+    recordingRef.current = false;
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (mediaRef.current && mediaRef.current.state !== 'inactive') {
+      mediaRef.current.stop();
+    }
+  }, []);
+
   const handleFileUpload = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -94,6 +102,7 @@ export function AudioScannerScreen({ onCapture, onBack }: AudioScannerProps) {
 
   useEffect(() => {
     return () => {
+      recordingRef.current = false;
       if (timerRef.current) clearInterval(timerRef.current);
       if (mediaRef.current && mediaRef.current.state !== 'inactive') mediaRef.current.stop();
     };
@@ -120,10 +129,13 @@ export function AudioScannerScreen({ onCapture, onBack }: AudioScannerProps) {
           </div>
 
           <button
-            onMouseDown={startRecording}
-            onMouseUp={stopRecording}
-            onTouchStart={startRecording}
-            onTouchEnd={stopRecording}
+            // 用 pointer events 取代 mouse+touch：
+            // touch 之後瀏覽器會再合成 mouse 事件，造成 startRecording 被呼叫兩次（兩條錄音串流）
+            onPointerDown={startRecording}
+            onPointerUp={stopRecording}
+            onPointerLeave={stopRecording}
+            onPointerCancel={stopRecording}
+            onContextMenu={(e) => e.preventDefault()}
             className="w-full py-4 rounded-xl bg-dex-neon text-dex-bg font-black text-sm tracking-wider active:scale-95 transition select-none"
           >
             按住錄音

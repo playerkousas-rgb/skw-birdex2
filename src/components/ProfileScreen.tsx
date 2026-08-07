@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { useCollectionContext } from '../context/CollectionContext';
 import { BIRD_SPECIES } from '../data/birdData';
-import { getLevelFromXp, RARITY_ORDER, RARITY_META } from '../lib/theme';
+import { getLevelFromXp, LEVEL_TITLES, RARITY_ORDER, RARITY_META } from '../lib/theme';
 import { User, Edit3, Award, Feather, Target, Trash2, Check, X, Sparkles, ImageOff, Wand2 } from 'lucide-react';
 import type { AltArtMode } from '../hooks/useCollection';
 
@@ -27,6 +27,12 @@ export function ProfileScreen() {
   const [nameDraft, setNameDraft] = useState(profile.name);
   const [showAvatarSelect, setShowAvatarSelect] = useState(false);
   const levelInfo = getLevelFromXp(profile.xp);
+  // 目前等級的 XP 門檻（修正：舊公式把「下一級門檻」當成「當前門檻」，導致分母為 0 → 進度條壞掉）
+  const levelStartXp = LEVEL_TITLES[levelInfo.level - 1]?.xp ?? 0;
+  const levelEndXp = levelInfo.nextXp ?? levelStartXp;
+  const xpPct = levelEndXp > levelStartXp
+    ? Math.min(100, Math.max(0, ((profile.xp - levelStartXp) / (levelEndXp - levelStartXp)) * 100))
+    : 100;
 
   // Admin backdoor counter
   // 50 連點才觸發創世神模式，避免誤觸
@@ -121,11 +127,7 @@ export function ProfileScreen() {
           <div className="h-2.5 rounded-full bg-dex-border overflow-hidden relative">
             <div
               className="absolute left-0 top-0 bottom-0 rounded-full bg-gradient-to-r from-dex-neon to-dex-accent transition-all duration-700"
-              style={{
-                width: levelInfo.nextXp
-                  ? `${Math.min(100, ((profile.xp - (getLevelFromXp(profile.xp - 1)?.nextXp || 0)) / ((levelInfo.nextXp || profile.xp) - (getLevelFromXp(profile.xp - 1)?.nextXp || 0))) * 100)}%`
-                  : '100%'
-              }}
+              style={{ width: `${xpPct}%` }}
             />
           </div>
         </div>

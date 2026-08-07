@@ -9,38 +9,26 @@ import { CaptureResult as CaptureResultType } from '../types';
 
 interface ScannerScreenProps {
   onCapture: (result: CaptureResultType) => void;
+  /** 分析中通知上層（可隱藏導覽列，避免辨識途中切頁） */
+  onBusyChange?: (busy: boolean) => void;
 }
 
 type ScanPhase = 'idle' | 'starting' | 'active' | 'countdown' | 'snapping' | 'analyzing' | 'found' | 'missed' | 'error';
 
-export function ScannerScreen({ onCapture }: ScannerScreenProps) {
+const ANALYZE_TIMEOUT_MS = 60_000; // HF 冷啟動可能較慢，給 60 秒
+const STORED_PHOTO_MAX_WIDTH = 480; // 存入 localStorage 的照片寬度上限
+
+export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const mountedRef = useRef(true);
+  const analyzingIntervalRef = useRef<number | null>(null);
+  const abortRef = useRef<AbortController | null>(null);
   const [phase, setPhase] = useState<ScanPhase>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [analyzingText, setAnalyzingText] = useState('初始化影像...');
   const { captureBird } = useCollectionContext();
-
-  const startCamera = useCallback(async () => {
-    setPhase('starting');
-    setErrorMsg('');
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
-        audio: false,
-      });
-      streamRef.current = stream;
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-        setPhase('active');
-      }
-    } catch (e: any) {
-      setPhase('error');
-      setErrorMsg(e.name === 'NotAllowedError' ? '相機權限被拒絕，請在瀏覽器設定中允許相機。' : `無法啟動相機：${e.message}`);
-    }
-  }, []);
 
   const stopCamera = useCallback(() => {
     streamRef.current?.getTracks().forEach(t => t.stop());
@@ -48,9 +36,44 @@ export function ScannerScreen({ onCapture }: ScannerScreenProps) {
     if (videoRef.current) videoRef.current.srcObject = null;
   }, []);
 
+  const startCamera = useCallback(async () => {
+    // 先停掉舊串流，避免重試後相機燈一直亮著（舊串流洩漏）
+    stopCamera();
+    setPhase('starting');
+    setErrorMsg('');
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false,
+      });
+      if (!mountedRef.current) {
+        // 元件已卸載，立即釋放
+        stream.getTracks().forEach(t => t.stop());
+        return;
+      }
+      streamRef.current = stream;
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream;
+        await videoRef.current.play();
+        setPhase('active');
+      }
+    } catch (e: any) {
+      if (!mountedRef.current) return;
+      setPhase('error');
+      setErrorMsg(e.name === 'NotAllowedError' ? '相機權限被拒絕，請在瀏覽器設定中允許相機。' : `無法啟動相機：${e.message}`);
+    }
+  }, [stopCamera]);
+
   useEffect(() => {
+    mountedRef.current = true;
     startCamera();
-    return () => stopCamera();
+    return () => {
+      mountedRef.current = false;
+      // 取消進行中的辨識請求
+      abortRef.current?.abort();
+      if (analyzingIntervalRef.current) clearInterval(analyzingIntervalRef.current);
+      stopCamera();
+    };
   }, [startCamera, stopCamera]);
 
   const snap = useCallback(async () => {
@@ -66,20 +89,35 @@ export function ScannerScreen({ onCapture }: ScannerScreenProps) {
     // Simulate a flash
     setPhase('snapping');
     await new Promise(r => setTimeout(r, 200));
+    if (!mountedRef.current) return;
 
     setPhase('analyzing');
+    onBusyChange?.(true);
     const texts = ['特徵提取...', '比對圖鑑資料庫...', '神經網路辨識...', '搜尋香港鳥種...', '信心度評估...'];
     let ti = 0;
-    const tInt = setInterval(() => {
+    analyzingIntervalRef.current = window.setInterval(() => {
       setAnalyzingText(texts[ti % texts.length]);
       ti++;
     }, 600);
 
+    // 逾時自動取消（避免 analyzing 畫面無限轉圈）
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const timeout = window.setTimeout(() => controller.abort(), ANALYZE_TIMEOUT_MS);
+
+    const cleanup = () => {
+      if (analyzingIntervalRef.current) { clearInterval(analyzingIntervalRef.current); analyzingIntervalRef.current = null; }
+      clearTimeout(timeout);
+      if (abortRef.current === controller) abortRef.current = null;
+    };
+
     try {
       const blob = await new Promise<Blob | null>(res => canvas.toBlob(res, 'image/jpeg', 0.9));
       if (!blob) throw new Error('照片生成失敗');
-      const data = await analyzeImageDetailed(blob);
-      clearInterval(tInt);
+      const data = await analyzeImageDetailed(blob, controller.signal);
+      if (!mountedRef.current) return;
+      cleanup();
+      onBusyChange?.(false);
 
       const results = data.results || [];
 
@@ -128,15 +166,39 @@ export function ScannerScreen({ onCapture }: ScannerScreenProps) {
         return;
       }
 
+      // 縮圖後才存入 localStorage（避免 5MB 配額爆掉 → App 白屏）
+      const photoDataUrl = downscalePhoto(canvas, STORED_PHOTO_MAX_WIDTH);
+
       // 觸發捕捉成功的精靈球動畫
-      const captureResult = captureBird(speciesId, { photoDataUrl: canvas.toDataURL('image/jpeg', 0.5) });
+      const captureResult = captureBird(speciesId, { photoDataUrl });
       onCapture(captureResult);
     } catch (err: any) {
-      clearInterval(tInt);
-      setPhase('error');
-      setErrorMsg(err.message || '辨識過程發生錯誤');
+      cleanup();
+      onBusyChange?.(false);
+      if (!mountedRef.current) return;
+      if (err?.name === 'AbortError') {
+        setPhase('error');
+        setErrorMsg('辨識逾時（超過 60 秒），請檢查網路後再試一次。');
+      } else {
+        setPhase('error');
+        setErrorMsg(err.message || '辨識過程發生錯誤');
+      }
     }
-  }, [phase, captureBird, onCapture]);
+  }, [phase, captureBird, onCapture, onBusyChange]);
+
+  /** 把 canvas 縮到 maxWidth 以內，回傳壓縮後的 JPEG dataURL */
+  function downscalePhoto(source: HTMLCanvasElement, maxWidth: number): string {
+    const scale = Math.min(1, maxWidth / (source.width || maxWidth));
+    const w = Math.max(1, Math.round((source.width || maxWidth) * scale));
+    const h = Math.max(1, Math.round((source.height || maxWidth) * scale));
+    const small = document.createElement('canvas');
+    small.width = w;
+    small.height = h;
+    const sctx = small.getContext('2d');
+    if (!sctx) return source.toDataURL('image/jpeg', 0.4);
+    sctx.drawImage(source, 0, 0, w, h);
+    return small.toDataURL('image/jpeg', 0.4);
+  }
 
   const tryAgain = useCallback(() => {
     setPhase('active');
@@ -217,7 +279,7 @@ export function ScannerScreen({ onCapture }: ScannerScreenProps) {
 
       {/* Bottom controls */}
       {(phase === 'active' || phase === 'countdown') && (
-        <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center gap-4 z-10">
+        <div className="absolute bottom-[calc(2rem+env(safe-area-inset-bottom))] left-0 right-0 flex flex-col items-center gap-4 z-10">
           <div className="text-xs text-white/40 font-mono">對準鳥類，按下快門捕捉</div>
           <button
             onClick={snap}

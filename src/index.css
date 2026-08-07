@@ -22,6 +22,12 @@ html, body, #root {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* 全屏容器：iOS Safari 100vh 會超出可見區域，用 dvh 解決（舊瀏覽器自動退回 vh） */
+.app-shell {
+  height: 100vh;
+  height: 100dvh;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

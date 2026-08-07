@@ -16,7 +16,7 @@ const ITEMS: { key: View; label: string; icon: React.ElementType }[] = [
 
 export function Navbar({ current, onNavigate }: NavbarProps) {
   return (
-    <nav className="shrink-0 h-20 bg-dex-surface border-t border-dex-border flex items-center justify-around px-2 pb-2 z-50 select-none">
+    <nav className="shrink-0 min-h-20 bg-dex-surface border-t border-dex-border flex items-center justify-around px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))] z-50 select-none">
       {ITEMS.map(({ key, label, icon: Icon }) => {
         const active = current === key;
         const isScan = key === 'scanner';

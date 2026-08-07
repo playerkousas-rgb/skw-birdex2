@@ -5,9 +5,7 @@
       "spotted dove",
       "spilopelia chinensis",
       "珠頸斑鳩",
-      "珠頸斑鸠",
-      "black-throated laughingthrush",
-      "pterorhinus chinensis"
+      "珠頸斑鸠"
     ]
   },
   {
@@ -1976,9 +1974,7 @@
       "great frigatebird",
       "fregata minor",
       "黑腹軍艦鳥",
-      "黑腹軍艦鸟",
-      "japanese tit",
-      "parus minor"
+      "黑腹軍艦鸟"
     ]
   },
   {
@@ -2045,9 +2041,7 @@
     "aliases": [
       "yellow bittern",
       "ixobrychus sinensis",
-      "黃斑葦鳽",
-      "white-shouldered starling",
-      "sturnia sinensis"
+      "黃斑葦鳽"
     ]
   },
   {
@@ -2290,9 +2284,7 @@
       "eastern marsh-harrier",
       "circus spilonotus",
       "白腹鷂",
-      "白腹鹞",
-      "yellow-cheeked tit",
-      "machlolophus spilonotus"
+      "白腹鹞"
     ]
   },
   {
@@ -4825,6 +4817,44 @@
       "emberiza tristrami",
       "白眉鵐",
       "白眉鹀"
+    ]
+  },
+  {
+    "speciesId": 9,
+    "aliases": [
+      "black-faced laughingthrush",
+      "pterorhinus perspicillatus",
+      "黑臉噪眉",
+      "黑脸噪眉"
+    ]
+  },
+  {
+    "speciesId": 12,
+    "aliases": [
+      "black-collared starling",
+      "gracupica nigricollis",
+      "黑領椋鳥",
+      "黑领椋鸟"
+    ]
+  },
+  {
+    "speciesId": 16,
+    "aliases": [
+      "great tit",
+      "japanese tit",
+      "parus major",
+      "parus minor",
+      "大山雀"
+    ]
+  },
+  {
+    "speciesId": 21,
+    "aliases": [
+      "alexandrine parakeet",
+      "alexandrine parrot",
+      "psittacula eupatria",
+      "亞歷山大鸚鵡",
+      "亚历山大鹦鹉"
     ]
   }
 ]

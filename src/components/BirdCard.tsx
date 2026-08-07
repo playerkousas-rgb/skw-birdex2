@@ -12,7 +12,8 @@ interface BirdCardProps {
 }
 
 export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
-  const [imgError, setImgError] = useState(false);
+  const [altArtFailed, setAltArtFailed] = useState(false);
+  const [baseImgFailed, setBaseImgFailed] = useState(false);
   const { canShowAltArt, markAltArtExists, markAltArtMissing } = useCollectionContext();
   const rarity: Rarity = capture?.currentRarity ?? 'UC';
   const meta = RARITY_META[rarity];
@@ -22,24 +23,26 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
   //   ① 模式允許（off / high-rarity / all）
   //   ② 用戶已「擁有」此鳥的異圖卡（達 UR 或創世神後門）
   //   ③ R2 上該檔案確實存在
-  const wantsAltArt = canShowAltArt(bird.id, rarity);
+  const wantsAltArt = canShowAltArt(bird.id, rarity) && !altArtFailed;
   const altArtUrl = bird.photoUrl ? bird.photoUrl.replace('.avif', '_UR.avif') : null;
-  const currentImageUrl = (wantsAltArt && altArtUrl && !imgError) ? altArtUrl : bird.photoUrl;
+  const currentImageUrl = (wantsAltArt && altArtUrl) ? altArtUrl : bird.photoUrl;
+  // 普通圖也載入失敗 → 顯示 emoji 佔位（不再卡破圖）
+  const showImage = !!currentImageUrl && !isUncaptured && !(currentImageUrl === bird.photoUrl && baseImgFailed);
 
   // 處理載入失敗：異圖卡載不到 → 記錄並退回普通卡；連普通卡也沒有就顯示 emoji
   const handleImgError = () => {
-    if (wantsAltArt && !imgError) {
+    if (currentImageUrl === altArtUrl) {
       // 異圖卡載入失敗 → 永久記錄 R2 上沒這檔，下次別再請求
       markAltArtMissing(bird.id);
-      setImgError(true);
+      setAltArtFailed(true);
     } else {
-      setImgError(true);
+      setBaseImgFailed(true);
     }
   };
 
   // 異圖卡載入成功 → 記錄到 R2 存在快取
   const handleImgLoad = () => {
-    if (wantsAltArt && currentImageUrl === altArtUrl) {
+    if (currentImageUrl === altArtUrl) {
       markAltArtExists(bird.id);
     }
   };
@@ -55,7 +58,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
         }}
       >
         <div className="absolute inset-0 bird-art-bg" style={{ backgroundColor: isUncaptured ? '#111827' : bird.baseColor + '22' }} />
-        {currentImageUrl && !isUncaptured ? (
+        {showImage ? (
           <img
             src={currentImageUrl}
             alt={bird.name}
@@ -103,7 +106,7 @@ export function BirdCard({ bird, capture, compact, onClick }: BirdCardProps) {
       }} />
 
       {/* Photo */}
-      {currentImageUrl && !isUncaptured ? (
+      {showImage ? (
         <img
           src={currentImageUrl}
           alt={bird.name}

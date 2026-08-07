@@ -66,7 +66,8 @@ export function DexScreen({ onSelectSpecies }: DexScreenProps) {
             value={query}
             onChange={e => setQuery(e.target.value)}
             placeholder="搜尋鳥名、英文或學名..."
-            className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-dex-surface border border-dex-border text-sm text-white placeholder-dex-muted focus:outline-none focus:border-dex-neon/50 transition"
+            // text-base（16px）：iOS Safari 聚焦 <16px 的 input 會自動放大畫面
+            className="w-full pl-9 pr-3 py-2.5 rounded-xl bg-dex-surface border border-dex-border text-base text-white placeholder-dex-muted focus:outline-none focus:border-dex-neon/50 transition"
           />
         </div>
       </div>
@@ -81,7 +82,8 @@ export function DexScreen({ onSelectSpecies }: DexScreenProps) {
               bird={bird}
               capture={capture}
               compact
-              onClick={() => capture ? onSelectSpecies(bird.id) : undefined}
+              // 未捕捉的卡也可以點入看資料（詳細頁有「尚未捕獲」狀態）
+              onClick={() => onSelectSpecies(bird.id)}
             />
           );
         })}

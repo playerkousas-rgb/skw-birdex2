@@ -16,8 +16,9 @@ export function BirdDetailScreen({ speciesId, onBack }: BirdDetailScreenProps) {
 
   const rarity = capture?.currentRarity ?? 'UC';
   const wantsAltArt = bird ? canShowAltArt(bird.id, rarity) : false;
+  const altArtUrl = bird?.photoUrl ? bird.photoUrl.replace('.avif', '_UR.avif') : null;
   const heroImageUrl = bird?.photoUrl
-    ? (wantsAltArt ? bird.photoUrl.replace('.avif', '_UR.avif') : bird.photoUrl)
+    ? (wantsAltArt ? altArtUrl! : bird.photoUrl)
     : null;
 
   // 判斷異圖卡解鎖狀態（給 UI 提示用）
@@ -72,8 +73,12 @@ export function BirdDetailScreen({ speciesId, onBack }: BirdDetailScreenProps) {
                 src={heroImageUrl}
                 alt={bird.name}
                 className="w-full h-full object-cover"
-                onLoad={() => {
-                  if (wantsAltArt) markAltArtExists(bird.id);
+                onLoad={(e) => {
+                  // 只有「真的載入到異圖卡」才標記存在
+                  // （普通圖 fallback 成功也會觸發 onLoad，不能算異圖存在）
+                  if (wantsAltArt && altArtUrl && e.currentTarget.src === altArtUrl) {
+                    markAltArtExists(bird.id);
+                  }
                 }}
                 onError={(e) => {
                   // 異圖卡載入失敗 → 記錄到 missing 並退回普通圖

@@ -75,7 +75,23 @@ function loadStored(): StoredData {
 }
 
 function saveStored(data: StoredData) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } catch (e) {
+    // localStorage 配額不足（照片太多張時常見）
+    // 降級：先丟棄照片（photoDataUrl），只保留捕捉記錄
+    try {
+      const slim: StoredData = {
+        ...data,
+        captures: data.captures.map(c => ({ ...c, photoDataUrl: null })),
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
+      console.warn('[collection] localStorage 配額不足，已降級為不儲存照片。');
+    } catch {
+      // 連記錄都存不進去（極端情況）→ 放棄本次儲存，避免 App 崩潰
+      console.error('[collection] localStorage 儲存失敗：', e);
+    }
+  }
 }
 
 function loadProfile(): TrainerProfile {
