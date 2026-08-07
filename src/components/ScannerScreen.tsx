@@ -53,7 +53,8 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
   const [errorMsg, setErrorMsg] = useState('');
   const [analyzingText, setAnalyzingText] = useState('初始化影像...');
   const [candidates, setCandidates] = useState<Candidate[]>([]);
-  const { captureBird } = useCollectionContext();
+  const { captureBird, reportQuestEvent } = useCollectionContext();
+  const locRef = useRef<{ lat: number; lng: number } | null>(null);
 
   // ── 變焦狀態 ──
   // zoomCap 存在 = 相機硬體變焦（品質最好）；否則用數位變焦（canvas 裁切）
@@ -137,11 +138,27 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
   useEffect(() => {
     mountedRef.current = true;
     startCamera();
+
+    // GPS 追蹤（熱點圖章用；權限被拒就靜默跳過，不影響捕捉）
+    let watchId: number | null = null;
+    if (typeof navigator !== 'undefined' && navigator.geolocation) {
+      try {
+        watchId = navigator.geolocation.watchPosition(
+          pos => {
+            locRef.current = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          },
+          () => { /* 權限拒絕或無法定位 → 略過 */ },
+          { enableHighAccuracy: false, maximumAge: 60000, timeout: 20000 },
+        );
+      } catch { /* ignore */ }
+    }
+
     return () => {
       mountedRef.current = false;
       // 取消進行中的辨識請求
       abortRef.current?.abort();
       if (analyzingIntervalRef.current) clearInterval(analyzingIntervalRef.current);
+      if (watchId !== null && navigator.geolocation) navigator.geolocation.clearWatch(watchId);
       stopCamera();
     };
   }, [startCamera, stopCamera]);
@@ -275,7 +292,11 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
     const photoDataUrl = bestFrameRef.current
       ? downscalePhoto(bestFrameRef.current, STORED_PHOTO_MAX_WIDTH)
       : undefined;
-    const captureResult = captureBird(speciesId, { photoDataUrl });
+    const captureResult = captureBird(speciesId, {
+      photoDataUrl,
+      location: locRef.current,
+      zoom: zoomRef.current,
+    });
     setCandidates([]);
     bestFrameRef.current = null;
     onCapture(captureResult);
@@ -351,6 +372,9 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
       cleanup();
       onBusyChange?.(false);
 
+      // 記錄一次「捕捉嘗試」（每日任務用，成功失敗都算）
+      reportQuestEvent('attempt');
+
       const results = data.results || [];
 
       // 1) 後端 Bird Gate 判定不是鳥
@@ -377,7 +401,11 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
             const photoDataUrl = bestFrameRef.current
               ? downscalePhoto(bestFrameRef.current, STORED_PHOTO_MAX_WIDTH)
               : undefined;
-            const captureResult = captureBird(speciesId, { photoDataUrl });
+            const captureResult = captureBird(speciesId, {
+              photoDataUrl,
+              location: locRef.current,
+              zoom: zoomRef.current,
+            });
             bestFrameRef.current = null;
             onCapture(captureResult);
             return;
@@ -416,7 +444,7 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
         setErrorMsg(err.message || '辨識過程發生錯誤');
       }
     }
-  }, [phase, captureBird, onCapture, onBusyChange, captureFrame, failCapture]);
+  }, [phase, captureBird, onCapture, onBusyChange, captureFrame, failCapture, reportQuestEvent]);
 
   const tryAgain = useCallback(() => {
     setPhase('active');

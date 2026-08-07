@@ -95,6 +95,8 @@ export interface CaptureResult {
   isShiny?: boolean;  // 這次捕捉「新發現」色違
   leveledUp?: boolean; // 這次捕捉觸發訓練師升級
   newLevel?: number;   // 升級後等級
+  atHotspot?: boolean;     // 捕捉地點在觀鳥熱點內
+  companionBonus?: boolean; // 捕捉到夥伴鳥（額外 XP）
 }
 
 export type View = 'scanner' | 'dex' | 'album' | 'profile' | 'detail' | 'capture-result' | 'audio';

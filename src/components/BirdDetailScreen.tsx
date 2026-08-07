@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useCollectionContext } from '../context/CollectionContext';
 import { getBirdById } from '../data/birdData';
 import { RARITY_META } from '../lib/theme';
@@ -10,9 +11,14 @@ interface BirdDetailScreenProps {
 
 export function BirdDetailScreen({ speciesId, onBack }: BirdDetailScreenProps) {
   const bird = getBirdById(speciesId);
-  const { captures, canShowAltArt, markAltArtExists, markAltArtMissing, altArt } = useCollectionContext();
+  const { captures, canShowAltArt, markAltArtExists, markAltArtMissing, altArt, reportQuestEvent } = useCollectionContext();
   const capture = captures.find(c => c.speciesId === speciesId);
   const isCaught = !!capture;
+
+  // 每日任務「查看詳細資料」進度
+  useEffect(() => {
+    reportQuestEvent('view');
+  }, [reportQuestEvent]);
 
   const rarity = capture?.currentRarity ?? 'UC';
   const wantsAltArt = bird ? canShowAltArt(bird.id, rarity) : false;

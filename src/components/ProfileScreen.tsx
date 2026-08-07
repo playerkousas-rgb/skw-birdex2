@@ -4,6 +4,10 @@ import { BIRD_SPECIES } from '../data/birdData';
 import { getLevelFromXp, LEVEL_TITLES, RARITY_ORDER, RARITY_META } from '../lib/theme';
 import { User, Edit3, Award, Feather, Target, Trash2, Check, X, Sparkles, ImageOff, Wand2, Flame, Volume2 } from 'lucide-react';
 import type { AltArtMode } from '../hooks/useCollection';
+import { DailyQuests } from './DailyQuests';
+import { AchievementWall } from './AchievementWall';
+import { HotspotStamps } from './HotspotStamps';
+import { CompanionSection } from './CompanionSection';
 
 const AVATARS = [
   { emoji: '🥾', unlockLevel: 1, desc: '見習裝備' },
@@ -191,6 +195,12 @@ export function ProfileScreen() {
         </div>
       </div>
 
+      {/* ────── 夥伴鳥 ────── */}
+      <CompanionSection />
+
+      {/* ────── 每日任務 ────── */}
+      <DailyQuests />
+
       {/* ────── 每日登入獎勵 ────── */}
       <div className="px-4 pt-2 pb-2">
         <div className="bg-dex-surface border border-dex-border rounded-xl p-4">
@@ -270,6 +280,12 @@ export function ProfileScreen() {
           </button>
         </div>
       </div>
+
+      {/* ────── 觀鳥熱點探索 ────── */}
+      <HotspotStamps />
+
+      {/* ────── 成就徽章牆 ────── */}
+      <AchievementWall />
 
       {/* ────── 異圖卡（精靈化）顯示設定 ────── */}
       <div className="px-4 pt-2 pb-4">

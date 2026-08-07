@@ -15,7 +15,7 @@ interface CaptureResultScreenProps {
 export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProps) {
   const [phase, setPhase] = useState<'throw' | 'wiggle' | 'caught' | 'card' | 'stats' | 'escaped'>('throw');
   
-  const { species, isNew, oldRarity, newRarity, xpGained, record, failed, failReason, failKind, isShiny, leveledUp, newLevel } = result;
+  const { species, isNew, oldRarity, newRarity, xpGained, record, failed, failReason, failKind, isShiny, leveledUp, newLevel, atHotspot, companionBonus } = result;
   const rarityMeta = RARITY_META[newRarity];
 
   // ────────────────────────────────────────────────
@@ -318,6 +318,14 @@ export function CaptureResultScreen({ result, onClose }: CaptureResultScreenProp
             </div>
             <span className="text-lg font-black text-dex-gold">+{xpGained} XP</span>
           </div>
+
+          {/* 夥伴加成 / 熱點提示 */}
+          {(companionBonus || atHotspot) && (
+            <div className="flex items-center justify-center gap-2 text-[11px] text-dex-muted">
+              {companionBonus && <span className="px-2 py-0.5 rounded-full bg-dex-neon/10 border border-dex-neon/30 text-dex-neon font-bold">❤️ 夥伴加成 +2 XP</span>}
+              {atHotspot && <span className="px-2 py-0.5 rounded-full bg-dex-gold/10 border border-dex-gold/30 text-dex-gold font-bold">🗺️ 熱點發現！</span>}
+            </div>
+          )}
 
           {/* Action button */}
           <button
