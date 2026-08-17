@@ -8,6 +8,7 @@ import { DailyQuests } from './DailyQuests';
 import { AchievementWall } from './AchievementWall';
 import { HotspotStamps } from './HotspotStamps';
 import { CompanionSection } from './CompanionSection';
+import { APP_CREDIT, COPYRIGHT_FULL } from '../lib/copyright';
 
 const AVATARS = [
   { emoji: '🥾', unlockLevel: 1, desc: '見習裝備' },
@@ -354,8 +355,14 @@ export function ProfileScreen() {
         </button>
       </div>
 
-      <div className="text-center text-[10px] text-white/30 font-mono pb-8">
-        © 2026 SKWSCOUT
+      {/* Copyright */}
+      <div className="text-center pb-8 space-y-1">
+        <div className="text-[10px] text-white/40 font-mono tracking-wider">
+          {APP_CREDIT}
+        </div>
+        <div className="text-[10px] text-white/30 font-mono tracking-wider">
+          {COPYRIGHT_FULL}
+        </div>
       </div>
 
       {/* Avatar Selection Modal */}
