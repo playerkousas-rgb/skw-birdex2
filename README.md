@@ -26,4 +26,15 @@ BIRD-DEX 是一個結合「戶外生態觀察」與「卡牌收集養成」的 W
    - 核心圖鑑資料維護於 `birds.json`。圖片統一放置於 `public/birds/` 目錄下透過編號直接讀取，便於管理與擴充。
 
 ---
+
+## 📜 版權 (Copyright)
+
+**© 2026 Scout System. All Rights Reserved.**
+
+本專案之原始碼、介面設計、鳥卡插圖與資料內容版權均屬 Scout System 所有，
+未經書面授權不得重製、散布或作商業用途。詳見 [LICENSE](./LICENSE)。
+
+版權字串統一維護於 `src/lib/copyright.ts`，如需更新年份或組織名稱請修改該檔案。
+
+---
 *Developed for Hong Kong Birding Enthusiasts & Scouts.*
