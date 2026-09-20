@@ -160,8 +160,9 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
       if (analyzingIntervalRef.current) clearInterval(analyzingIntervalRef.current);
       if (watchId !== null && navigator.geolocation) navigator.geolocation.clearWatch(watchId);
       stopCamera();
+      onBusyChange?.(false);
     };
-  }, [startCamera, stopCamera]);
+  }, [startCamera, stopCamera, onBusyChange]);
 
   // ── 捏合變焦手勢（兩指）──
   const onTouchStart = (e: React.TouchEvent) => {
@@ -299,8 +300,9 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
     });
     setCandidates([]);
     bestFrameRef.current = null;
+    onBusyChange?.(false);
     onCapture(captureResult);
-  }, [captureBird, onCapture]);
+  }, [captureBird, onCapture, onBusyChange]);
 
   const snap = useCallback(async () => {
     if (!videoRef.current || phase !== 'active') return;
@@ -370,7 +372,6 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
       const data = await analyzeImageDetailed(blob, controller.signal);
       if (!mountedRef.current) return;
       cleanup();
-      onBusyChange?.(false);
 
       // 記錄一次「捕捉嘗試」（每日任務用，成功失敗都算）
       reportQuestEvent('attempt');
@@ -380,6 +381,7 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
       // 1) 後端 Bird Gate 判定不是鳥
       if (data.notBird) {
         const guess = data.topGuess ? `（看起來像「${data.topGuess}」）` : '';
+        onBusyChange?.(false);
         failCapture(`畫面中沒有偵測到鳥類${guess}，請對準鳥類再試。`, 'not-bird');
         return;
       }
@@ -387,6 +389,7 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
       // 2) 完全沒有結果／信心度過低 → 逃走
       const scored = results.filter(r => r.label && r.label !== 'Unknown Object' && r.score > 0);
       if (!scored.length || scored[0].score < MIN_CANDIDATE_SCORE) {
+        onBusyChange?.(false);
         failCapture('辨識信心度不足，請靠近一點或在光線充足處再試。', 'escaped');
         return;
       }
@@ -407,6 +410,7 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
               zoom: zoomRef.current,
             });
             bestFrameRef.current = null;
+            onBusyChange?.(false);
             onCapture(captureResult);
             return;
           }
@@ -425,12 +429,14 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
         if (cand.length >= 3) break;
       }
       if (cand.length > 0) {
+        // 候選確認期間保持 busy，避免 Navbar 可切頁把選擇畫面拆掉
         setCandidates(cand);
         setPhase('candidate');
         return;
       }
 
       // 5) 全都不在圖鑑
+      onBusyChange?.(false);
       failCapture(`偵測到「${scored[0].label}」，但這隻鳥不在 BIRD-DEX 圖鑑中。`, 'not-in-dex');
     } catch (err: any) {
       cleanup();
@@ -447,11 +453,12 @@ export function ScannerScreen({ onCapture, onBusyChange }: ScannerScreenProps) {
   }, [phase, captureBird, onCapture, onBusyChange, captureFrame, failCapture, reportQuestEvent]);
 
   const tryAgain = useCallback(() => {
+    onBusyChange?.(false);
     setPhase('active');
     setErrorMsg('');
     setCandidates([]);
     bestFrameRef.current = null;
-  }, []);
+  }, [onBusyChange]);
 
   const showZoomUI = phase === 'active' && maxZoom > 1.001;
 

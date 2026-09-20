@@ -1,0 +1,60 @@
+# ============================================================
+# Vercel 上傳排除清單（防止儲存空間配額爆滿）
+# 此檔只影響「上傳到 Vercel 的內容」，不影響 Git。
+# 改版時請先讀 VERCEL_SLIM.md，不要把開發廢檔塞進來。
+# ============================================================
+
+# 版本控制 / 依賴（Vercel 會自己 npm install）
+.git
+.git/**
+node_modules
+node_modules/**
+
+# 建置產物與快取（Vercel 會自己 build，不要上傳 dist）
+dist
+dist/**
+build
+out
+.vite
+.turbo
+.cache
+.vercel
+.vercel/**
+
+# 日誌、備份、暫存
+*.log
+*.bak
+*.tmp
+*.old
+*.swp
+*~
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 測試上傳 / 本機暫存資料夾
+uploads/
+uploads/**
+tmp/
+temp/
+
+# 開發用參考資料（不上線；腳本本體很小，資料檔才是肥肉）
+scripts/reference_data/
+scripts/reference_data/**
+
+# 一次性遷移腳本與對照表（建置用不到）
+BIRD_ID_MAPPING.csv
+fix_r2_urls2.cjs
+
+# 開發文件（不上線，省配額）
+APP_REVIEW.md
+DATABASE_SYNC_GUIDE.md
+PROMPT_GUIDE.md
+README_UPDATE.md
+AvianDex 及Birddex2 維護需知.txt
+
+# 環境變數（含 HF_TOKEN 等敏感金鑰，絕不可上傳）
+.env
+.env.*
+!.env.example

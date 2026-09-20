@@ -108,7 +108,9 @@ function loadSettings(): AppSettings {
 }
 
 function saveSettings(s: AppSettings) {
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+  try {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(s));
+  } catch { /* ignore */ }
 }
 
 function loadAltArt(): AltArtState {
@@ -169,7 +171,9 @@ function loadProfile(): TrainerProfile {
 }
 
 function saveProfile(profile: TrainerProfile) {
-  localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+  try {
+    localStorage.setItem(PROFILE_KEY, JSON.stringify(profile));
+  } catch { /* ignore */ }
 }
 
 function loadStreak(): StreakState {
@@ -378,16 +382,15 @@ export function useCollection() {
     setQuestState(prev => {
       const s = ensureTodayQuest(prev);
       const prog = { ...s.progress };
-      if (prog.capture1 !== undefined) prog.capture1 += 1;
-      if (prog.capture3 !== undefined) prog.capture3 += 1;
-      if (zoom >= 1.5 && prog.zoom1 !== undefined) prog.zoom1 += 1;
-      if (atHotspot && prog.hotspot1 !== undefined) prog.hotspot1 += 1;
+      // 進度鍵一開始是空的；用 ?? 0 才能真正累加（舊寫法 `!== undefined` 導致每日任務永遠停在 0）
+      prog.capture1 = (prog.capture1 ?? 0) + 1;
+      prog.capture3 = (prog.capture3 ?? 0) + 1;
+      if (zoom >= 1.5) prog.zoom1 = (prog.zoom1 ?? 0) + 1;
+      if (atHotspot) prog.hotspot1 = (prog.hotspot1 ?? 0) + 1;
       let todaySpecies = s.todaySpecies;
-      if (prog.species3 !== undefined) {
-        if (!todaySpecies.includes(speciesId)) {
-          todaySpecies = [...todaySpecies, speciesId];
-          prog.species3 = todaySpecies.length;
-        }
+      if (!todaySpecies.includes(speciesId)) {
+        todaySpecies = [...todaySpecies, speciesId];
+        prog.species3 = todaySpecies.length;
       }
       return { ...s, progress: prog, todaySpecies };
     });
@@ -398,8 +401,8 @@ export function useCollection() {
     setQuestState(prev => {
       const s = ensureTodayQuest(prev);
       const prog = { ...s.progress };
-      if (type === 'view' && prog.view3 !== undefined) prog.view3 += 1;
-      if (type === 'attempt' && prog.attempt5 !== undefined) prog.attempt5 += 1;
+      if (type === 'view') prog.view3 = (prog.view3 ?? 0) + 1;
+      if (type === 'attempt') prog.attempt5 = (prog.attempt5 ?? 0) + 1;
       return { ...s, progress: prog };
     });
   }, []);
