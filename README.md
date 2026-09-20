@@ -27,6 +27,20 @@ BIRD-DEX 是一個結合「戶外生態觀察」與「卡牌收集養成」的 W
 
 ---
 
+## 🚀 部署與防增肥
+
+本專案部署於 Vercel（Vite 靜態站 + `/api/analyze` Serverless）。**改版前請先讀 [VERCEL_SLIM.md](./VERCEL_SLIM.md)**，避免把開發廢檔、設計原稿、參考 CSV 上傳把配額撐爆。
+
+```bash
+npm run check   # 型別 + 防增肥守護
+npm run lint
+npm run build
+```
+
+鳥卡圖片在 Cloudflare R2，不進 Git。`public/` 只放有被程式引用的 PWA 圖示。
+
+---
+
 ## 📜 版權 (Copyright)
 
 **© 2026 Scout System. All Rights Reserved.**

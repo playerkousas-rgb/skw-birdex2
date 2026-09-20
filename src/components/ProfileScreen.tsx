@@ -218,9 +218,8 @@ export function ProfileScreen() {
 
           {/* 7 日獎勵循環 */}
           <div className="flex items-center gap-1.5 mb-3">
-            {LOGIN_DAYS.map(i => {
-              const day = i + 1;
-              const rewardXp = LOGIN_XP[i];
+            {LOGIN_DAYS.map(day => {
+              const rewardXp = LOGIN_XP[day - 1];
               const done = day < (loginReward ? loginReward.day : streak.cycleDay);
               const today = day === (loginReward ? loginReward.day : streak.cycleDay);
               return (

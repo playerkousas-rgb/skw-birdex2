@@ -1,14 +1,28 @@
 # 依賴
 node_modules/
 
-# 建置輸出
+# 建置輸出 / 快取（禁止提交，Vercel 會自己 build）
 dist/
 build/
 out/
+.vite/
+.turbo/
+.cache/
+.vercel/
 
-# 日誌
+# 日誌與備份
 *.log
 npm-debug.log*
+*.bak
+*.tmp
+*.old
+*.swp
+*~
+
+# 測試上傳 / 本機暫存（禁止推進 repo，會撐爆 Vercel 配額）
+uploads/
+tmp/
+temp/
 
 # 環境變數（含 HF_TOKEN 等敏感金鑰）
 .env
@@ -19,4 +33,3 @@ npm-debug.log*
 .DS_Store
 .idea/
 .vscode/
-*.swp

@@ -9,8 +9,9 @@ export function CompanionSection() {
   const { captures, companionId, setCompanion } = useCollectionContext();
   const [open, setOpen] = useState(false);
 
-  const companion = companionId !== null ? getBirdById(companionId) : null;
-  const companionCapture = companion ? captures.find(c => c.speciesId === companionId) : null;
+  const companionCapture = companionId !== null ? captures.find(c => c.speciesId === companionId) : undefined;
+  // 重置收藏後 companionId 可能殘留：沒有捕捉紀錄就不顯示夥伴，避免「沒有的鳥還掛在訓練師頁」
+  const companion = companionCapture ? getBirdById(companionId as number) : null;
 
   return (
     <div className="px-4 pt-2 pb-2">
